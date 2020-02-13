@@ -10,9 +10,9 @@ namespace JVNM
     {
         List<DataType> dataList;
 
-        public TableColumn()
+        public TableColumn(List<DataType> data)
         {
-            dataList = new List<DataType>();
+            this.dataList = data;
         }
 
         public List<DataType> Add(DataType date)
