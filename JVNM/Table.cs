@@ -6,7 +6,43 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-   public class Table
+    public class Table
     {
+        String name;
+        public List<TableColumn> columns;
+
+        public Table(String name, List<TableColumn> columns){
+            this.name = name;
+            this.columns = columns;
+        }
+
+        public void AddTuple()
+        {
+
+        }
+
+        public void AlterTable()
+        {
+
+        }
+
+        public void Insert()
+        {
+
+        }
+
+        public void Select()
+        {
+
+        }
+
+        public void AddColumn()
+        {
+
+        }
+        public void Delete()
+        {
+
+        }
     }
 }
