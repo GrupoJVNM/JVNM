@@ -8,20 +8,24 @@ namespace JVNM
 {
     public class TableColumn
     {
-        List<DataType> dataList;
+        String name;
+        DataType type;
+        List<String> dataList;
 
-        public TableColumn(List<DataType> data)
+        public TableColumn(String name, DataType dataType)
         {
-            this.dataList = data;
+            this.name = name;
+            this.type = dataType;
+            dataList = new List<String>();
         }
 
-        public List<DataType> Add(DataType date)
+        public List<String> Add(String data)
         {
-            dataList.Add(date);
+            dataList.Add(data);
             return dataList;
         }
 
-        public Boolean Delete(DataType date)
+        public Boolean Delete(String data)
         {
             Boolean result=false;
             //find date
@@ -33,7 +37,7 @@ namespace JVNM
             return result;
         }
 
-        public List<DataType> Update(DataType date)
+        public List<String> Update(String data)
         {
             //find date
             //update date
