@@ -18,7 +18,7 @@ namespace JVNM
 
         public void AddTuple(List<String> list)
         {
-
+            columns[0].Add(list[0]);
         }
 
         public void AlterTable()
@@ -43,6 +43,11 @@ namespace JVNM
         public void Delete()
         {
 
+        }
+
+        public List<TableColumn> getListTableColumn()
+        {
+            return columns;
         }
     }
 }
