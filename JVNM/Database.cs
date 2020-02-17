@@ -9,13 +9,13 @@ namespace JVNM
     public class Database
     {
         public List<Table> tables;
-         string name;
-         string user;
-         string password;
+        string name;
+        string user;
+        string password;
 
         //Constructor
         //create a database with commons parameters
-        public Database( string name,string user, string password)
+        public Database(string name, string user, string password)
         {
             this.name = name;
             this.user = user;
@@ -37,8 +37,24 @@ namespace JVNM
         }
         public void DeleteTable(Table table)
         {
-            
+
         }
         //public void DropDatabase ()
+
+        //select all the tuples
+        /* public void SelectAllTuples()
+         { 
+         }*/
+
+        //Print all the tuples from the tables and close it
+        /* public void PrintAllTables (Table table)
+        {
+        Console.WriteLine(table.SelectAllTuples(“myTable”));
+            table.Close();
+ 
+        }*/
+       /* public void Close()
+        {
+        }*/
     }
 }
