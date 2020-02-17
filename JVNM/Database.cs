@@ -17,14 +17,16 @@ namespace JVNM
         //create a database with commons parameters
         public Database( string name,string user, string password)
         {
+
             this.name = name;
             this.user = user;
             this.password = password;
             tables = new List<Table>();
         }
-
+        
         public Database Load()
         {
+           
             return null;
         }
         public Database Save()
