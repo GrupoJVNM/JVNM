@@ -16,7 +16,7 @@ namespace JVNM
             this.columns = columns;
         }
 
-        public void AddTuple()
+        public void AddTuple(List<String> list)
         {
 
         }
