@@ -34,23 +34,14 @@ namespace UnitTests
             list2.Add("Vghv");
             //table.AddTuple(list2);
             Assert.IsTrue(table.getListTableColumn().Count==3);
+            
+
+            
+
+         
 
         }
-        [TestMethod]
-        public void AlterTable()
-        {
-            List<TableColumn> columnList = new List<TableColumn>();
-
-            TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
-            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
-            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
-            List<String> list2 = new List<String>();
-            columnList.Add(columnInt);
-            columnList.Add(columnDouble);
-            columnList.Add(columnText);
-            Table table = new Table("myTable", columnList);
-            table.AlterTable();
-        }
+        
         [TestMethod]
         public void Insert()
         {
@@ -64,6 +55,8 @@ namespace UnitTests
             columnList.Add(columnDouble);
             columnList.Add(columnText);
             Table table = new Table("myTable", columnList);
+
+
             table.Insert();
         }
         [TestMethod]
