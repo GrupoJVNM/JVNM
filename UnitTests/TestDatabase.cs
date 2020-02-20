@@ -27,11 +27,12 @@ namespace UnitTests
         [TestMethod]
         public void TestAddTable()
         {
-            
+           // db.AddTable(table);
         }
         [TestMethod]
         public void TestDeleteTable()
-        { 
+        {
+          //  db.DeleteTable(tables);
         }
     }
 }

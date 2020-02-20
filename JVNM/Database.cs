@@ -27,17 +27,21 @@ namespace JVNM
         {
             return null;
         }
+
+      
+
         public Database Save()
         {
             return null;
         }
         public void AddTable(Table table)
         {
-            //tables.Add(table);
+            tables.Add(table);
+            
         }
         public void DeleteTable(Table table)
         {
-
+            tables.Remove(table);
         }
         //public void DropDatabase ()
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace JVNM
 {
     public class TableColumn
@@ -19,35 +20,56 @@ namespace JVNM
             dataList = new List<String>();
         }
 
-        public List<String> Add(String data)
+        public void Add(String data)
         {
             dataList.Add(data);
-            return dataList;
         }
 
         public Boolean Delete(String data)
         {
-            //Al borrar NO reducir el tamaño de la lista, simpelemente dejar el valor en blanco
+            //Al borrar NO reducir el tamaño de la lista, simplemente dejar el valor en blanco
             Boolean result = false;
-            //find date
+            
+         
+            //find data
             for (int i = 0; i < dataList.Count; i++)
             {
-                //delete date
+                if (dataList[i] == data)
+                {
+                  
+                        
+                        dataList[i] = null;
+                    
+                    
+                }
+                
+                
+                result = true;
+                //delete data
             }
 
             return result;
         }
 
-        public List<String> Update(String data, String newData)
-        {
-            //find date
-            //update date
-            return dataList;
+        public void Update(String data, String newData)
+        {            
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                if(dataList[i] == data)
+                {
+                    dataList[i] = newData;
+                }
+            }            
         }
 
         public List<String> GetList()
         {
             return dataList;
+        }
+
+        public String getType()
+        {
+            return type.ToString();
         }
     }
 }
