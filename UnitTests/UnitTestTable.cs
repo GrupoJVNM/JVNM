@@ -84,17 +84,9 @@ namespace UnitTests
         [TestMethod]
         public void AddColumn()
         {
-            List<TableColumn> columnList = new List<TableColumn>();
-
-            TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
-            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
-            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
-            List<String> list2 = new List<String>();
-            columnList.Add(columnInt);
-            columnList.Add(columnDouble);
-            columnList.Add(columnText);
-            Table table = new Table("myTable", columnList);
-            table.AddColumn();
+            //List<TableColumn>
+            //Table table = new Table("myTable", columnList);
+           // table.AddColumn();
         }
         [TestMethod]
         public void Delete()
