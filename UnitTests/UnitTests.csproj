@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestDatabase.cs" />
+    <Compile Include="TestTableColumn.cs" />
     <Compile Include="UnitTestTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
