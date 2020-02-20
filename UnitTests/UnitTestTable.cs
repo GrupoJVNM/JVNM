@@ -32,9 +32,13 @@ namespace UnitTests
             list2.Add("18");
             list2.Add("22,6");
             list2.Add("Vghv");
-            //table.AddTuple(list2);
+            table.getListTableColumn()[0].GetList().Add("18");
+            int num = int.Parse(table.getListTableColumn()[0].GetList()[0]);
+         
+            Assert.AreEqual(18, num);
             Assert.IsTrue(table.getListTableColumn().Count==3);
 
+            
         }
         [TestMethod]
         public void AlterTable()
