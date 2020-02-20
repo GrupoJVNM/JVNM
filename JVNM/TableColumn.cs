@@ -27,9 +27,10 @@ namespace JVNM
 
         public Boolean Delete(String data)
         {
-            Boolean result=false;
+            //Al borrar NO reducir el tamaño de la lista, simpelemente dejar el valor en blanco
+            Boolean result = false;
             //find date
-            for(int i=0; i < dataList.Count; i++ )
+            for (int i = 0; i < dataList.Count; i++)
             {
                 //delete date
             }
@@ -37,14 +38,16 @@ namespace JVNM
             return result;
         }
 
-        public List<String> Update(String data)
+        public List<String> Update(String data, String newData)
         {
             //find date
             //update date
             return dataList;
         }
+
+        public List<String> GetList()
+        {
+            return dataList;
+        }
     }
-
-
-
 }
