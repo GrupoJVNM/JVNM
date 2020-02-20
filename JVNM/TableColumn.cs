@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace JVNM
 {
     public class TableColumn
@@ -40,7 +41,19 @@ namespace JVNM
 
         public List<String> Update(String data, String newData)
         {
-            //find date
+            Boolean find = false;
+
+            if(!find)
+            {
+                for (int i = 0; i < dataList.Count; i++)
+                {
+                    if(dataList[i] == data)
+                    {
+                        find = true;
+                        //dataList[i]. 
+                    }
+                }
+            }
             //update date
             return dataList;
         }
@@ -48,6 +61,11 @@ namespace JVNM
         public List<String> GetList()
         {
             return dataList;
+        }
+
+        public String getType()
+        {
+            return type.ToString();
         }
     }
 }
