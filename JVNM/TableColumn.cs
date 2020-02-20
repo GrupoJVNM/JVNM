@@ -20,10 +20,9 @@ namespace JVNM
             dataList = new List<String>();
         }
 
-        public List<String> Add(String data)
+        public void Add(String data)
         {
             dataList.Add(data);
-            return dataList;
         }
 
         public Boolean Delete(String data)
@@ -39,23 +38,15 @@ namespace JVNM
             return result;
         }
 
-        public List<String> Update(String data, String newData)
-        {
-            Boolean find = false;
-
-            if(!find)
+        public void Update(String data, String newData)
+        {            
+            for (int i = 0; i < dataList.Count; i++)
             {
-                for (int i = 0; i < dataList.Count; i++)
+                if(dataList[i] == data)
                 {
-                    if(dataList[i] == data)
-                    {
-                        find = true;
-                        //dataList[i]. 
-                    }
+                    dataList[i] = newData;
                 }
-            }
-            //update date
-            return dataList;
+            }            
         }
 
         public List<String> GetList()
