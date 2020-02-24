@@ -51,7 +51,7 @@ namespace UnitTests
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 4);
             Assert.IsFalse(dataList[1] == "Ane");
-            Assert.IsTrue(dataList[1] == "");
+            Assert.IsTrue(dataList[1] == null);
 
             column.Delete("Uxue");
             dataList = column.GetList();
