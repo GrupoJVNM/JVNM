@@ -36,21 +36,7 @@ namespace UnitTests
             Assert.IsTrue(table.getListTableColumn().Count==3);
 
         }
-        [TestMethod]
-        public void AlterTable()
-        {
-            List<TableColumn> columnList = new List<TableColumn>();
-
-            TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
-            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
-            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
-            List<String> list2 = new List<String>();
-            columnList.Add(columnInt);
-            columnList.Add(columnDouble);
-            columnList.Add(columnText);
-            Table table = new Table("myTable", columnList);
-            table.AlterTable();
-        }
+        
         [TestMethod]
         public void Insert()
         {
@@ -84,9 +70,17 @@ namespace UnitTests
         [TestMethod]
         public void AddColumn()
         {
-            //List<TableColumn>
-            //Table table = new Table("myTable", columnList);
-           // table.AddColumn();
+            List<TableColumn> columnList = new List<TableColumn>();
+            Table table = new Table("myTable", columnList);
+            table.AddColumn("column1", DataType.Text);
+            Assert.IsTrue(columnList.Count == 1);
+            Assert.IsNotNull(columnList);
+            Assert.AreEqual(columnList[0].getColumnName(), "column1");
+
+            table.AddColumn("column2", DataType.Int);
+            Assert.AreEqual(columnList[1].getColumnName(), "column2");
+            Assert.AreEqual(columnList[0].getColumnName(), "column1");
+
         }
         [TestMethod]
         public void Delete()
