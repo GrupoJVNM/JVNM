@@ -53,9 +53,10 @@ namespace JVNM
 
         }
 
-        public void AddColumn()
+        public void AddColumn(String name, DataType type)
         {
-
+            TableColumn newColumn = new TableColumn(name, type);
+            columns.Add(newColumn);
         }
         public void Delete()
         {
