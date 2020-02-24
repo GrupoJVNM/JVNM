@@ -48,9 +48,14 @@ namespace JVNM
 
         }
 
-        public void Select()
+        public List<String> Select(List<TableColumn> columns, ) //listaColumnas + condicion
         {
+            return null;
+        }
 
+        public List<String> SelectAll()//aqui solo se manda la condicion
+        {
+            return null;
         }
 
         public void AddColumn(String name, DataType type)
