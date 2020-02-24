@@ -18,16 +18,33 @@ namespace JVNM
 
         public void AddTuple(List<String> list)
         {
-            columns[0].Add(list[0]);
+            //recorrer todas las columnas
+            for (int i = 0; i < columns.Count; i++)
+            {
+                //por cada columna comprobar el tipo de la columa y de la lista que vamos a introducir
+
+                if (columns[i].GetType().Equals(list[i].GetType()))
+                {
+                    //si el tipo de dato es igual lo puede añadir
+                    columns[i].GetList().Add(list[i]);
+                }
+                else
+                {
+                    //los tipos de datos de la columna y de la lista son difernetes
+                    Console.Write("TIPOS DE DATOS DIFERNETES");
+                }
+
+            }
+
         }
 
-        public void AlterTable()
-        {
-
-        }
+       
 
         public void Insert()
         {
+            //añadir un unico valor a una tabla
+
+
 
         }
 
@@ -50,5 +67,8 @@ namespace JVNM
         {
             return columns;
         }
+        
+
+
     }
 }

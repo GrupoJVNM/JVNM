@@ -27,12 +27,25 @@ namespace JVNM
 
         public Boolean Delete(String data)
         {
-            //Al borrar NO reducir el tamaño de la lista, simpelemente dejar el valor en blanco
+            //Al borrar NO reducir el tamaño de la lista, simplemente dejar el valor en blanco
             Boolean result = false;
-            //find date
+            
+         
+            //find data
             for (int i = 0; i < dataList.Count; i++)
             {
-                //delete date
+                if (dataList[i] == data)
+                {
+                  
+                        
+                        dataList[i] = null;
+                    
+                    
+                }
+                
+                
+                result = true;
+                //delete data
             }
 
             return result;
