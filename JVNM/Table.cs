@@ -31,7 +31,7 @@ namespace JVNM
                 else
                 {
                     //los tipos de datos de la columna y de la lista son difernetes
-                    Console.Write("TIPOS DE DATOS DIFERNETES");
+                    Console.Write("TIPOS DE DATOS DIFERENTES");
                 }
 
             }
