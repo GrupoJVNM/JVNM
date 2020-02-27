@@ -38,18 +38,10 @@ namespace JVNM
 
         }
 
-       
-
-        public void Insert()
-        {
-            //añadir un unico valor a una tabla
-
-
-
-        }
-
+      
         public void Select()
         {
+            
 
         }
 
@@ -57,10 +49,32 @@ namespace JVNM
         {
 
         }
-        public void Delete()
+        public void DeleteTuple(TableColumn tc, String date)
         {
+           
+         //pasamos un dato (clave principal) y lo buscamos en la tabla columna de la tabla que nos pasan
+            for (int i=0; i<tc.GetList().Count; i++)
+            {
+                if (tc.GetList()[i].Equals(date) )
+                {
 
+                    for (int j = 0; j < columns.Count(); j++)
+                    {
+
+                        columns[j].GetList().RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("NO SE HA ENCONTRADO EL DATO");
+                }
+            }
         }
+
+            
+
+
+        
 
         public List<TableColumn> getListTableColumn()
         {
