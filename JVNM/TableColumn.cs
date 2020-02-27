@@ -71,5 +71,10 @@ namespace JVNM
         {
             return type.ToString();
         }
+
+        public String getColumnName()
+        {
+            return name;
+        }
     }
 }

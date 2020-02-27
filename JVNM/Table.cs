@@ -38,19 +38,14 @@ namespace JVNM
 
         }
 
-       
-
-        public void Insert()
+        public List<String> Select(List<TableColumn> columns, ) //listaColumnas + condicion
         {
-            //añadir un unico valor a una tabla
-
-
-
+            return null;
         }
 
-        public void Select()
+        public List<String> SelectAll()//aqui solo se manda la condicion
         {
-
+            return null;
         }
 
         public void AddColumn(String name, DataType type)
@@ -58,10 +53,32 @@ namespace JVNM
             TableColumn newColumn = new TableColumn(name, type);
             columns.Add(newColumn);
         }
-        public void Delete()
+        public void DeleteTuple(TableColumn tc, String date)
         {
+           
+         //pasamos un dato (clave principal) y lo buscamos en la tabla columna de la tabla que nos pasan
+            for (int i=0; i<tc.GetList().Count; i++)
+            {
+                if (tc.GetList()[i].Equals(date) )
+                {
 
+                    for (int j = 0; j < columns.Count(); j++)
+                    {
+
+                        columns[j].GetList().RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("NO SE HA ENCONTRADO EL DATO");
+                }
+            }
         }
+
+            
+
+
+        
 
         public List<TableColumn> getListTableColumn()
         {
