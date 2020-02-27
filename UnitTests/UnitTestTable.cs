@@ -14,7 +14,7 @@ namespace UnitTests
         [TestMethod]
 
        public void AddTuple()
-        {
+       {
             List<TableColumn> columnList = new List<TableColumn>();
 
             TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
@@ -26,19 +26,22 @@ namespace UnitTests
             columnList.Add(columnText);
             Table table = new Table("myTable", columnList);
 
-
-         
-
             list2.Add("18");
             list2.Add("22,6");
             list2.Add("Vghv");
             table.getListTableColumn()[0].GetList().Add("18");
             int num = int.Parse(table.getListTableColumn()[0].GetList()[0]);
-         
+            table.getListTableColumn()[1].GetList().Add("22,6");
+            double num2 = double.Parse(table.getListTableColumn()[1].GetList()[0]);
+            table.getListTableColumn()[2].GetList().Add("Vghv");
+            String num3 = (table.getListTableColumn()[2].GetList()[0]);
+            Assert.IsTrue(table.getListTableColumn().Count == 3);
             Assert.AreEqual(18, num);
-            Assert.IsTrue(table.getListTableColumn().Count==3);
+            Assert.AreEqual(22,6, num2);
+            Assert.AreEqual("Vghv", num3);
+            
 
-        }
+       }
         
         [TestMethod]
         public void Insert()
