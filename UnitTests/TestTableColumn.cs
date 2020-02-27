@@ -20,22 +20,22 @@ namespace UnitTests
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 1);
             Assert.IsNotNull(dataList);
-            Assert.IsTrue(dataList[0] == "Itxaso");
+            Assert.AreEqual(dataList[0], "Itxaso");
 
             column.Add("Ana");
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 2);
-            Assert.IsTrue(dataList[1] == "Ane");
+            Assert.AreEqual(dataList[1], "Ane");
 
             column.Add(null);
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 3);
-            Assert.IsTrue(dataList[2] == "");
+            Assert.AreEqual(dataList[2], "");
 
             column.Add("Gaizka");
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 4);
-            Assert.IsTrue(dataList[3] == "Gaizka");
+            Assert.AreEqual(dataList[3], "Gaizka");
 
         }
 
@@ -51,7 +51,7 @@ namespace UnitTests
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 4);
             Assert.IsFalse(dataList[1] == "Ane");
-            Assert.IsTrue(dataList[1] == null);
+            Assert.AreEqual(dataList[1], "");
 
             column.Delete("Uxue");
             dataList = column.GetList();
@@ -70,8 +70,8 @@ namespace UnitTests
             column.Update("Ane", "AnaMaria");
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 4);
-            Assert.IsFalse(dataList[1] == "Ane");
-            Assert.IsTrue(dataList[1] == "AnaMaria");
+            Assert.AreNotEqual(dataList[1], "Ane");
+            Assert.AreEqual(dataList[1], "AnaMaria");
 
             column.Update("Uxue", "Patri");
             dataList = column.GetList();
