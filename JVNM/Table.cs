@@ -38,13 +38,6 @@ namespace JVNM
 
         }
 
-      
-        public void Select()
-        {
-            
-
-        }
-
         public List<String> Select(List<TableColumn> columns, ) //listaColumnas + condicion
         {
             return null;
