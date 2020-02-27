@@ -38,13 +38,37 @@ namespace JVNM
 
         }
 
-        public List<String> Select(List<TableColumn> columns, ) //listaColumnas + condicion
+        //solo una condición en el select()
+        public List<List<String>> Select(List<String> selectedC, DataComparator compare, TableColumn condiC, String value) 
         {
-            return null;
+            List<List<String>> allSelected = new List<List<String>>();
+
+            for(int i=0; i<condiC.GetList().Count; i++)
+            {
+                //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
+
+                if(condiC.GetList()[i] == value )
+                {
+                    for(int j=0; j < selectedC.Count; j++)
+                    {
+                        List<String> listaFila = new List<String>();
+
+                        TableColumn t = columns.Find(column => column.getColumnName() == selectedC[j]);
+                        
+                        listaFila.Add(t.GetList()[i]);
+                        allSelected.Add(listaFila);
+                    }
+                }
+            }
+
+            return allSelected;
         }
 
         public List<String> SelectAll()//aqui solo se manda la condicion
         {
+
+
+
             return null;
         }
 
@@ -74,18 +98,17 @@ namespace JVNM
                 }
             }
         }
-
-            
-
-
-        
+              
 
         public List<TableColumn> getListTableColumn()
         {
             return columns;
         }
         
-
+        public String getColumnName()
+        {
+            return;
+        }
 
     }
 }
