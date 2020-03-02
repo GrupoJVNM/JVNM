@@ -17,16 +17,26 @@ namespace JVNM
         }
 
         public void AddTuple(List<String> list)
-        {
+        { 
             //recorrer todas las columnas
             for (int i = 0; i < columns.Count; i++)
             {
                 //por cada columna comprobar el tipo de la columa y de la lista que vamos a introducir
+                if (int.TryParse(list[i], out int a) && columns[i].getType().Equals("Int")) {
+                    columns[i].Add(list[i]);
+            }
 
-                if (columns[i].GetType().Equals(list[i].GetType()))
+                
+                    if (double.TryParse(list[i], out double b) && columns[i].getType().Equals("Double"))
+                    {
+                        columns[i].Add(list[i]);
+                    }
+                   
+
+                    if (columns[i].getType().Equals("Text") && list[i]!=null)
                 {
-                    //si el tipo de dato es igual lo puede añadir
-                    columns[i].GetList().Add(list[i]);
+                   
+                    columns[i].Add(list[i]);
                 }
                 else
                 {
@@ -105,9 +115,9 @@ namespace JVNM
             return columns;
         }
         
-        public String getColumnName()
+        public void getColumnName()
         {
-            return;
+           // return;
         }
 
     }
