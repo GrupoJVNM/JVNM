@@ -9,7 +9,7 @@ namespace UnitTests
     public class UnitTestTable
     {
         
-        
+   
 
         [TestMethod]
 
@@ -42,24 +42,6 @@ namespace UnitTests
             
 
        }
-        
-        [TestMethod]
-        public void Insert()
-        {
-            List<TableColumn> columnList = new List<TableColumn>();
-
-            TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
-            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
-            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
-            List<String> list2 = new List<String>();
-            columnList.Add(columnInt);
-            columnList.Add(columnDouble);
-            columnList.Add(columnText);
-            Table table = new Table("myTable", columnList);
-
-
-            table.Insert();
-        }
         [TestMethod]
         public void Select()
         {
@@ -73,7 +55,7 @@ namespace UnitTests
             columnList.Add(columnDouble);
             columnList.Add(columnText);
             Table table = new Table("myTable", columnList);
-            table.Select();
+           
         }
         [TestMethod]
         public void AddColumn()
@@ -103,7 +85,7 @@ namespace UnitTests
             columnList.Add(columnDouble);
             columnList.Add(columnText);
             Table table = new Table("myTable", columnList);
-            table.Delete();
+          
         }
     }
 }
