@@ -70,6 +70,10 @@ namespace UnitTests
             resultOk.Add(dataListTest);
     //FALTA COMPROBAR DE MANERA CORRECTA QUE EL VALOR ESTA --> for each
             Assert.AreEqual(resultOk, returnList);
+
+            for(int i = 0; i < table.getListTableColumn().Count; i++) { 
+         //   Assert.AreEqual(returnList[i].)
+            }
             
         }
         [TestMethod]

@@ -74,6 +74,7 @@ namespace JVNM
                 }
                 else if (compare == DataComparator.Bigger)
                 {
+                 //   if(condiC.Get)
 
                 }
                 else //"Less"
@@ -127,7 +128,7 @@ namespace JVNM
             return columns;
         }
         
-        public void getColumnName()
+        public String getColumnName()
         {
             return name;
         }
