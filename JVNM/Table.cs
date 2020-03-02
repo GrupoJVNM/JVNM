@@ -52,23 +52,35 @@ namespace JVNM
         public List<List<String>> Select(List<String> selectedC, DataComparator compare, TableColumn condiC, String value) 
         {
             List<List<String>> allSelected = new List<List<String>>();
+            
 
             for(int i=0; i<condiC.GetList().Count; i++)
             {
                 //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
-
-                if(condiC.GetList()[i] == value )
+                if (compare== DataComparator.Equal)
                 {
-                    for(int j=0; j < selectedC.Count; j++)
+                    if (condiC.GetList()[i] == value)
                     {
-                        List<String> listaFila = new List<String>();
+                        for (int j = 0; j < selectedC.Count; j++)
+                        {
+                            List<String> listaFila = new List<String>();
 
-                        TableColumn t = columns.Find(column => column.getColumnName() == selectedC[j]);
-                        
-                        listaFila.Add(t.GetList()[i]);
-                        allSelected.Add(listaFila);
+                            TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+
+                            listaFila.Add(t.GetList()[i]);
+                            allSelected.Add(listaFila);
+                        }
                     }
                 }
+                else if (compare == DataComparator.Bigger)
+                {
+
+                }
+                else //"Less"
+                {
+
+                }
+               
             }
 
             return allSelected;
@@ -117,7 +129,7 @@ namespace JVNM
         
         public void getColumnName()
         {
-           // return;
+            return name;
         }
 
     }
