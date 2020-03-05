@@ -52,6 +52,7 @@ namespace JVNM
         public List<List<String>> Select(List<String> selectedC, DataComparator compare, TableColumn condiC, String value) 
         {
             List<List<String>> allSelected = new List<List<String>>();
+            String dateT = condiC.getType();
             
 
             for(int i=0; i<condiC.GetList().Count; i++)
@@ -74,11 +75,68 @@ namespace JVNM
                 }
                 else if (compare == DataComparator.Bigger)
                 {
-                 //   if(condiC.Get)
+                    if (dateT.Equals("Int"))
+                    {
+                        if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
+                        {
+                            for (int j = 0; j < selectedC.Count; j++)
+                            {
+                                List<String> listaFila = new List<String>();
+                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+
+                                listaFila.Add(t.GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+                    }
+                    else if(dateT.Equals("Double"))
+                    {
+                        if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
+                        {
+                            for (int j = 0; j < selectedC.Count; j++)
+                            {
+                                List<String> listaFila = new List<String>();
+                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+
+                                listaFila.Add(t.GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+
+                    }             
 
                 }
                 else //"Less"
                 {
+                    if (dateT.Equals("Int"))
+                    {
+                        if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
+                        {
+                            for (int j = 0; j < selectedC.Count; j++)
+                            {
+                                List<String> listaFila = new List<String>();
+                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+
+                                listaFila.Add(t.GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+                    }
+                    else if (dateT.Equals("Double"))
+                    {
+                        if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
+                        {
+                            for (int j = 0; j < selectedC.Count; j++)
+                            {
+                                List<String> listaFila = new List<String>();
+                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+
+                                listaFila.Add(t.GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+
+                    }
 
                 }
                
@@ -87,12 +145,94 @@ namespace JVNM
             return allSelected;
         }
 
-        public List<String> SelectAll()//aqui solo se manda la condicion
+        public List<List<String>> SelectAll(DataComparator compare, TableColumn condiC, String value)//aqui solo se manda la condicion
         {
+            List<List<String>> allSelected = new List<List<String>>();
+            String dateT = condiC.getType();
 
 
+            for (int i = 0; i < condiC.GetList().Count; i++)
+            {
+                //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
+                if (compare == DataComparator.Equal)
+                {
+                    if (condiC.GetList()[i] == value)
+                    {
+                        for (int j = 0; j < columns.Count; j++)
+                        {
+                            List<String> listaFila = new List<String>();
+                            listaFila.Add(columns[j].GetList()[i]);
 
-            return null;
+                            allSelected.Add(listaFila);
+                        }
+                    }
+                }
+
+                else if (compare == DataComparator.Bigger)
+                {
+                    if (dateT.Equals("Int"))
+                    {
+                        if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
+                        {
+                            for (int j = 0; j < columns.Count; j++)
+                            {
+                                List<String> listaFila = new List<String>();
+                                listaFila.Add(columns[j].GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+                    }
+                    else if (dateT.Equals("Double"))
+                    {
+                        if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
+                        {
+                            for (int j = 0; j < columns.Count; j++)
+                            {
+
+                                List<String> listaFila = new List<String>();
+                                listaFila.Add(columns[j].GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+
+                    }
+
+                }
+                else //"Less"
+                {
+                    if (dateT.Equals("Int"))
+                    {
+                        if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
+                        {
+                            for (int j = 0; j < columns.Count; j++)
+                            {
+
+                                List<String> listaFila = new List<String>();
+                                listaFila.Add(columns[j].GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+                    }
+                    else if (dateT.Equals("Double"))
+                    {
+                        if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
+                        {
+                            for (int j = 0; j < columns.Count; j++)
+                            {
+
+                                List<String> listaFila = new List<String>();
+                                listaFila.Add(columns[j].GetList()[i]);
+                                allSelected.Add(listaFila);
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return allSelected;
         }
 
         public void AddColumn(String name, DataType type)
