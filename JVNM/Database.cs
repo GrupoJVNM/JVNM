@@ -43,22 +43,26 @@ namespace JVNM
         {
             tables.Remove(table);
         }
-        //public void DropDatabase ()
+        public void DropDatabase()
+        {
+
+        }
 
         //select all the tuples
-        /* public void SelectAllTuples()
+         public void SelectAllTuples()
          { 
-         }*/
+         }
 
         //Print all the tuples from the tables and close it
-        /* public void PrintAllTables (Table table)
+         public void PrintAllTables (Table table)
         {
-        Console.WriteLine(table.SelectAllTuples(“myTable”));
-            table.Close();
+            //DataComparator compare, TableColumn condiC, String value
+            Console.WriteLine(table.SelectAll(DataComparator compare, TableColumn condiC, String value));
+            Close();
  
-        }*/
-       /* public void Close()
+        }
+       public void Close()
         {
-        }*/
+        }
     }
 }

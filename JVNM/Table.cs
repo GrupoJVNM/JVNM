@@ -53,9 +53,9 @@ namespace JVNM
         {
             List<List<String>> allSelected = new List<List<String>>();
             String dateT = condiC.getType();
-            
+            List<String> listaFila = new List<String>();
 
-            for(int i=0; i<condiC.GetList().Count; i++)
+            for (int i=0; i<condiC.GetList().Count; i++)
             {
                 //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
                 if (compare== DataComparator.Equal)
@@ -64,7 +64,7 @@ namespace JVNM
                     {
                         for (int j = 0; j < selectedC.Count; j++)
                         {
-                            List<String> listaFila = new List<String>();
+                            
 
                             TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
 
@@ -81,7 +81,7 @@ namespace JVNM
                         {
                             for (int j = 0; j < selectedC.Count; j++)
                             {
-                                List<String> listaFila = new List<String>();
+                                
                                 TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
 
                                 listaFila.Add(t.GetList()[i]);
@@ -95,7 +95,7 @@ namespace JVNM
                         {
                             for (int j = 0; j < selectedC.Count; j++)
                             {
-                                List<String> listaFila = new List<String>();
+                               
                                 TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
 
                                 listaFila.Add(t.GetList()[i]);
@@ -114,7 +114,7 @@ namespace JVNM
                         {
                             for (int j = 0; j < selectedC.Count; j++)
                             {
-                                List<String> listaFila = new List<String>();
+                                
                                 TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
 
                                 listaFila.Add(t.GetList()[i]);
@@ -128,7 +128,7 @@ namespace JVNM
                         {
                             for (int j = 0; j < selectedC.Count; j++)
                             {
-                                List<String> listaFila = new List<String>();
+                                
                                 TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
 
                                 listaFila.Add(t.GetList()[i]);
@@ -149,84 +149,110 @@ namespace JVNM
         {
             List<List<String>> allSelected = new List<List<String>>();
             String dateT = condiC.getType();
+            List<String> listaFila = new List<String>();
 
-
-            for (int i = 0; i < condiC.GetList().Count; i++)
+            if (condiC != null)
             {
-                //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
-                if (compare == DataComparator.Equal)
+                for (int i = 0; i < condiC.GetList().Count; i++)
                 {
-                    if (condiC.GetList()[i] == value)
+                    //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
+                    if (compare == DataComparator.Equal)
                     {
-                        for (int j = 0; j < columns.Count; j++)
+                        if (condiC.GetList()[i] == value)
                         {
-                            List<String> listaFila = new List<String>();
-                            listaFila.Add(columns[j].GetList()[i]);
+                            for (int j = 0; j < columns.Count; j++)
+                            {
+                                
+                                listaFila.Add(columns[j].GetList()[i]);
 
+                                
+                            }
                             allSelected.Add(listaFila);
                         }
                     }
+
+                    else if (compare == DataComparator.Bigger)
+                    {
+                       
+                        if (dateT.Equals("Int"))
+                        {
+                            if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
+                            {
+                                for (int j = 0; j < columns.Count; j++)
+                                {
+                                   
+                                    listaFila.Add(columns[j].GetList()[i]);
+                                    
+                                }
+                                allSelected.Add(listaFila);
+                            }
+                        }
+                        else if (dateT.Equals("Double"))
+                        {
+                            if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
+                            {
+                                for (int j = 0; j < columns.Count; j++)
+                                {
+
+                                    
+                                    listaFila.Add(columns[j].GetList()[i]);
+                                    
+                                }
+                                allSelected.Add(listaFila);
+                            }
+
+                        }
+
+                    }
+                    else //"Less"
+                    {
+                       
+                        if (dateT.Equals("Int"))
+                        {
+                            if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
+                            {
+                                for (int j = 0; j < columns.Count; j++)
+                                {
+
+                                   
+                                    listaFila.Add(columns[j].GetList()[i]);
+                                    
+                                }
+                                allSelected.Add(listaFila);
+                            }
+                        }
+                        else if (dateT.Equals("Double"))
+                        {
+                            if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
+                            {
+                               
+                                for (int j = 0; j < columns.Count; j++)
+                                {
+
+                                    
+                                    listaFila.Add(columns[j].GetList()[i]);
+                                    
+                                }
+                                allSelected.Add(listaFila);
+                            }
+
+                        }
+
+                    }
+
                 }
-
-                else if (compare == DataComparator.Bigger)
-                {
-                    if (dateT.Equals("Int"))
+            }
+            else
+            {
+                for(int i=0; i<columns[0].GetList().Count ; i++)
+                { 
+                   
+                    for(int j=0; j<columns.Count; j++)
                     {
-                        if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
-                        {
-                            for (int j = 0; j < columns.Count; j++)
-                            {
-                                List<String> listaFila = new List<String>();
-                                listaFila.Add(columns[j].GetList()[i]);
-                                allSelected.Add(listaFila);
-                            }
-                        }
-                    }
-                    else if (dateT.Equals("Double"))
-                    {
-                        if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
-                        {
-                            for (int j = 0; j < columns.Count; j++)
-                            {
-
-                                List<String> listaFila = new List<String>();
-                                listaFila.Add(columns[j].GetList()[i]);
-                                allSelected.Add(listaFila);
-                            }
-                        }
+                        listaFila.Add(columns[j].GetList()[i]);
 
                     }
-
-                }
-                else //"Less"
-                {
-                    if (dateT.Equals("Int"))
-                    {
-                        if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
-                        {
-                            for (int j = 0; j < columns.Count; j++)
-                            {
-
-                                List<String> listaFila = new List<String>();
-                                listaFila.Add(columns[j].GetList()[i]);
-                                allSelected.Add(listaFila);
-                            }
-                        }
-                    }
-                    else if (dateT.Equals("Double"))
-                    {
-                        if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
-                        {
-                            for (int j = 0; j < columns.Count; j++)
-                            {
-
-                                List<String> listaFila = new List<String>();
-                                listaFila.Add(columns[j].GetList()[i]);
-                                allSelected.Add(listaFila);
-                            }
-                        }
-
-                    }
+                    allSelected.Add(listaFila);
 
                 }
 
