@@ -151,8 +151,7 @@ namespace JVNM
             String dateT = condiC.getType();
             List<String> listaFila = new List<String>();
 
-            if (condiC != null)
-            {
+           
                 for (int i = 0; i < condiC.GetList().Count; i++)
                 {
                     //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
@@ -241,22 +240,8 @@ namespace JVNM
                     }
 
                 }
-            }
-            else
-            {
-                for(int i=0; i<columns[0].GetList().Count ; i++)
-                { 
-                   
-                    for(int j=0; j<columns.Count; j++)
-                    {
-                        listaFila.Add(columns[j].GetList()[i]);
-
-                    }
-                    allSelected.Add(listaFila);
-
-                }
-
-            }
+            
+            
 
             return allSelected;
         }
@@ -289,6 +274,27 @@ namespace JVNM
         }
               
 
+        public List<List<String>> selectAllWithOutC()
+        {
+            List<String> listaFila = new List<String>();
+            List<List<String>> allSelected = new List<List<string>>();
+
+                for (int i = 0; i < columns[0].GetList().Count; i++)
+                {
+
+                    for (int j = 0; j < columns.Count; j++)
+                    {
+                        listaFila.Add(columns[j].GetList()[i]);
+
+                    }
+                    allSelected.Add(listaFila);
+
+                }
+
+            return allSelected;
+        }
+
+        
         public List<TableColumn> getListTableColumn()
         {
             return columns;

@@ -31,7 +31,12 @@ namespace JVNM
       
 
         public Database Save()
-        {
+        {   
+
+
+
+            //directorio 
+           // writeAllText
             return null;
         }
         public void AddTable(Table table)
@@ -49,20 +54,33 @@ namespace JVNM
         }
 
         //select all the tuples
-         public void SelectAllTuples()
-         { 
-         }
+        public void SelectAllTuples()
+        { }
+         
 
         //Print all the tuples from the tables and close it
-         public void PrintAllTables (Table table)
+         public void PrintAllTables ()
         {
             //DataComparator compare, TableColumn condiC, String value
-           // Console.WriteLine(table.SelectAll(DataComparator compare, TableColumn condiC, String value));
-          //  Close();
- 
+            for(int i = 0; i < tables.Count; i++)
+            {
+                Console.WriteLine(tables[i].selectAllWithOutC());
+
+            }
+            Close();
+
+
+
+
         }
        public void Close()
         {
         }
+
+        public List<Table> getList()
+        {
+            return tables;
+        }
+
     }
 }
