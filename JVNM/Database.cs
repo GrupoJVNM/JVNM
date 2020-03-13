@@ -57,8 +57,8 @@ namespace JVNM
          public void PrintAllTables (Table table)
         {
             //DataComparator compare, TableColumn condiC, String value
-            Console.WriteLine(table.SelectAll(DataComparator compare, TableColumn condiC, String value));
-            Close();
+           // Console.WriteLine(table.SelectAll(DataComparator compare, TableColumn condiC, String value));
+          //  Close();
  
         }
        public void Close()
