@@ -17,12 +17,12 @@ namespace UnitTests
         public void TestLoad()
         {
 
-            db.Load(); 
+            //db.Load(); 
         }
         [TestMethod]
         public void TestSave()
         {
-            db.Save();
+            //db.Save();
         }
         [TestMethod]
         public void TestAddTable()
