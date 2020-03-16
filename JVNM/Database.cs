@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace JVNM
@@ -23,21 +24,39 @@ namespace JVNM
             tables = new List<Table>();
         }
 
-        public Database Load()
+        public void Load(String BDname)
         {
-            return null;
+            string path = @"c:\JVNM\" + BDname + ".txt";
+            string rt = File.ReadAllText(path);
+            Console.WriteLine(rt);
         }
+              
 
-      
+        public void Save(String BDname)
+        {
+            string path = @"c:\JVNM\" + BDname + ".txt";
 
-        public Database Save()
-        {   
+            // Create the file, or overwrite if the file exists.
+            using (FileStream fs = File.Create(path))
+            {
+                for (int i = 0; i < tables.Count; i++)
+                {
+                    for (int j = 0; j< tables[i].columns.Count; j++)
+                    {
+                        //for(int k = 0; k< tables[i].columns[j].GetList.Count)
+                        //{
+                        //    string s = tables[i].columns[j].GetList().data;
+                        //    File.WriteAllText(path, s);
+                        //}                        
+                    }
 
+                    //Aqui salto de linea /n
 
-
+                }
+            }
+           
             //directorio 
-           // writeAllText
-            return null;
+            // writeAllText
         }
         public void AddTable(Table table)
         {
@@ -54,26 +73,31 @@ namespace JVNM
         }
 
         //select all the tuples
-        public void SelectAllTuples()
-        { }
+        public void SelectAllTuples(String tableName)
+        {
+            for(int i=0; i <= tables.Count; i++)
+            {
+                if (tableName.Equals(tables[i].getTableName()))
+                {
+                    tables[i].selectAllWithOutC();
+                }
+            }
+        }
          
 
         //Print all the tuples from the tables and close it
-         public void PrintAllTables ()
+         public void PrintAllTables (String BDname)
         {
+
             //DataComparator compare, TableColumn condiC, String value
-            for(int i = 0; i < tables.Count; i++)
+            for (int i = 0; i < tables.Count; i++)
             {
                 Console.WriteLine(tables[i].selectAllWithOutC());
-
             }
             Close();
-
-
-
-
         }
-       public void Close()
+       
+        public void Close()
         {
         }
 

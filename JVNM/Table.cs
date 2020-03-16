@@ -299,11 +299,10 @@ namespace JVNM
         {
             return columns;
         }
-        
-        public String getColumnName()
+       
+        public String getTableName()
         {
             return name;
         }
-
     }
 }
