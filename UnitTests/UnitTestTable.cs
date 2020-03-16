@@ -76,9 +76,9 @@ namespace UnitTests
             //}
             
         }
-        //[TestMethod]
-        //public void AddColumn()
-        //{
+        [TestMethod]
+        public void AddColumn()
+        {
             //List<TableColumn> columnList = new List<TableColumn>();
             //Table table = new Table("myTable", columnList);
             //table.AddColumn("column1", DataType.Text);
@@ -90,10 +90,10 @@ namespace UnitTests
             //Assert.AreEqual(columnList[1].getColumnName(), "column2");
             //Assert.AreEqual(columnList[0].getColumnName(), "column1");
 
-        //}
-        //[TestMethod]
-        //public void Delete()
-        //{
+        }
+        [TestMethod]
+        public void Delete()
+        {
         //    List<TableColumn> columnList = new List<TableColumn>();
 
         //    TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
@@ -105,7 +105,7 @@ namespace UnitTests
         //    columnList.Add(columnText);
         //    Table table = new Table("myTable", columnList);
           
-        //}
+        }
     }
 }
 
