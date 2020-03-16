@@ -68,7 +68,7 @@ namespace UnitTests
             List<String> dataListTest = new List<String>();
             dataListTest.Add("Hola");
             resultOk.Add(dataListTest);
-    //FALTA COMPROBAR DE MANERA CORRECTA QUE EL VALOR ESTA --> for each
+    //FALTA COMPROBAR DE MANERA CORRECTA QUE EL VALOR ESTA --> for each.
             Assert.AreEqual(resultOk, returnList);
 
             for(int i = 0; i < table.getListTableColumn().Count; i++) { 
