@@ -39,4 +39,43 @@ public const string SecurityProfileDoesNotExist = Error + "Security profile does
 public const string SecurityUserDoesNotExist = Error + "Security user does not exist";
         
     }
+    
+    public class AddTuple : Query //INSERT
+    {
+        //parse.addtuple()
+    }
+    public class Select : Query
+    {
+
+    }
+    
+    public class SelectAll : Query
+    {
+
+
+    }
+    public class addColumn : Query
+    {
+
+    }
+    public class DeleteTuple : Query
+    {
+
+    }
+    public class SelectAllWithOutC : Query
+    {
+
+    }
+   
+
+
+
+
+
+
+
+
+
 }
+
+

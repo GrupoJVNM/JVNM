@@ -16,7 +16,7 @@ namespace JVNM
             this.columns = columns;
         }
 
-        public void AddTuple(List<String> list)
+        public void AddTuple(List<String> list) //INSERT
         { 
             //recorrer todas las columnas
             for (int i = 0; i < columns.Count; i++)
@@ -246,12 +246,12 @@ namespace JVNM
             return allSelected;
         }
 
-        public void AddColumn(String name, DataType type)
+        public void AddColumn(String name, DataType type) //ALTER
         {
             TableColumn newColumn = new TableColumn(name, type);
             columns.Add(newColumn);
         }
-        public void DeleteTuple(TableColumn tc, String date)
+        public void DeleteTuple(TableColumn tc, String date)    //DELETE
         {
            
          //pasamos un dato (clave principal) y lo buscamos en la tabla columna de la tabla que nos pasan
@@ -274,7 +274,7 @@ namespace JVNM
         }
               
 
-        public List<List<String>> selectAllWithOutC()
+        public List<List<String>> selectAllWithOutC()   //SELECT
         {
             List<String> listaFila = new List<String>();
             List<List<String>> allSelected = new List<List<string>>();

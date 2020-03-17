@@ -127,7 +127,7 @@ namespace JVNM
             return tables;
         }
 
-        public string RunMiniSQLQuery(string sentence)
+        /*public string RunMiniSQLQuery(string sentence)
         {
             
           for (int i=0; i<=sentence.Length; i++)
@@ -149,7 +149,7 @@ namespace JVNM
                         //hay asterisco
                         if (words.Contains("*"))
                         {
-
+                        //selectAll()
 
 
                         }
@@ -192,7 +192,7 @@ namespace JVNM
 
 
             return null;
-        }
+        }*/
 
 
 
