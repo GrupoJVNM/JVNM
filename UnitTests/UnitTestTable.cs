@@ -8,9 +8,6 @@ namespace UnitTests
     [TestClass]
     public class UnitTestTable
     {
-        
-   
-
         [TestMethod]
 
        public void AddTuple()
