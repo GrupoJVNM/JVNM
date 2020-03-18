@@ -27,15 +27,27 @@ namespace JVNM
 
         public void Load(String BDname)
         {
+
+           // string path = Path.GetFullPath(BDname + ".txt");
+           // Console.WriteLine(path);
+
+
             //conexion abrir
-          
+            string path = @"C:..\source\repos\JVNM\MisBD\" + BDname + ".txt";
             
-
-
-            string path = @"c:\JVNM\" + BDname + ".txt";
-            string rt = File.ReadAllText(path);
-            Console.WriteLine(rt);
+            
+            if (path != null)
+            {
+                string rt = File.ReadAllText(path);
+                Console.WriteLine(rt);
+            }
+            else
+            {
+                Console.WriteLine(Query.DatabaseDoesNotExist);
+               }
         }
+
+        
               
 
         public void Save(String BDname)
@@ -119,6 +131,7 @@ namespace JVNM
         public void Close(String BDname)
         {
             Save(BDname);
+            
             
         }
 
