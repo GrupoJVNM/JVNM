@@ -25,12 +25,12 @@ namespace UnitTests
             column.Add("Ana");
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 2);
-            Assert.AreEqual(dataList[1], "Ane");
+            Assert.AreEqual(dataList[1], "Ana");
 
             column.Add(null);
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 3);
-            Assert.AreEqual(dataList[2], "");
+            Assert.AreEqual(dataList[2], null);
 
             column.Add("Gaizka");
             dataList = column.GetList();
@@ -51,7 +51,7 @@ namespace UnitTests
             dataList = column.GetList();
             Assert.IsTrue(dataList.Count == 4);
             Assert.IsFalse(dataList[1] == "Ane");
-            Assert.AreEqual(dataList[1], "");
+            Assert.AreEqual(dataList[1], null);
 
             column.Delete("Uxue");
             dataList = column.GetList();
