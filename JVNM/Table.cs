@@ -14,6 +14,7 @@ namespace JVNM
         public Table(String name, List<TableColumn> columns){
             this.name = name;
             this.columns = columns;
+         
         }
 
         public void AddTuple(List<String> list) //INSERT

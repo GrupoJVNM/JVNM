@@ -28,12 +28,12 @@ namespace JVNM
         public void Load(String BDname)
         {
 
-           // string path = Path.GetFullPath(BDname + ".txt");
-           // Console.WriteLine(path);
+            // string path = Path.GetFullPath(BDname + ".txt");
+            // Console.WriteLine(path);
 
 
             //conexion abrir
-            string path = @"C:..\source\repos\JVNM\MisBD\" + BDname + ".txt";
+            string path = "../Debug/MisBD/"+BDname+".txt";
             
             
             if (path != null)
@@ -50,31 +50,32 @@ namespace JVNM
         
               
 
-        public void Save(String BDname)
+        public void Save(string BDname)
         {
-            string path = @"c:\JVNM\" + BDname + ".txt";
+            string path = "../Debug/MisBD/" + BDname + ".txt";
 
             // Create the file, or overwrite if the file exists.
             using (FileStream fs = File.Create(path))
             {
-                for (int i = 0; i <= tables.Count; i++)
+                for (int i = 0; i < tables.Count; i++)
                 {
-                    for (int j = 0; j<= tables[i].columns.Count; j++)
+                    for (int j = 0; j< tables[i].columns.Count; j++)
                     {
-                        for(int k = 0; k<= tables[i].columns[j].GetList().Count; k++)
+                        for(int k = 0; k< tables[i].columns[j].GetList().Count; k++)
                         {
                             string s = tables[i].columns[j].GetList()[k];
                             if (s == null)
                             {
-                                File.WriteAllText(path, " ");
+                                File.WriteAllText(BDname + ".txt", " ");
                             }
                             else
                             {
-                                File.WriteAllText(path, s);
+                                File.WriteAllText(BDname + ".txt", s);
                             }
-                            
+                            File.WriteAllText(BDname + ".txt", "\n");
                         }
-                        File.WriteAllText(path, "\n");
+                       
+                       
                     }
 
                 }
@@ -92,7 +93,7 @@ namespace JVNM
         }
         public void DropDatabase(String BDname)
         {
-            string path = @"c:\JVNM\" + BDname + ".txt";
+            string path = "../Debug/MisBD/" + BDname + ".txt";
 
             //busca la bd 
             if (File.Exists(path))
