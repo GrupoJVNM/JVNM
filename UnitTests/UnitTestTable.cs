@@ -54,29 +54,214 @@ namespace UnitTests
             Table table = new Table("myTable", columnList);
             ColumnText.Add("Hola");
             ColumnText.Add("Adios");
+            ColumnText.Add("Hola");
+            ColumnInt.Add("1");
+            ColumnInt.Add("2");
+            ColumnInt.Add("3");
+            ColumnDouble.Add("1,1");
+            ColumnDouble.Add("2,1");
+            ColumnDouble.Add("3,1");
             List<String> dataList2 = new List<String>();
+            dataList2.Add("ColumnInt");
+            dataList2.Add("ColumnDouble");
             dataList2.Add("ColumnText");
             List<List<String>> returnList = table.Select(dataList2, DataComparator.Equal, ColumnText, "Hola");
 
+           
+            List<List<String>> resultOk = new List<List<String>>();
+
+            List<String> listInt = new List<string>();
+            List<String> listDouble = new List<string>();
+            List<String> listText = new List<string>();
+            listText.Add("Hola");
+            listText.Add("Hola");
+            listInt.Add("1");
+            listInt.Add("3");
+            listDouble.Add("1,1");
+            listDouble.Add("3,1");
+            resultOk.Add(listInt);
+            resultOk.Add(listDouble);
+            resultOk.Add(listText);
+            Assert.IsTrue(resultOk[0].Count == 2);
+            Assert.IsTrue(resultOk[1].Count == 2);
+            Assert.IsTrue(resultOk[2].Count == 2);
+
+            for (int i = 0; i < returnList.Count; i++)
+            {
+                for (int j = 0; j < returnList[i].Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], returnList[i][j]);
+                }
+               
+            }
+
+            List<List<String>> returnList2 = table.Select(dataList2, DataComparator.Bigger, ColumnInt, "1");
+
+            List<List<String>> resultOk2 = new List<List<String>>();
+
+            List<String> listInt2 = new List<string>();
+            List<String> listDouble2 = new List<string>();
+            List<String> listText2 = new List<string>();
+            listText2.Add("Adios");
+            listText2.Add("Hola");
+            listInt2.Add("2");
+            listInt2.Add("3");
+            listDouble2.Add("2,1");
+            listDouble2.Add("3,1");
+            resultOk2.Add(listInt2);
+            resultOk2.Add(listDouble2);
+            resultOk2.Add(listText2);
+
+            for (int i = 0; i < returnList2.Count; i++)
+            {
+                for (int j = 0; j < returnList2[i].Count; j++)
+                {
+                    Assert.AreEqual(resultOk2[i][j], returnList2[i][j]);
+                }
+
+            }
+
+            List<List<String>> returnList3 = table.Select(dataList2, DataComparator.Less, ColumnDouble, "1,1");
+
+
+            Assert.IsTrue(returnList3.Count == 0);
+
+        }
+
+        [TestMethod]
+        public void SelectAll()
+        {
+            List<TableColumn> columnList = new List<TableColumn>();
+
+            TableColumn ColumnInt = new TableColumn("ColumnInt", DataType.Int);
+            TableColumn ColumnDouble = new TableColumn("ColumnDouble", DataType.Double);
+            TableColumn ColumnText = new TableColumn("ColumnText", DataType.Text);
+            columnList.Add(ColumnInt);
+            columnList.Add(ColumnDouble);
+            columnList.Add(ColumnText);
+            Table table = new Table("myTable", columnList);
+            ColumnText.Add("Hola");
+            ColumnText.Add("Adios");
+            ColumnText.Add("Hola");
+            ColumnInt.Add("1");
+            ColumnInt.Add("2");
+            ColumnInt.Add("3");
+            ColumnDouble.Add("1,1");
+            ColumnDouble.Add("2,1");
+            ColumnDouble.Add("3,1");
+            List<List<String>> returnList = table.SelectAll(DataComparator.Equal, ColumnText, "Hola");
 
             List<List<String>> resultOk = new List<List<String>>();
 
-            //TableColumn columnTextTest = new TableColumn("columnTextTest", DataType.Text);
-            //List<TableColumn> columnListTest = new List<TableColumn>();
-            //columnListTest.Add(columnTextTest);
-            //columTextTest.Add("Hola");
-            List<String> dataListTest = new List<String>();
-            dataListTest.Add("Hola");
-            resultOk.Add(dataListTest);
-    //FALTA COMPROBAR DE MANERA CORRECTA QUE EL VALOR ESTA --> for each
-            Assert.AreEqual(resultOk, returnList);
+            List<String> listInt = new List<string>();
+            List<String> listDouble = new List<string>();
+            List<String> listText = new List<string>();
+            listText.Add("Hola");
+            listText.Add("Hola");
+            listInt.Add("1");
+            listInt.Add("3");
+            listDouble.Add("1,1");
+            listDouble.Add("3,1");
+            resultOk.Add(listInt);
+            resultOk.Add(listDouble);
+            resultOk.Add(listText);
+            Assert.IsTrue(resultOk[0].Count == 2);
+            Assert.IsTrue(resultOk[1].Count == 2);
+            Assert.IsTrue(resultOk[2].Count == 2);
 
-            for(int i = 0; i < table.getListTableColumn().Count; i++) { 
-         //   Assert.AreEqual(returnList[i].)
+            for (int i = 0; i < returnList.Count; i++)
+            {
+                for (int j = 0; j < returnList[i].Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], returnList[i][j]);
+                }
+
             }
+
+            List<List<String>> returnList2 = table.SelectAll(DataComparator.Bigger, ColumnText, "1");
+
+            List<List<String>> resultOk2 = new List<List<String>>();
+
+            List<String> listInt2 = new List<string>();
+            List<String> listDouble2 = new List<string>();
+            List<String> listText2 = new List<string>();
+            listText2.Add("Adios");
+            listText2.Add("Hola");
+            listInt2.Add("2");
+            listInt2.Add("3");
+            listDouble2.Add("2,1");
+            listDouble2.Add("3,1");
+            resultOk2.Add(listInt2);
+            resultOk2.Add(listDouble2);
+            resultOk2.Add(listText2);
+
+            for (int i = 0; i < returnList2.Count; i++)
+            {
+                for (int j = 0; j < returnList2[i].Count; j++)
+                {
+                    Assert.AreEqual(resultOk2[i][j], returnList2[i][j]);
+                }
+
+            }
+
+            List<List<String>> returnList3 = table.SelectAll(DataComparator.Less, ColumnDouble, "1,1");
             
+            Assert.IsTrue(returnList3.Count == 0);
+        }
+
+        [TestMethod]
+        public void selectAllWithOutC()
+        {
+            List<TableColumn> columnList = new List<TableColumn>();
+
+            TableColumn ColumnInt = new TableColumn("ColumnInt", DataType.Int);
+            TableColumn ColumnDouble = new TableColumn("ColumnDouble", DataType.Double);
+            TableColumn ColumnText = new TableColumn("ColumnText", DataType.Text);
+            columnList.Add(ColumnInt);
+            columnList.Add(ColumnDouble);
+            columnList.Add(ColumnText);
+            Table table = new Table("myTable", columnList);
+            ColumnText.Add("Hola");
+            ColumnText.Add("Adios");
+            ColumnText.Add("Hola");
+            ColumnInt.Add("1");
+            ColumnInt.Add("2");
+            ColumnInt.Add("3");
+            ColumnDouble.Add("1,1");
+            ColumnDouble.Add("2,1");
+            ColumnDouble.Add("3,1");
+            List<List<String>> returnList = table.selectAllWithOutC();
+
+            List<List<String>> resultOk = new List<List<String>>();
+
+            List<String> listInt = new List<string>();
+            List<String> listDouble = new List<string>();
+            List<String> listText = new List<string>();
+            listText.Add("Hola");
+            listText.Add("Adios");
+            listText.Add("Hola");
+            listInt.Add("1");
+            listInt.Add("2");
+            listInt.Add("3");
+            listDouble.Add("1,1");
+            listDouble.Add("2,1");
+            listDouble.Add("3,1");
+            resultOk.Add(listInt);
+            resultOk.Add(listDouble);
+            resultOk.Add(listText);
+           
+            for (int i = 0; i < returnList.Count; i++)
+            {
+                for (int j = 0; j < returnList[i].Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], returnList[i][j]);
+                }
+
+            }
+
         }
         [TestMethod]
+
         public void AddColumn()
         {
             List<TableColumn> columnList = new List<TableColumn>();
