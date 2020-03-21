@@ -23,11 +23,24 @@ namespace UnitTests
         public void TestSave()
         {
             db.Load("bd1");
-            List<TableColumn> li = new List<TableColumn>();
-            Table t1 = new Table("empleados",li);
-            db.AddTable(t1);
+            List<TableColumn> columnasT1 = new List<TableColumn>();
+            Table t1 = new Table("empleados",columnasT1);
+            TableColumn tc1 = new TableColumn("nombre", DataType.Text);
+            tc1.GetList().Add("Ana");
+            columnasT1.Add(tc1);
 
-            db.DeleteTable(t1);
+            List<TableColumn> columnasT2 = new List<TableColumn>();
+            Table t2 = new Table("directores", columnasT2);
+            TableColumn tc2 = new TableColumn("nombres", DataType.Text);
+            tc2.GetList().Add("Fran");
+            columnasT2.Add(tc2);
+            
+
+          
+
+            db.AddTable(t1);
+            db.AddTable(t2);
+            db.DeleteTable(t2);
             db.Save("bd1");
             db.Close("bd1");
 
