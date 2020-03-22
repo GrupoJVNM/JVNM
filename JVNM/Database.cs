@@ -25,6 +25,7 @@ namespace JVNM
             tables = new List<Table>();
         }
 
+        //Method: Load any database
         public void Load(String BDname)
         {
 
@@ -48,7 +49,7 @@ namespace JVNM
         }
 
         
-              
+         //Method that save the database in our path  
 
         public void Save(string BDname)
         {
@@ -61,6 +62,7 @@ namespace JVNM
                 {
                     for (int j = 0; j< tables[i].columns.Count; j++)
                     {
+                        //guarda directamente la informacion de las tuplas 
                         for(int k = 0; k< tables[i].columns[j].GetList().Count; k++)
                         {
                             string s = tables[i].columns[j].GetList()[k];
