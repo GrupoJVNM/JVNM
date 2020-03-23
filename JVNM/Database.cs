@@ -25,6 +25,11 @@ namespace JVNM
             tables = new List<Table>();
         }
 
+        public string Select(string tableName, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
+        {
+            tables.Find(table => table.getTableName().Equals(table)).Select(selectedC, compare, condiC, value);
+            
+        }
         //Method: Load any database
         public void Load(String BDname)
         {

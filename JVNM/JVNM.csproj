@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Insert.cs" />
+    <Compile Include="MiniSQLQuery.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="DataComparator.cs" />
     <Compile Include="DataType.cs" />

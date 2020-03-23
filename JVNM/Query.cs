@@ -33,48 +33,12 @@ namespace JVNM
         public const string IncorrectDataType = Error + "Incorrect data type";
         public const string SecurityIncorrectLogin = Error + "Incorrect login";
         public const string SecurityNotSufficientPrivileges = Error + "Not sufficient privileges";
-public const string SecurityProfileAlreadyExists = Error + "Security profile already exists";
-public const string SecurityUserAlreadyExists = Error + "Security user already exists";
-public const string SecurityProfileDoesNotExist = Error + "Security profile does not exist";
-public const string SecurityUserDoesNotExist = Error + "Security user does not exist";
+        public const string SecurityProfileAlreadyExists = Error + "Security profile already exists";
+        public const string SecurityUserAlreadyExists = Error + "Security user already exists";
+        public const string SecurityProfileDoesNotExist = Error + "Security profile does not exist";
+        public const string SecurityUserDoesNotExist = Error + "Security user does not exist";
         
     }
-    
-    public class AddTuple : Query //INSERT
-    {
-        //parse.addtuple()
-    }
-    public class Select : Query
-    {
-
-    }
-    
-    public class SelectAll : Query
-    {
-
-
-    }
-    public class addColumn : Query
-    {
-
-    }
-    public class DeleteTuple : Query
-    {
-
-    }
-    public class SelectAllWithOutC : Query
-    {
-
-    }
-   
-
-
-
-
-
-
-
-
 
 }
 

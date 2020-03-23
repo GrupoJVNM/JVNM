@@ -289,7 +289,38 @@ namespace UnitTests
             columnList.Add(columnDouble);
             columnList.Add(columnText);
             Table table = new Table("myTable", columnList);
-          
+            columnText.Add("Hola");
+            columnText.Add("Adios");
+            columnText.Add("Hola");
+            columnInt.Add("1");
+            columnInt.Add("2");
+            columnInt.Add("3");
+            columnDouble.Add("1,1");
+            columnDouble.Add("2,1");
+            columnDouble.Add("3,1");
+
+            table.DeleteTuple(columnText, "Hola");
+
+            List<List<String>> resultOk = new List<List<String>>();
+
+            List<String> listInt = new List<string>();
+            List<String> listDouble = new List<string>();
+            List<String> listText = new List<string>();
+            listText.Add("Adios");
+            listInt.Add("2");
+            listDouble.Add("2,1");
+            resultOk.Add(listInt);
+            resultOk.Add(listDouble);
+            resultOk.Add(listText);
+
+            for (int i = 0; i < table.getListTableColumn().Count; i++)
+            {
+                for (int j = 0; j < table.getListTableColumn()[i].GetList().Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], table.getListTableColumn()[i].GetList()[j]);
+                }
+
+            }
         }
     }
 }
