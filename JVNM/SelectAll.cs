@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    public class Insert : MiniSQLQuery
+   public class SelectAll : MiniSQLQuery
     {
         public string Execute(Database database)
         {

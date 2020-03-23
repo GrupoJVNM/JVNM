@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    public class Insert : MiniSQLQuery
+    public class DeleteTuple : MiniSQLQuery
     {
         public string Execute(Database database)
         {
             return null;
         }
     }
-}
 }

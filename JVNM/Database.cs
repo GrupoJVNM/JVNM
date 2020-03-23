@@ -25,10 +25,30 @@ namespace JVNM
             tables = new List<Table>();
         }
 
-        public string Select(string tableName, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
+        public List<List<String>> Select(string tableName, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
         {
-            tables.Find(table => table.getTableName().Equals(table)).Select(selectedC, compare, condiC, value);
+            return tables.Find(table => table.getTableName().Equals(tableName)).Select(selectedC, compare, condiC, value);
             
+        }
+
+        public List<List<String>> SelectAll(string tableName, DataComparator compare, TableColumn condiC, String value)
+        {
+            return tables.Find(table => table.getTableName().Equals(tableName)).SelectAll(compare, condiC, value);
+
+        }
+        public List<List<String>> selectAllWithOutC(string tableName)
+        {
+            return tables.Find(table => table.getTableName().Equals(tableName)).selectAllWithOutC();
+        }
+
+        public void insert(string tableName, List<String> list)
+        {
+             tables.Find(table => table.getTableName().Equals(tableName)).AddTuple(list);
+        }
+
+        public void delete(string tableName, TableColumn tc, String data)
+        {
+            tables.Find(table => table.getTableName().Equals(tableName)).DeleteTuple(tc, data);
         }
         //Method: Load any database
         public void Load(String BDname)
