@@ -8,9 +8,21 @@ namespace JVNM
 {
    public class SelectAll : MiniSQLQuery
     {
-        public string Execute(Database database)
+        public String table = null;
+        public DataComparator compare;
+        public TableColumn condiC = null;
+        public String value = null;
+
+        public SelectAll(String table, DataComparator compare, TableColumn condiC, String value)
         {
-            return null;
+            this.table = table;
+            this.compare = compare;
+            this.condiC = condiC;
+            this.value = value;
+        }
+        public void Execute(Database database)
+        {
+            database.SelectAll(table, compare, condiC, value);
         }
     }
 }
