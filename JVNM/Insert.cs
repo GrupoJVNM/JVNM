@@ -8,9 +8,16 @@ namespace JVNM
 {
     public class Insert : MiniSQLQuery
     {
-        public string Execute(Database database)
+       public  string TableName = null;
+       public List<String> List = null;
+
+        public Insert(string tableName, List<String> list) {
+            TableName = tableName;
+            List = list;
+        }
+        public void Execute(Database database)
         {
-            return null;
+             database.insert(TableName, List);
         }
     }
 }
