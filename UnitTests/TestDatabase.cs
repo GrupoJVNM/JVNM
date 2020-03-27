@@ -10,19 +10,19 @@ namespace UnitTests
     public class TestDatabase
     {
 
-        Database db = new Database("bd1", "username", "password");
-        public List <Table> tables;
+        Database Db = new Database("bd1", "username", "password");
+        public List <Table> Tables;
 
         [TestMethod]
         public void TestLoad()
         {
 
-             db.Load("bd1"); 
+            Db.Load("bd1"); 
         }
         [TestMethod]
         public void TestSave()
         {
-            db.Load("bd1");
+            Db.Load("bd1");
             List<TableColumn> columnasT1 = new List<TableColumn>();
             Table t1 = new Table("empleados",columnasT1);
             TableColumn tc1 = new TableColumn("nombre", DataType.Text);
@@ -34,19 +34,19 @@ namespace UnitTests
             TableColumn tc2 = new TableColumn("nombres", DataType.Text);
             tc2.GetList().Add("Fran");
             columnasT2.Add(tc2);
-            
 
-          
 
-            db.AddTable(t1);
-            db.AddTable(t2);
-            db.DeleteTable(t2);
-            db.Save("bd1");
-            db.Close("bd1");
+
+
+            Db.AddTable(t1);
+            Db.AddTable(t2);
+            Db.DeleteTable(t2);
+            Db.Save("bd1");
+            Db.Close("bd1");
 
             //COMPROBAMOS
-            db.Load("bd1");
-            if(  db.getList().Find(tables => tables.getTableName().Equals(t1)) == null)
+            Db.Load("bd1");
+            if(Db.getList().Find(tables => tables.getTableName().Equals(t1)) == null)
             {
                 Console.WriteLine("Lo ha borrado");
             }
@@ -56,15 +56,15 @@ namespace UnitTests
         [TestMethod]
         public void TestAddTable()
         {
-            db.Load("bd1");
+            Db.Load("bd1");
             List<TableColumn> li = new List<TableColumn>();
             Table t1 = new Table("empleados", li);
-            db.AddTable(t1);
+            Db.AddTable(t1);
 
     
             //COMPROBAMOS
           
-            if (db.getList().Find(tables => tables.getTableName().Equals(t1)) !=null )
+            if (Db.getList().Find(tables => tables.getTableName().Equals(t1)) !=null )
             {
                 Console.WriteLine("Se ha creado");
             }
@@ -74,16 +74,16 @@ namespace UnitTests
         [TestMethod]
         public void TestDeleteTable()
         {
-            db.Load("bd1");
+            Db.Load("bd1");
             List<TableColumn> li = new List<TableColumn>();
             Table t1 = new Table("empleados", li);
-            db.AddTable(t1);
+            Db.AddTable(t1);
 
-            db.DeleteTable(t1);
+            Db.DeleteTable(t1);
            
             //COMPROBAMOS
           
-            if (db.getList().Find(tables => tables.getTableName().Equals(t1)) == null)
+            if (Db.getList().Find(tables => tables.getTableName().Equals(t1)) == null)
             {
                 Console.WriteLine("Lo ha borrado");
             }

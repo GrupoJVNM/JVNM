@@ -10,32 +10,32 @@ namespace UnitTests
     public class TestTableColumn
     {
         TableColumn column = new TableColumn("Name", DataType.Text);
-        List<String> dataList;
+        public List<String> DataList;
         
 
         [TestMethod]
         public void TestAdd()
         {
             column.Add("Itxaso");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 1);
-            Assert.IsNotNull(dataList);
-            Assert.AreEqual(dataList[0], "Itxaso");
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 1);
+            Assert.IsNotNull(DataList);
+            Assert.AreEqual(DataList[0], "Itxaso");
 
             column.Add("Ana");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 2);
-            Assert.AreEqual(dataList[1], "Ana");
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 2);
+            Assert.AreEqual(DataList[1], "Ana");
 
             column.Add(null);
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 3);
-            Assert.AreEqual(dataList[2], null);
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 3);
+            Assert.AreEqual(DataList[2], null);
 
             column.Add("Gaizka");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 4);
-            Assert.AreEqual(dataList[3], "Gaizka");
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 4);
+            Assert.AreEqual(DataList[3], "Gaizka");
 
         }
 
@@ -48,14 +48,14 @@ namespace UnitTests
             column.Add("Gaizka");
 
             column.Delete("Ane");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 4);
-            Assert.IsFalse(dataList[1] == "Ane");
-            Assert.AreEqual(dataList[1], null);
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 4);
+            Assert.IsFalse(DataList[1] == "Ane");
+            Assert.AreEqual(DataList[1], null);
 
             column.Delete("Uxue");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 4);
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 4);
 
         }
 
@@ -68,14 +68,14 @@ namespace UnitTests
             column.Add("Gaizka");
     
             column.Update("Ane", "AnaMaria");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 4);
-            Assert.AreNotEqual(dataList[1], "Ane");
-            Assert.AreEqual(dataList[1], "AnaMaria");
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 4);
+            Assert.AreNotEqual(DataList[1], "Ane");
+            Assert.AreEqual(DataList[1], "AnaMaria");
 
             column.Update("Uxue", "Patri");
-            dataList = column.GetList();
-            Assert.IsTrue(dataList.Count == 4);
+            DataList = column.GetList();
+            Assert.IsTrue(DataList.Count == 4);
             
         }
     }

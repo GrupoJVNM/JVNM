@@ -8,14 +8,14 @@ namespace JVNM
 {
    public class SelectAllWithOutC : MiniSQLQuery
     {
-        string tableName;
+       public string TableName;
 
         public SelectAllWithOutC(string tableName) {
-            this.tableName = tableName;
+           TableName = tableName;
         }
         public void Execute(Database database)
         {
-            database.selectAllWithOutC(tableName);
+            database.selectAllWithOutC(TableName);
         }
     }
 }

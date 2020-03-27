@@ -8,36 +8,36 @@ namespace JVNM
 {
     public class Table
     {
-        String name;
-        public List<TableColumn> columns;
+        public String Name;
+        public List<TableColumn> Columns;
 
         public Table(String name, List<TableColumn> columns){
-            this.name = name;
-            this.columns = columns;
+            Name = name;
+            Columns = columns;
          
         }
 
         public void AddTuple(List<String> list) //INSERT
         { 
             //recorrer todas las columnas
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0; i < Columns.Count; i++)
             {
                 //por cada columna comprobar el tipo de la columa y de la lista que vamos a introducir
-                if (int.TryParse(list[i], out int a) && columns[i].getType().Equals("Int")) {
-                    columns[i].Add(list[i]);
+                if (int.TryParse(list[i], out int a) && Columns[i].getType().Equals("Int")) {
+                    Columns[i].Add(list[i]);
             }
 
                 
-                    if (double.TryParse(list[i], out double b) && columns[i].getType().Equals("Double"))
+                    if (double.TryParse(list[i], out double b) && Columns[i].getType().Equals("Double"))
                     {
-                        columns[i].Add(list[i]);
+                    Columns[i].Add(list[i]);
                     }
                    
 
-                    if (columns[i].getType().Equals("Text") && list[i]!=null)
+                    if (Columns[i].getType().Equals("Text") && list[i]!=null)
                 {
-                   
-                    columns[i].Add(list[i]);
+
+                    Columns[i].Add(list[i]);
                 }
                 else
                 {

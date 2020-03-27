@@ -8,18 +8,18 @@ namespace JVNM
 {
     public class DeleteTuple : MiniSQLQuery
     {
-        string tableName;
-        TableColumn tc;
-        String data;
+        public string TableName;
+       public TableColumn Tc;
+        public String Data;
         public DeleteTuple(string tableName, TableColumn tc, String data) {
-            this.tableName = tableName;
-            this.tc = tc;
-            this.data = data;
+            TableName = tableName;
+            Tc = tc;
+            Data = data;
 
         }
         public void Execute(Database database)
         {
-            database.delete(tableName,tc,data);
+            database.delete(TableName, Tc, Data);
         }
     }
 }

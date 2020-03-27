@@ -9,20 +9,20 @@ namespace JVNM
 {
     public class TableColumn
     {
-        String name;
+        public String Name;
         DataType type;
-        List<String> dataList;
+       public List<String> DataList;
 
         public TableColumn(String name, DataType dataType)
         {
-            this.name = name;
+            this.Name = name;
             this.type = dataType;
-            dataList = new List<String>();
+            DataList = new List<String>();
         }
 
         public void Add(String data)
         {
-            dataList.Add(data);
+            DataList.Add(data);
         }
 
         public Boolean Delete(String data)
@@ -32,13 +32,13 @@ namespace JVNM
             
          
             //find data
-            for (int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < DataList.Count; i++)
             {
-                if (dataList[i] == data)
+                if (DataList[i] == data)
                 {
-                  
-                        
-                        dataList[i] = null;
+
+
+                    DataList[i] = null;
                     
                     
                 }
@@ -53,18 +53,18 @@ namespace JVNM
 
         public void Update(String data, String newData)
         {            
-            for (int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < DataList.Count; i++)
             {
-                if(dataList[i] == data)
+                if(DataList[i] == data)
                 {
-                    dataList[i] = newData;
+                    DataList[i] = newData;
                 }
             }            
         }
 
         public List<String> GetList()
         {
-            return dataList;
+            return DataList;
         }
 
         public String getType()
@@ -74,7 +74,7 @@ namespace JVNM
 
         public String getColumnName()
         {
-            return name;
+            return Name;
         }
     }
 }

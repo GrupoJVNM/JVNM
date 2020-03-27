@@ -8,24 +8,24 @@ namespace JVNM
 {
    public class Select : MiniSQLQuery
     {
-        public String table = null;
-        public List<String> selectedC = null;
-        public DataComparator compare;
-        public TableColumn condiC = null;
-        public String value = null;
+        public String Table = null;
+        public List<String> SelectedC = null;
+        public DataComparator Compare;
+        public TableColumn CondiC = null;
+        public String Value = null;
 
 
         public Select(String table, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
         {
-            this.table = table;
-            this.selectedC = selectedC;
-            this.compare = compare;
-            this.condiC = condiC;
-            this.value = value;
+            Table = table;
+            SelectedC = selectedC;
+            Compare = compare;
+            CondiC = condiC;
+            Value = value;
         }
         public void Execute(Database database)
         {
-           database.Select(table, selectedC, compare, condiC, value);
+           database.Select(Table, SelectedC, Compare, CondiC, Value);
         }
     }
 }
