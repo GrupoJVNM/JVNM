@@ -25,12 +25,32 @@ namespace JVNM
                 string table = match.Groups[2].Value;
               //  return new Select(table, columnNames);
             }
+
             //Insert
             match = Regex.Match(miniSQLQuery, insertPattern);
             if (match.Success)
             {
                 //...
             }
+
+            //Delete
+            match = Regex.Match(miniSQLQuery, deletePattern);
+            if (match.Success)
+            {
+                //  List<string> columnNames = CommaSeparatedNames(match.Groups[1].Value);
+                string table = match.Groups[2].Value;
+                //  return new Select(table, columnNames);
+            }
+
+            //Update
+            match = Regex.Match(miniSQLQuery, updatePattern);
+            if (match.Success)
+            {
+                //  List<string> columnNames = CommaSeparatedNames(match.Groups[1].Value);
+                string table = match.Groups[2].Value;
+                //  return new Select(table, columnNames);
+            }
+
             return null;
         }
 
