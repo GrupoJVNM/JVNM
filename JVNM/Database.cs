@@ -25,6 +25,13 @@ namespace JVNM
             tables = new List<Table>();
         }
 
+
+        public List<List<String>> selectWithOutC(string tableName, List<String> selectedC )
+        {
+            return tables.Find(table => table.getTableName().Equals(tableName)).selectWithOutC(selectedC);
+
+        }
+
         public List<List<String>> Select(string tableName, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
         {
             return tables.Find(table => table.getTableName().Equals(tableName)).Select(selectedC, compare, condiC, value);

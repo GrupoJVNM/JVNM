@@ -260,6 +260,9 @@ namespace JVNM
             TableColumn newColumn = new TableColumn(name, type);
             columns.Add(newColumn);
         }
+
+
+        //DELETE FROM table WHERE edad=5;
         public void DeleteTuple(TableColumn tc, String date)    //DELETE
         {
            
@@ -281,8 +284,31 @@ namespace JVNM
                 }
             }
         }
-              
+        //select nombre,dni from tabla ;
+        public List<List<String>> selectWithOutC(List<String> list)
+        {
+            List<List<String>> allSelected = new List<List<String>>();//devolver
 
+            for (int i = 0; i < list.Count; i++)
+            {
+                allSelected.Add(new List<String>());
+            }
+            for (int i = 0; i < columns[0].GetList().Count; i++)
+            {
+                for (int j = 0; j < list.Count; j++)
+                {
+                    TableColumn t = columns.Find(column => column.getColumnName().Equals(list[j]));
+                    allSelected[j].Add(t.GetList()[i]);
+
+                }
+
+
+            }
+
+            return allSelected;
+        }
+              
+        //select * from tabla;
         public List<List<String>> selectAllWithOutC()   //SELECT
         {
            
@@ -292,13 +318,13 @@ namespace JVNM
                 allSelected.Add(new List<string>());
             }
             for (int i = 0; i < columns[0].GetList().Count; i++)
-                {
-
+                { 
                     for (int j = 0; j < columns.Count; j++)
                     {
-                    allSelected[j].Add(columns[j].GetList()[i]);
+                    
+                        allSelected[j].Add(columns[j].GetList()[i]);
 
-                }
+                     }
                    
 
                 }

@@ -209,6 +209,60 @@ namespace UnitTests
             Assert.IsTrue(returnList3.Count == 0);
         }
 
+
+
+        [TestMethod]
+        public void selectWithOutC()
+        {
+            //SELECT nombre, edad FROM tabla;
+
+             List<TableColumn> columnList = new List<TableColumn>();
+             List<String> selectC = new List<String>();
+            List<List<String>> returnList = new List<List<String>>();
+            
+            
+            
+            TableColumn ColumnInt = new TableColumn("ColumnInt", DataType.Int);
+            TableColumn ColumnDouble = new TableColumn("ColumnDouble", DataType.Double);
+            TableColumn ColumnText = new TableColumn("ColumnText", DataType.Text);
+            columnList.Add(ColumnInt);
+            columnList.Add(ColumnDouble);
+            columnList.Add(ColumnText);
+            Table table = new Table("myTable", columnList);
+            ColumnText.Add("Hola");
+            ColumnText.Add("Adios");
+            ColumnText.Add("Hola");
+            ColumnInt.Add("1");
+            ColumnInt.Add("2");
+            ColumnInt.Add("3");
+            ColumnDouble.Add("1,1");
+            ColumnDouble.Add("2,1");
+            ColumnDouble.Add("3,1");
+            selectC.Add("ColumnInt");
+
+            returnList= table.selectWithOutC(selectC);
+            List<List<String>> resultOk = new List<List<String>>();
+
+            List<String> listInt = new List<string>();
+            listInt.Add("1");
+            listInt.Add("2");
+            listInt.Add("3");
+            resultOk.Add(listInt);
+
+            for (int i = 0; i < returnList.Count; i++)
+            {
+                for (int j = 0; j < returnList[i].Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], returnList[i][j]);
+                }
+
+            }
+
+
+
+        }
+
+
         [TestMethod]
         public void selectAllWithOutC()
         {
