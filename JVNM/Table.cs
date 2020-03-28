@@ -70,7 +70,7 @@ namespace JVNM
                         {
 
                             
-                            TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                            TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
                             allSelected[j].Add(t.GetList()[i]);
                             
                         }
@@ -85,7 +85,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                             
                             }
@@ -98,7 +98,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                            
                             }
@@ -116,7 +116,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                              
                             }
@@ -129,7 +129,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                              
                             }
@@ -153,7 +153,7 @@ namespace JVNM
             String dateT = condiC.getType();
             
 
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0; i < Columns.Count; i++)
             {
                 allSelected.Add(new List<string>());
             }
@@ -165,9 +165,9 @@ namespace JVNM
                     {
                         if (condiC.GetList()[i] == value)
                         {
-                            for (int j = 0; j < columns.Count; j++)
+                            for (int j = 0; j < Columns.Count; j++)
                             {
-                            allSelected[j].Add(columns[j].GetList()[i]);
+                            allSelected[j].Add(Columns[j].GetList()[i]);
                             
 
 
@@ -183,9 +183,9 @@ namespace JVNM
                         {
                             if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
                             {
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
-                                allSelected[j].Add(columns[j].GetList()[i]);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
                                 
 
                             }
@@ -196,10 +196,10 @@ namespace JVNM
                         {
                             if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
                             {
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
 
-                                allSelected[j].Add(columns[j].GetList()[i]);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
                                 
 
                             }
@@ -216,10 +216,10 @@ namespace JVNM
                         {
                             if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
                             {
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
 
-                                allSelected[j].Add(columns[j].GetList()[i]);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
                                
 
                             }
@@ -231,10 +231,10 @@ namespace JVNM
                             if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
                             {
                                
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
 
-                                allSelected[j].Add(columns[j].GetList()[i]);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
                                 
 
                             }
@@ -258,7 +258,7 @@ namespace JVNM
         public void AddColumn(String name, DataType type) //ALTER
         {
             TableColumn newColumn = new TableColumn(name, type);
-            columns.Add(newColumn);
+            Columns.Add(newColumn);
         }
 
 
@@ -272,10 +272,10 @@ namespace JVNM
                 if (tc.GetList()[i].Equals(date) )
                 {
 
-                    for (int j = 0; j < columns.Count(); j++)
+                    for (int j = 0; j < Columns.Count(); j++)
                     {
 
-                        columns[j].GetList().RemoveAt(i);
+                        Columns[j].GetList().RemoveAt(i);
                     }
                 }
                 else
@@ -293,11 +293,11 @@ namespace JVNM
             {
                 allSelected.Add(new List<String>());
             }
-            for (int i = 0; i < columns[0].GetList().Count; i++)
+            for (int i = 0; i < Columns[0].GetList().Count; i++)
             {
                 for (int j = 0; j < list.Count; j++)
                 {
-                    TableColumn t = columns.Find(column => column.getColumnName().Equals(list[j]));
+                    TableColumn t = Columns.Find(column => column.getColumnName().Equals(list[j]));
                     allSelected[j].Add(t.GetList()[i]);
 
                 }
@@ -313,16 +313,16 @@ namespace JVNM
         {
            
             List<List<String>> allSelected = new List<List<string>>();
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0; i < Columns.Count; i++)
             {
                 allSelected.Add(new List<string>());
             }
-            for (int i = 0; i < columns[0].GetList().Count; i++)
+            for (int i = 0; i < Columns[0].GetList().Count; i++)
                 { 
-                    for (int j = 0; j < columns.Count; j++)
+                    for (int j = 0; j < Columns.Count; j++)
                     {
                     
-                        allSelected[j].Add(columns[j].GetList()[i]);
+                        allSelected[j].Add(Columns[j].GetList()[i]);
 
                      }
                    
@@ -335,12 +335,12 @@ namespace JVNM
         
         public List<TableColumn> getListTableColumn()
         {
-            return columns;
+            return Columns;
         }
        
         public String getTableName()
         {
-            return name;
+            return Name;
         }
     }
 }

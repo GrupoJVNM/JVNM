@@ -92,12 +92,12 @@ namespace JVNM
             {
                 for (int i = 0; i < Tables.Count; i++)
                 {
-                    for (int j = 0; j< Tables[i].columns.Count; j++)
+                    for (int j = 0; j< Tables[i].Columns.Count; j++)
                     {
                         //guarda directamente la informacion de las tuplas 
-                        for(int k = 0; k< Tables[i].columns[j].GetList().Count; k++)
+                        for(int k = 0; k< Tables[i].Columns[j].GetList().Count; k++)
                         {
-                            string s = Tables[i].columns[j].GetList()[k];
+                            string s = Tables[i].Columns[j].GetList()[k];
                             if (s == null)
                             {
                                 File.WriteAllText(BDname + ".txt", " ");
