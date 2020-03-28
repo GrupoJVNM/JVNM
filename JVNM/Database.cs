@@ -60,59 +60,73 @@ namespace JVNM
         //Method: Load any database
         public void Load(String BDname)
         {
-
-            // string path = Path.GetFullPath(BDname + ".txt");
-            // Console.WriteLine(path);
-
-
             //conexion abrir
-            string path = "../Debug/"+BDname+".txt";
+            string path = "../Debug/MyDB_CODIGO/" + BDname+ ".txt";
             
             
             if (path != null)
             {
-                string rt = File.ReadAllText(path);
-                Console.WriteLine(rt);
+                FileStream myFile = File.Open(path, FileMode.Open);
             }
             else
             {
                 Console.WriteLine(Query.DatabaseDoesNotExist);
-               }
+            }
         }
 
+        //This method create the folder if dont exist and create the bd.txt
+        public void Create(string BDname)
+        {
+            string pathOk = "../Debug/MyDB_CODIGO/" + BDname + ".txt"; 
+         
+            string folder = "../Debug/";
+            string path = Path.Combine(folder, "MyDB_CODIGO");
+            //It doesnt create a new folder if already exist
+            Directory.CreateDirectory(path);
+            if (!File.Exists(pathOk))
+            {
+                string fileName = BDname + ".txt";
+                path = Path.Combine(path, fileName);
+                System.IO.FileStream fs = System.IO.File.Create(path);
+            }         
+        }
         
          //Method that save the database in our path  
-
         public void Save(string BDname)
         {
-            string path = "../Debug/" + BDname + ".txt";
+            string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
 
-            // Create the file, or overwrite if the file exists.
-            using (FileStream fs = File.Create(path))
+            if (File.Exists(path)==false)
             {
-                for (int i = 0; i < Tables.Count; i++)
-                {
-                    for (int j = 0; j< Tables[i].Columns.Count; j++)
-                    {
-                        //guarda directamente la informacion de las tuplas 
-                        for(int k = 0; k< Tables[i].Columns[j].GetList().Count; k++)
-                        {
-                            string s = Tables[i].Columns[j].GetList()[k];
-                            if (s == null)
-                            {
-                                File.WriteAllText(BDname + ".txt", " ");
-                            }
-                            else
-                            {
-                                File.WriteAllText(BDname + ".txt", s);
-                            }
-                            File.WriteAllText(BDname + ".txt", "\n");
-                        }
-                       
-                       
-                    }
+                Create(BDname);
+            }
+            else
+            {
+                FileStream fs = File.OpenWrite(path);
+            }
 
+           for (int i = 0; i < Tables.Count; i++)
+            {
+                for (int j = 0; j< Tables[i].Columns.Count; j++)
+                {
+                    //guarda directamente la informacion de las tuplas 
+                    for(int k = 0; k< Tables[i].Columns[j].GetList().Count; k++)
+                    {
+                        string s = Tables[i].Columns[j].GetList()[k];
+                        if (s == null)
+                        {
+                            File.WriteAllText(BDname + ".txt", " ");
+                        }
+                        else
+                        {
+                            File.WriteAllText(BDname + ".txt", s);
+                        }
+                        File.WriteAllText(BDname + ".txt", "\n");
+                    }
+                       
+                       
                 }
+
             }
            
         }
@@ -123,7 +137,7 @@ namespace JVNM
         }
         public void DropDatabase(String BDname)
         {
-            string path = "../Debug/" + BDname + ".txt";
+            string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
 
             //busca la bd 
             if (File.Exists(path))
@@ -148,22 +162,19 @@ namespace JVNM
          */
 
         //Print all the tuples from the tables and close it
-         public void PrintAllTables (String BDname)
+         /*public void PrintAllTables (String BDname)
         {
-
             //DataComparator compare, TableColumn condiC, String value
             for (int i = 0; i < Tables.Count; i++)
             {
                 Console.WriteLine(Tables[i].SelectAllWithOutC());
             }
-            Close(BDname);
         }
-       
+       */
         public void Close(String BDname)
         {
-            Save(BDname);
-            
-            
+            string myFile = Directory.GetCurrentDirectory();
+            myFile = null;
         }
 
         public List<Table> GetList()
