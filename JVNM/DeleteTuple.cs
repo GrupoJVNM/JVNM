@@ -19,7 +19,7 @@ namespace JVNM
         }
         public void Execute(Database database)
         {
-            database.delete(TableName, Tc, Data);
+            database.Delete(TableName, Tc, Data);
         }
     }
 }

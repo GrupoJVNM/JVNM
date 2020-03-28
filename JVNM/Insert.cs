@@ -17,7 +17,7 @@ namespace JVNM
         }
         public void Execute(Database database)
         {
-             database.insert(TableName, List);
+             database.Insert(TableName, List);
         }
     }
 }

@@ -10,13 +10,13 @@ namespace JVNM
     public class TableColumn
     {
         public String Name;
-        DataType type;
-       public List<String> DataList;
+        public DataType Type;
+        public List<String> DataList;
 
         public TableColumn(String name, DataType dataType)
         {
-            this.Name = name;
-            this.type = dataType;
+            Name = name;
+            Type = dataType;
             DataList = new List<String>();
         }
 
@@ -67,12 +67,12 @@ namespace JVNM
             return DataList;
         }
 
-        public String getType()
+        public String GetTypeC()
         {
-            return type.ToString();
+            return Type.ToString();
         }
 
-        public String getColumnName()
+        public String GetColumnName()
         {
             return Name;
         }

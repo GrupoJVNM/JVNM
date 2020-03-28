@@ -36,19 +36,16 @@ namespace UnitTests
             columnasT2.Add(tc2);
 
 
-
-
             Db.AddTable(t1);
             Db.AddTable(t2);
-            Db.DeleteTable(t2);
             Db.Save("bd1");
             Db.Close("bd1");
 
             //COMPROBAMOS
             Db.Load("bd1");
-            if(Db.getList().Find(tables => tables.getTableName().Equals(t1)) == null)
+            if(Db.GetList().Find(tables => tables.GetTableName().Equals(t1)) != null)
             {
-                Console.WriteLine("Lo ha borrado");
+                Console.WriteLine("Lo ha guardado");
             }
 
 
@@ -64,29 +61,29 @@ namespace UnitTests
     
             //COMPROBAMOS
           
-            if (Db.getList().Find(tables => tables.getTableName().Equals(t1)) !=null )
+            if (Db.GetList().Find(tables => tables.GetTableName().Equals(t1)) !=null )
             {
                 Console.WriteLine("Se ha creado");
             }
 
 
         }
-        [TestMethod]
-        public void TestDeleteTable()
-        {
-            Db.Load("bd1");
-            List<TableColumn> li = new List<TableColumn>();
-            Table t1 = new Table("empleados", li);
-            Db.AddTable(t1);
+        //[TestMethod]
+        //public void TestDeleteTable()
+        //{
+        //    Db.Load("bd1");
+        //    List<TableColumn> li = new List<TableColumn>();
+        //    Table t1 = new Table("empleados", li);
+        //    Db.AddTable(t1);
 
-            Db.DeleteTable(t1);
+        //    Db.DeleteTable(t1);
            
-            //COMPROBAMOS
+        //    //COMPROBAMOS
           
-            if (Db.getList().Find(tables => tables.getTableName().Equals(t1)) == null)
-            {
-                Console.WriteLine("Lo ha borrado");
-            }
-        }
+        //    if (Db.GetList().Find(tables => tables.GetTableName().Equals(t1)) == null)
+        //    {
+        //        Console.WriteLine("Lo ha borrado");
+        //    }
+        //}
     }
 }

@@ -18,22 +18,23 @@ namespace UnitTests
             List<TableColumn> columnList = new List<TableColumn>();
 
             TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
-            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
-            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
-            List<String> list2 = new List<String>();
+            TableColumn columnDouble = new TableColumn("columnDouble", DataType.Double);
+            TableColumn columnText = new TableColumn("columnText", DataType.Text);
             columnList.Add(columnInt);
             columnList.Add(columnDouble);
             columnList.Add(columnText);
             Table table = new Table("myTable", columnList);
 
+            List<String> list2 = new List<String>();
             list2.Add("18");
             list2.Add("22,6");
             list2.Add("higb");
-            Assert.IsTrue(table.getListTableColumn().Count == 3);
+
+            Assert.IsTrue(table.GetListTableColumn().Count == 3);
             table.AddTuple(list2);
-            Assert.IsTrue(table.getListTableColumn()[0].GetList().Count != 0);
-            Assert.IsTrue(table.getListTableColumn()[1].GetList().Count != 0);
-            Assert.IsTrue(table.getListTableColumn()[2].GetList().Count != 0);
+            Assert.IsTrue(table.GetListTableColumn()[0].GetList().Count != 0);
+            Assert.IsTrue(table.GetListTableColumn()[1].GetList().Count != 0);
+            Assert.IsTrue(table.GetListTableColumn()[2].GetList().Count != 0);
             
             
          
@@ -240,7 +241,7 @@ namespace UnitTests
             ColumnDouble.Add("3,1");
             selectC.Add("ColumnInt");
 
-            returnList= table.selectWithOutC(selectC);
+            returnList= table.SelectWithOutC(selectC);
             List<List<String>> resultOk = new List<List<String>>();
 
             List<String> listInt = new List<string>();
@@ -284,7 +285,7 @@ namespace UnitTests
             ColumnDouble.Add("1,1");
             ColumnDouble.Add("2,1");
             ColumnDouble.Add("3,1");
-            List<List<String>> returnList = table.selectAllWithOutC();
+            List<List<String>> returnList = table.SelectAllWithOutC();
 
             List<List<String>> resultOk = new List<List<String>>();
 
@@ -323,11 +324,11 @@ namespace UnitTests
             table.AddColumn("column1", DataType.Text);
             Assert.IsTrue(columnList.Count == 1);
             Assert.IsNotNull(columnList);
-            Assert.AreEqual(columnList[0].getColumnName(), "column1");
+            Assert.AreEqual(columnList[0].GetColumnName(), "column1");
 
             table.AddColumn("column2", DataType.Int);
-            Assert.AreEqual(columnList[1].getColumnName(), "column2");
-            Assert.AreEqual(columnList[0].getColumnName(), "column1");
+            Assert.AreEqual(columnList[1].GetColumnName(), "column2");
+            Assert.AreEqual(columnList[0].GetColumnName(), "column1");
 
         }
         [TestMethod]
@@ -367,11 +368,11 @@ namespace UnitTests
             resultOk.Add(listDouble);
             resultOk.Add(listText);
 
-            for (int i = 0; i < table.getListTableColumn().Count; i++)
+            for (int i = 0; i < table.GetListTableColumn().Count; i++)
             {
-                for (int j = 0; j < table.getListTableColumn()[i].GetList().Count; j++)
+                for (int j = 0; j < table.GetListTableColumn()[i].GetList().Count; j++)
                 {
-                    Assert.AreEqual(resultOk[i][j], table.getListTableColumn()[i].GetList()[j]);
+                    Assert.AreEqual(resultOk[i][j], table.GetListTableColumn()[i].GetList()[j]);
                 }
 
             }

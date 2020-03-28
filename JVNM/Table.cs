@@ -23,18 +23,18 @@ namespace JVNM
             for (int i = 0; i < Columns.Count; i++)
             {
                 //por cada columna comprobar el tipo de la columa y de la lista que vamos a introducir
-                if (int.TryParse(list[i], out int a) && Columns[i].getType().Equals("Int")) {
+                if (int.TryParse(list[i], out int a) && Columns[i].GetTypeC().Equals("Int")) {
                     Columns[i].Add(list[i]);
             }
 
                 
-                    if (double.TryParse(list[i], out double b) && Columns[i].getType().Equals("Double"))
+                    if (double.TryParse(list[i], out double b) && Columns[i].GetTypeC().Equals("Double"))
                     {
                     Columns[i].Add(list[i]);
                     }
                    
 
-                    if (Columns[i].getType().Equals("Text") && list[i]!=null)
+                    if (Columns[i].GetTypeC().Equals("Text") && list[i]!=null)
                 {
 
                     Columns[i].Add(list[i]);
@@ -53,7 +53,7 @@ namespace JVNM
         public List<List<String>> Select(List<String> selectedC, DataComparator compare, TableColumn condiC, String value) 
         {
             List<List<String>> allSelected = new List<List<String>>();
-            String dateT = condiC.getType();
+            String dateT = condiC.GetTypeC();
            
           for(int i = 0; i<selectedC.Count; i++)
             {
@@ -70,7 +70,7 @@ namespace JVNM
                         {
 
                             
-                            TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                            TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
                             allSelected[j].Add(t.GetList()[i]);
                             
                         }
@@ -85,7 +85,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                             
                             }
@@ -98,7 +98,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                
-                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                            
                             }
@@ -116,7 +116,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                              
                             }
@@ -129,7 +129,7 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = Columns.Find(column => column.getColumnName().Equals(selectedC[j]));
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
                                 allSelected[j].Add(t.GetList()[i]);
                              
                             }
@@ -150,7 +150,7 @@ namespace JVNM
         public List<List<String>> SelectAll(DataComparator compare, TableColumn condiC, String value)//aqui solo se manda la condicion
         {
             List<List<String>> allSelected = new List<List<String>>();
-            String dateT = condiC.getType();
+            String dateT = condiC.GetTypeC();
             
 
             for (int i = 0; i < Columns.Count; i++)
@@ -285,7 +285,7 @@ namespace JVNM
             }
         }
         //select nombre,dni from tabla ;
-        public List<List<String>> selectWithOutC(List<String> list)
+        public List<List<String>> SelectWithOutC(List<String> list)
         {
             List<List<String>> allSelected = new List<List<String>>();//devolver
 
@@ -297,7 +297,7 @@ namespace JVNM
             {
                 for (int j = 0; j < list.Count; j++)
                 {
-                    TableColumn t = Columns.Find(column => column.getColumnName().Equals(list[j]));
+                    TableColumn t = Columns.Find(column => column.GetColumnName().Equals(list[j]));
                     allSelected[j].Add(t.GetList()[i]);
 
                 }
@@ -309,7 +309,7 @@ namespace JVNM
         }
               
         //select * from tabla;
-        public List<List<String>> selectAllWithOutC()   //SELECT
+        public List<List<String>> SelectAllWithOutC()   //SELECT
         {
            
             List<List<String>> allSelected = new List<List<string>>();
@@ -333,12 +333,12 @@ namespace JVNM
         }
 
         
-        public List<TableColumn> getListTableColumn()
+        public List<TableColumn> GetListTableColumn()
         {
             return Columns;
         }
        
-        public String getTableName()
+        public String GetTableName()
         {
             return Name;
         }

@@ -26,36 +26,36 @@ namespace JVNM
         }
 
 
-        public List<List<String>> selectWithOutC(string tableName, List<String> selectedC )
+        public List<List<String>> SelectWithOutC(string tableName, List<String> selectedC )
         {
-            return Tables.Find(table => table.getTableName().Equals(tableName)).selectWithOutC(selectedC);
+            return Tables.Find(table => table.GetTableName().Equals(tableName)).SelectWithOutC(selectedC);
 
         }
 
         public List<List<String>> Select(string tableName, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
         {
-            return Tables.Find(table => table.getTableName().Equals(tableName)).Select(selectedC, compare, condiC, value);
+            return Tables.Find(table => table.GetTableName().Equals(tableName)).Select(selectedC, compare, condiC, value);
             
         }
 
         public List<List<String>> SelectAll(string tableName, DataComparator compare, TableColumn condiC, String value)
         {
-            return Tables.Find(table => table.getTableName().Equals(tableName)).SelectAll(compare, condiC, value);
+            return Tables.Find(table => table.GetTableName().Equals(tableName)).SelectAll(compare, condiC, value);
 
         }
         public List<List<String>> selectAllWithOutC(string tableName)
         {
-            return Tables.Find(table => table.getTableName().Equals(tableName)).selectAllWithOutC();
+            return Tables.Find(table => table.GetTableName().Equals(tableName)).SelectAllWithOutC();
         }
 
-        public void insert(string tableName, List<String> list)
+        public void Insert(string tableName, List<String> list)
         {
-            Tables.Find(table => table.getTableName().Equals(tableName)).AddTuple(list);
+            Tables.Find(table => table.GetTableName().Equals(tableName)).AddTuple(list);
         }
 
-        public void delete(string tableName, TableColumn tc, String data)
+        public void Delete(string tableName, TableColumn tc, String data)
         {
-            Tables.Find(table => table.getTableName().Equals(tableName)).DeleteTuple(tc, data);
+            Tables.Find(table => table.GetTableName().Equals(tableName)).DeleteTuple(tc, data);
         }
         //Method: Load any database
         public void Load(String BDname)
@@ -66,7 +66,7 @@ namespace JVNM
 
 
             //conexion abrir
-            string path = "../Debug/MisBD/"+BDname+".txt";
+            string path = "../Debug/"+BDname+".txt";
             
             
             if (path != null)
@@ -85,7 +85,7 @@ namespace JVNM
 
         public void Save(string BDname)
         {
-            string path = "../Debug/MisBD/" + BDname + ".txt";
+            string path = "../Debug/" + BDname + ".txt";
 
             // Create the file, or overwrite if the file exists.
             using (FileStream fs = File.Create(path))
@@ -121,13 +121,9 @@ namespace JVNM
             Tables.Add(table);
             
         }
-        public void DeleteTable(Table table)//DROP
-        {
-            Tables.Remove(table);
-        }
         public void DropDatabase(String BDname)
         {
-            string path = "../Debug/MisBD/" + BDname + ".txt";
+            string path = "../Debug/" + BDname + ".txt";
 
             //busca la bd 
             if (File.Exists(path))
@@ -158,7 +154,7 @@ namespace JVNM
             //DataComparator compare, TableColumn condiC, String value
             for (int i = 0; i < Tables.Count; i++)
             {
-                Console.WriteLine(Tables[i].selectAllWithOutC());
+                Console.WriteLine(Tables[i].SelectAllWithOutC());
             }
             Close(BDname);
         }
@@ -170,7 +166,7 @@ namespace JVNM
             
         }
 
-        public List<Table> getList()
+        public List<Table> GetList()
         {
             return Tables;
         }
