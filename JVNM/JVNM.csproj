@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>MyDB\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,9 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeleteTuple.cs" />
+    <Compile Include="Insert.cs" />
+    <Compile Include="MiniSQLQuery.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="DataComparator.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="Query.cs" />
+    <Compile Include="Select.cs" />
+    <Compile Include="SelectAll.cs" />
+    <Compile Include="SelectAllWithOutC.cs" />
     <Compile Include="TableColumn.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Database.cs" />

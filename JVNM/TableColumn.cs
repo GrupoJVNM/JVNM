@@ -9,20 +9,20 @@ namespace JVNM
 {
     public class TableColumn
     {
-        String name;
-        DataType type;
-        List<String> dataList;
+        public String Name;
+        public DataType Type;
+        public List<String> DataList;
 
         public TableColumn(String name, DataType dataType)
         {
-            this.name = name;
-            this.type = dataType;
-            dataList = new List<String>();
+            Name = name;
+            Type = dataType;
+            DataList = new List<String>();
         }
 
         public void Add(String data)
         {
-            dataList.Add(data);
+            DataList.Add(data);
         }
 
         public Boolean Delete(String data)
@@ -32,13 +32,13 @@ namespace JVNM
             
          
             //find data
-            for (int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < DataList.Count; i++)
             {
-                if (dataList[i] == data)
+                if (DataList[i] == data)
                 {
-                  
-                        
-                        dataList[i] = null;
+
+
+                    DataList[i] = null;
                     
                     
                 }
@@ -53,28 +53,28 @@ namespace JVNM
 
         public void Update(String data, String newData)
         {            
-            for (int i = 0; i < dataList.Count; i++)
+            for (int i = 0; i < DataList.Count; i++)
             {
-                if(dataList[i] == data)
+                if(DataList[i] == data)
                 {
-                    dataList[i] = newData;
+                    DataList[i] = newData;
                 }
             }            
         }
 
         public List<String> GetList()
         {
-            return dataList;
+            return DataList;
         }
 
-        public String getType()
+        public String GetTypeC()
         {
-            return type.ToString();
+            return Type.ToString();
         }
 
-        public String getColumnName()
+        public String GetColumnName()
         {
-            return name;
+            return Name;
         }
     }
 }

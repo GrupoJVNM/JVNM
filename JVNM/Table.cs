@@ -8,35 +8,36 @@ namespace JVNM
 {
     public class Table
     {
-        String name;
-        public List<TableColumn> columns;
+        public String Name;
+        public List<TableColumn> Columns;
 
         public Table(String name, List<TableColumn> columns){
-            this.name = name;
-            this.columns = columns;
+            Name = name;
+            Columns = columns;
+         
         }
 
-        public void AddTuple(List<String> list)
+        public void AddTuple(List<String> list) //INSERT
         { 
             //recorrer todas las columnas
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0; i < Columns.Count; i++)
             {
                 //por cada columna comprobar el tipo de la columa y de la lista que vamos a introducir
-                if (int.TryParse(list[i], out int a) && columns[i].getType().Equals("Int")) {
-                    columns[i].Add(list[i]);
+                if (int.TryParse(list[i], out int a) && Columns[i].GetTypeC().Equals("Int")) {
+                    Columns[i].Add(list[i]);
             }
 
                 
-                    if (double.TryParse(list[i], out double b) && columns[i].getType().Equals("Double"))
+                    if (double.TryParse(list[i], out double b) && Columns[i].GetTypeC().Equals("Double"))
                     {
-                        columns[i].Add(list[i]);
+                    Columns[i].Add(list[i]);
                     }
                    
 
-                    if (columns[i].getType().Equals("Text") && list[i]!=null)
+                    if (Columns[i].GetTypeC().Equals("Text") && list[i]!=null)
                 {
-                   
-                    columns[i].Add(list[i]);
+
+                    Columns[i].Add(list[i]);
                 }
                 else
                 {
@@ -52,9 +53,12 @@ namespace JVNM
         public List<List<String>> Select(List<String> selectedC, DataComparator compare, TableColumn condiC, String value) 
         {
             List<List<String>> allSelected = new List<List<String>>();
-            String dateT = condiC.getType();
-            List<String> listaFila = new List<String>();
-
+            String dateT = condiC.GetTypeC();
+           
+          for(int i = 0; i<selectedC.Count; i++)
+            {
+                allSelected.Add(new List<string>());
+            }
             for (int i=0; i<condiC.GetList().Count; i++)
             {
                 //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
@@ -64,12 +68,11 @@ namespace JVNM
                     {
                         for (int j = 0; j < selectedC.Count; j++)
                         {
+
                             
-
-                            TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
-
-                            listaFila.Add(t.GetList()[i]);
-                            allSelected.Add(listaFila);
+                            TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
+                            allSelected[j].Add(t.GetList()[i]);
+                            
                         }
                     }
                 }
@@ -82,10 +85,9 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
-
-                                listaFila.Add(t.GetList()[i]);
-                                allSelected.Add(listaFila);
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
+                                allSelected[j].Add(t.GetList()[i]);
+                            
                             }
                         }
                     }
@@ -96,10 +98,9 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
-
-                                listaFila.Add(t.GetList()[i]);
-                                allSelected.Add(listaFila);
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
+                                allSelected[j].Add(t.GetList()[i]);
+                           
                             }
                         }
 
@@ -115,10 +116,9 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
-
-                                listaFila.Add(t.GetList()[i]);
-                                allSelected.Add(listaFila);
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
+                                allSelected[j].Add(t.GetList()[i]);
+                             
                             }
                         }
                     }
@@ -129,10 +129,9 @@ namespace JVNM
                             for (int j = 0; j < selectedC.Count; j++)
                             {
                                 
-                                TableColumn t = columns.Find(column => column.getColumnName().Equals(selectedC[j]));
-
-                                listaFila.Add(t.GetList()[i]);
-                                allSelected.Add(listaFila);
+                                TableColumn t = Columns.Find(column => column.GetColumnName().Equals(selectedC[j]));
+                                allSelected[j].Add(t.GetList()[i]);
+                             
                             }
                         }
 
@@ -141,32 +140,39 @@ namespace JVNM
                 }
                
             }
-
+            if (allSelected[0].Count==0)
+            {
+                allSelected.Clear();
+            }
             return allSelected;
         }
 
         public List<List<String>> SelectAll(DataComparator compare, TableColumn condiC, String value)//aqui solo se manda la condicion
         {
             List<List<String>> allSelected = new List<List<String>>();
-            String dateT = condiC.getType();
-            List<String> listaFila = new List<String>();
+            String dateT = condiC.GetTypeC();
+            
 
-           
-                for (int i = 0; i < condiC.GetList().Count; i++)
+            for (int i = 0; i < Columns.Count; i++)
+            {
+                allSelected.Add(new List<string>());
+            }
+
+            for (int i = 0; i < condiC.GetList().Count; i++)
                 {
-                    //SE puede crear una lista donde se guarden los idnices que cumplan la condicion
+                    //SE puede crear una lista donde se guarden los indices que cumplan la condicion
                     if (compare == DataComparator.Equal)
                     {
                         if (condiC.GetList()[i] == value)
                         {
-                            for (int j = 0; j < columns.Count; j++)
+                            for (int j = 0; j < Columns.Count; j++)
                             {
-                                
-                                listaFila.Add(columns[j].GetList()[i]);
+                            allSelected[j].Add(Columns[j].GetList()[i]);
+                            
 
-                                
-                            }
-                            allSelected.Add(listaFila);
+
+                        }
+                           
                         }
                     }
 
@@ -177,27 +183,27 @@ namespace JVNM
                         {
                             if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
                             {
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
-                                   
-                                    listaFila.Add(columns[j].GetList()[i]);
-                                    
-                                }
-                                allSelected.Add(listaFila);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
+                                
+
+                            }
+                               
                             }
                         }
                         else if (dateT.Equals("Double"))
                         {
                             if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
                             {
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
 
-                                    
-                                    listaFila.Add(columns[j].GetList()[i]);
-                                    
-                                }
-                                allSelected.Add(listaFila);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
+                                
+
+                            }
+                              
                             }
 
                         }
@@ -210,14 +216,14 @@ namespace JVNM
                         {
                             if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
                             {
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
 
-                                   
-                                    listaFila.Add(columns[j].GetList()[i]);
-                                    
-                                }
-                                allSelected.Add(listaFila);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
+                               
+
+                            }
+                               
                             }
                         }
                         else if (dateT.Equals("Double"))
@@ -225,14 +231,14 @@ namespace JVNM
                             if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
                             {
                                
-                                for (int j = 0; j < columns.Count; j++)
+                                for (int j = 0; j < Columns.Count; j++)
                                 {
 
-                                    
-                                    listaFila.Add(columns[j].GetList()[i]);
-                                    
-                                }
-                                allSelected.Add(listaFila);
+                                allSelected[j].Add(Columns[j].GetList()[i]);
+                                
+
+                            }
+                                
                             }
 
                         }
@@ -240,18 +246,24 @@ namespace JVNM
                     }
 
                 }
-            
-            
+
+            if (allSelected[0].Count == 0)
+            {
+                allSelected.Clear();
+            }
 
             return allSelected;
         }
 
-        public void AddColumn(String name, DataType type)
+        public void AddColumn(String name, DataType type) //ALTER
         {
             TableColumn newColumn = new TableColumn(name, type);
-            columns.Add(newColumn);
+            Columns.Add(newColumn);
         }
-        public void DeleteTuple(TableColumn tc, String date)
+
+
+        //DELETE FROM table WHERE edad=5;
+        public void DeleteTuple(TableColumn tc, String date)    //DELETE
         {
            
          //pasamos un dato (clave principal) y lo buscamos en la tabla columna de la tabla que nos pasan
@@ -260,11 +272,12 @@ namespace JVNM
                 if (tc.GetList()[i].Equals(date) )
                 {
 
-                    for (int j = 0; j < columns.Count(); j++)
+                    for (int j = 0; j < Columns.Count(); j++)
                     {
 
-                        columns[j].GetList().RemoveAt(i);
+                        Columns[j].GetList().RemoveAt(i);
                     }
+                    i--;
                 }
                 else
                 {
@@ -272,22 +285,115 @@ namespace JVNM
                 }
             }
         }
-              
 
-        public List<List<String>> selectAllWithOutC()
+        public void DeleteTupleWithC(TableColumn tc, String data, DataComparator compare)
         {
-            List<String> listaFila = new List<String>();
-            List<List<String>> allSelected = new List<List<string>>();
+            
+            if (int.TryParse(data, out int a) || double.TryParse(data, out double b))
+            {
+                String tcT = tc.GetTypeC();
 
-                for (int i = 0; i < columns[0].GetList().Count; i++)
+                if (tcT != "Text")
                 {
 
-                    for (int j = 0; j < columns.Count; j++)
-                    {
-                        listaFila.Add(columns[j].GetList()[i]);
 
+                    if (compare == DataComparator.Equal)
+                    {
+                        for (int i = 0; i < tc.GetList().Count; i++)
+                        {
+                            if (tc.GetList()[i].Equals(data))
+                            {
+
+                                for (int j = 0; j < Columns.Count(); j++)
+                                {
+
+                                    Columns[j].GetList().RemoveAt(i);
+                                }
+                                i--;
+                            }
+                        }
                     }
-                    allSelected.Add(listaFila);
+                        if (compare == DataComparator.Bigger)
+                        {
+                            for (int i = 0; i < tc.GetList().Count; i++)
+                            {
+                                if (int.Parse(tc.GetList()[i]) > int.Parse(data))
+                                {
+
+                                    for (int j = 0; j < Columns.Count(); j++)
+                                    {
+
+                                        Columns[j].GetList().RemoveAt(i);
+                                    
+                                    }
+                                i--;
+                            }
+                            }
+                        }
+                        if (compare == DataComparator.Less)
+                        {
+                            for (int i = 0; i < tc.GetList().Count; i++)
+                            {
+                                if (int.Parse(tc.GetList()[i]) > int.Parse(data))
+                                {
+
+                                    for (int j = 0; j < Columns.Count(); j++)
+                                    {
+
+                                        Columns[j].GetList().RemoveAt(i);
+                                    }
+                                i--;
+                            }
+
+                            }
+                        }
+                    }
+                }
+            }
+          
+        
+        //select nombre,dni from tabla ;
+        public List<List<String>> SelectWithOutC(List<String> list)
+        {
+            List<List<String>> allSelected = new List<List<String>>();//devolver
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                allSelected.Add(new List<String>());
+            }
+            for (int i = 0; i < Columns[0].GetList().Count; i++)
+            {
+                for (int j = 0; j < list.Count; j++)
+                {
+                    TableColumn t = Columns.Find(column => column.GetColumnName().Equals(list[j]));
+                    allSelected[j].Add(t.GetList()[i]);
+
+                }
+
+
+            }
+
+            return allSelected;
+        }
+              
+        //select * from tabla;
+        public List<List<String>> SelectAllWithOutC()   //SELECT
+        {
+           
+            List<List<String>> allSelected = new List<List<string>>();
+            for (int i = 0; i < Columns.Count; i++)
+            {
+                allSelected.Add(new List<string>());
+            }
+            for (int i = 0; i < Columns[0].GetList().Count; i++)
+                { 
+                    for (int j = 0; j < Columns.Count; j++)
+                    {
+                    
+                        allSelected[j].Add(Columns[j].GetList()[i]);
+
+                     }
+                   
 
                 }
 
@@ -295,15 +401,14 @@ namespace JVNM
         }
 
         
-        public List<TableColumn> getListTableColumn()
+        public List<TableColumn> GetListTableColumn()
         {
-            return columns;
+            return Columns;
         }
-        
-        public String getColumnName()
+       
+        public String GetTableName()
         {
-            return name;
+            return Name;
         }
-
     }
 }
