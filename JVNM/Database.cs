@@ -61,19 +61,22 @@ namespace JVNM
         public void Load(String BDname)
         {
             //conexion abrir
-            string path = "../Debug/MyDB_CODIGO/" + BDname+ ".txt";
+            string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
             
+                if (File.Exists(path)==false)
+                {
+
+                Console.WriteLine(Query.DatabaseDoesNotExist);
+                }
             
-            if (path != null)
-            {
-                FileStream myFile = File.Open(path, FileMode.Open);
-            }
             else
             {
-                Console.WriteLine(Query.DatabaseDoesNotExist);
+                
+                File.ReadAllText(path);
+               
             }
         }
-
+        
         //This method create the folder if dont exist and create the bd.txt
         public void Create(string BDname)
         {
@@ -83,52 +86,49 @@ namespace JVNM
             string path = Path.Combine(folder, "MyDB_CODIGO");
             //It doesnt create a new folder if already exist
             Directory.CreateDirectory(path);
-            if (!File.Exists(pathOk))
-            {
+           // if (!File.Exists(pathOk))
+            
                 string fileName = BDname + ".txt";
                 path = Path.Combine(path, fileName);
                 System.IO.FileStream fs = System.IO.File.Create(path);
-            }         
+                  
         }
         
          //Method that save the database in our path  
         public void Save(string BDname)
         {
             string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
-
-            if (File.Exists(path)==false)
-            {
-                Create(BDname);
-            }
-            else
-            {
-                FileStream fs = File.OpenWrite(path);
-            }
-
-           for (int i = 0; i < Tables.Count; i++)
-            {
-                for (int j = 0; j< Tables[i].Columns.Count; j++)
-                {
-                    //guarda directamente la informacion de las tuplas 
-                    for(int k = 0; k< Tables[i].Columns[j].GetList().Count; k++)
-                    {
-                        string s = Tables[i].Columns[j].GetList()[k];
-                        if (s == null)
-                        {
-                            File.WriteAllText(BDname + ".txt", " ");
-                        }
-                        else
-                        {
-                            File.WriteAllText(BDname + ".txt", s);
-                        }
-                        File.WriteAllText(BDname + ".txt", "\n");
-                    }
-                       
-                       
-                }
-
-            }
            
+
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+
+               
+                for (int i = 0; i < Tables.Count; i++)
+                {
+                    for (int j = 0; j < Tables[i].Columns.Count; j++)
+                    {
+                        
+                        //guarda directamente la informacion de las tuplas 
+                        for (int k = 0; k < Tables[i].Columns[j].GetList().Count; k++)
+                        {
+                            string s = Tables[i].Columns[j].GetList()[k];
+                            if (s == null)
+                            {
+                                sw.Write(" ");
+                            }
+                            else
+                            {
+                                sw.Write(s+" ");
+                            }
+                            
+                        }
+                       
+
+                    }
+                    sw.Write("\n");
+                }
+            }
         }
         public void AddTable(Table table)
         {
