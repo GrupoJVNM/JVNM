@@ -8,13 +8,13 @@ namespace UnitTests
     [TestClass]
     public class UnitTestTable
     {
-        
-   
+
+
 
         [TestMethod]
 
-       public void AddTuple()
-       {
+        public void AddTuple()
+        {
             List<TableColumn> columnList = new List<TableColumn>();
 
             TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
@@ -35,12 +35,12 @@ namespace UnitTests
             Assert.IsTrue(table.GetListTableColumn()[0].GetList().Count != 0);
             Assert.IsTrue(table.GetListTableColumn()[1].GetList().Count != 0);
             Assert.IsTrue(table.GetListTableColumn()[2].GetList().Count != 0);
-            
-            
-         
-            
 
-       }
+
+
+
+
+        }
         [TestMethod]
         public void Select()
         {
@@ -68,7 +68,7 @@ namespace UnitTests
             dataList2.Add("ColumnText");
             List<List<String>> returnList = table.Select(dataList2, DataComparator.Equal, ColumnText, "Hola");
 
-           
+
             List<List<String>> resultOk = new List<List<String>>();
 
             List<String> listInt = new List<string>();
@@ -93,7 +93,7 @@ namespace UnitTests
                 {
                     Assert.AreEqual(resultOk[i][j], returnList[i][j]);
                 }
-               
+
             }
 
             List<List<String>> returnList2 = table.Select(dataList2, DataComparator.Bigger, ColumnInt, "1");
@@ -206,7 +206,7 @@ namespace UnitTests
             }
 
             List<List<String>> returnList3 = table.SelectAll(DataComparator.Less, ColumnDouble, "1,1");
-            
+
             Assert.IsTrue(returnList3.Count == 0);
         }
 
@@ -217,12 +217,12 @@ namespace UnitTests
         {
             //SELECT nombre, edad FROM tabla;
 
-             List<TableColumn> columnList = new List<TableColumn>();
-             List<String> selectC = new List<String>();
+            List<TableColumn> columnList = new List<TableColumn>();
+            List<String> selectC = new List<String>();
             List<List<String>> returnList = new List<List<String>>();
-            
-            
-            
+
+
+
             TableColumn ColumnInt = new TableColumn("ColumnInt", DataType.Int);
             TableColumn ColumnDouble = new TableColumn("ColumnDouble", DataType.Double);
             TableColumn ColumnText = new TableColumn("ColumnText", DataType.Text);
@@ -241,7 +241,7 @@ namespace UnitTests
             ColumnDouble.Add("3,1");
             selectC.Add("ColumnInt");
 
-            returnList= table.SelectWithOutC(selectC);
+            returnList = table.SelectWithOutC(selectC);
             List<List<String>> resultOk = new List<List<String>>();
 
             List<String> listInt = new List<string>();
@@ -304,7 +304,7 @@ namespace UnitTests
             resultOk.Add(listInt);
             resultOk.Add(listDouble);
             resultOk.Add(listText);
-           
+
             for (int i = 0; i < returnList.Count; i++)
             {
                 for (int j = 0; j < returnList[i].Count; j++)
@@ -377,6 +377,55 @@ namespace UnitTests
 
             }
         }
+
+        [TestMethod]
+        public void DeleteWithC()
+        {
+            List<TableColumn> columnList = new List<TableColumn>();
+
+            TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
+            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
+            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
+            List<String> list2 = new List<String>();
+            columnList.Add(columnInt);
+            columnList.Add(columnDouble);
+            columnList.Add(columnText);
+            Table table = new Table("myTable", columnList);
+            columnText.Add("Hola");
+            columnText.Add("Adios");
+            columnText.Add("Hola");
+            columnInt.Add("1");
+            columnInt.Add("2");
+            columnInt.Add("3");
+            columnDouble.Add("1,1");
+            columnDouble.Add("2,1");
+            columnDouble.Add("3,1");
+
+            table.DeleteTupleWithC(columnInt, "1", DataComparator.Bigger);
+
+            List<List<String>> resultOk = new List<List<String>>();
+
+            List<String> listInt = new List<string>();
+            List<String> listDouble = new List<string>();
+            List<String> listText = new List<string>();
+            listText.Add("Hola");
+            listInt.Add("1");
+            listDouble.Add("1,1");
+            resultOk.Add(listInt);
+            resultOk.Add(listDouble);
+            resultOk.Add(listText);
+
+            for (int i = 0; i < table.GetListTableColumn().Count; i++)
+            {
+                for (int j = 0; j < table.GetListTableColumn()[i].GetList().Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], table.GetListTableColumn()[i].GetList()[j]);
+                }
+
+            }
+        }
     }
 }
+
+
 
