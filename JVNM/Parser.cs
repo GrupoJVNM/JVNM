@@ -12,11 +12,16 @@ namespace JVNM
 
         public static Query Parse(string miniSQLQuery)
         {
+
             //const string selectPattern = "SELECT ([\\w,\\s]+) FROM (\\w+)\\s*;";
-            const string selectPattern = "SELECT [*,(\\w+)](\\w+)(\\,(\\s)?(\\w+))? FROM (\\w+)( WHERE (\\w+)(\\s)?([<,>])?[=,<,>](\\s)?\'(\\w+)\\')?;";
+            const string selectPattern = "SELECT [(\\w+)](\\w+)(\\,(\\s)?(\\w+))? FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?\\'(\\w+)\\';";
+            const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?\\'(\\w+)\\';";
+            const string selectWithOutCPattern = "SELECT [(\\w+)](\\w+)(\\,(\\s)?(\\w+))? FROM (\\w+);";
+            const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
+
             const string insertPattern = "INSERT INTO (\\w+)((\\s)?\\(\\w+(\\,(\\s)?(\\w+))?\\))? VALUES \\'\\w+\'(\\,(\\s)?\'(\\w+)\\')?;";
-            const string deletePattern = "DELETE FROM (\\w+) WHERE (\\w+)(\\s)?([<,>])?[=,<,>](\\s)?\\'(\\w+)\\'(( AND )((\\w+)(\\s)?([<,>])?[=,<,>](\\s)?\'(\\w+)\\'))?;";
-            const string updatePattern = "UPDATE (\\w+) SET (\\w+)(\\s)?=(\\s)?\\'(\\w+)\\'( WHERE (\\w+)(\\s)?([<,>])?[=,<,>](\\s)?\'(\\w+)\\'(( AND )((\\w+)(\\s)?([<,>])?[=,<,>](\\s)?\'(\\w+)\\'))?)?;";
+            const string deletePattern = "DELETE FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?\\'(\\w+)\\'(( AND )((\\w+)(\\s)?[=,<,>](\\s)?\'(\\w+)\\'))?;";
+            const string updatePattern = "UPDATE (\\w+) SET (\\w+)(\\s)?=(\\s)?\\'(\\w+)\\' WHERE (\\w+)(\\s)?[=,<,>](\\s)?\'(\\w+)\\'(( AND )((\\w+)(\\s)?[=,<,>](\\s)?\'(\\w+)\\'))?;";
             //Select
             Match match = Regex.Match(miniSQLQuery, selectPattern);
             if (match.Success)
