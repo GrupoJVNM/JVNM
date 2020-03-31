@@ -44,6 +44,7 @@
     <Compile Include="DeleteTuple.cs" />
     <Compile Include="Insert.cs" />
     <Compile Include="MiniSQLQuery.cs" />
+    <Compile Include="MiniSQLTester.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="DataComparator.cs" />
     <Compile Include="DataType.cs" />
