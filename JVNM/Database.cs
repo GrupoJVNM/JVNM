@@ -10,10 +10,10 @@ namespace JVNM
     public class Database
     {
         public List<Table> Tables;
-       public string Name;
+        public string Name;
         public string User;
         public string Password;
-
+        
         //Constructor
         //create a database with commons parameters
         public Database(string name, string user, string password)
@@ -23,6 +23,7 @@ namespace JVNM
             Password = password;
 
             Tables = new List<Table>();
+            //Create(Name);
         }
 
 
@@ -32,15 +33,17 @@ namespace JVNM
 
         }
 
-        public List<List<String>> Select(string tableName, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
+        public List<List<String>> Select(string tableName, List<String> selectedC, DataComparator compare, String condiC, String value)
         {
-            return Tables.Find(table => table.GetTableName().Equals(tableName)).Select(selectedC, compare, condiC, value);
+            TableColumn t = Tables.Find(table => table.GetTableName().Equals(tableName)).GetListTableColumn().Find(column => column.GetColumnName().Equals(condiC));
+            return Tables.Find(table => table.GetTableName().Equals(tableName)).Select(selectedC, compare, t, value);
             
         }
 
-        public List<List<String>> SelectAll(string tableName, DataComparator compare, TableColumn condiC, String value)
+        public List<List<String>> SelectAll(string tableName, DataComparator compare, String condiC, String value)
         {
-            return Tables.Find(table => table.GetTableName().Equals(tableName)).SelectAll(compare, condiC, value);
+            TableColumn t = Tables.Find(table => table.GetTableName().Equals(tableName)).GetListTableColumn().Find(column => column.GetColumnName().Equals(condiC));
+            return Tables.Find(table => table.GetTableName().Equals(tableName)).SelectAll(compare, t, value);
 
         }
         public List<List<String>> selectAllWithOutC(string tableName)
@@ -53,9 +56,32 @@ namespace JVNM
             Tables.Find(table => table.GetTableName().Equals(tableName)).AddTuple(list);
         }
 
-        public void Delete(string tableName, TableColumn tc, String data)
+        public void Delete(string tableName, String tc, DataComparator c, String data)
         {
-            Tables.Find(table => table.GetTableName().Equals(tableName)).DeleteTuple(tc, data);
+            TableColumn t = Tables.Find(table => table.GetTableName().Equals(tableName)).GetListTableColumn().Find(column => column.GetColumnName().Equals(tc));
+            Tables.Find(table => table.GetTableName().Equals(tableName)).DeleteTupleWithC(t, data, c);
+        }
+
+        public void DropTable(string tableName)
+        {
+            for(int i = 0; i < Tables.Count; i++)
+            {
+                if (Tables[i].GetTableName().Equals(tableName))
+                {
+                    Tables.RemoveAt(i);
+                }
+
+            }
+            
+           
+        }
+
+        public void Update(String tableName, String tc, String data, DataComparator compare, String conditionData, String columnCondition)
+        {
+            TableColumn t = Tables.Find(table => table.GetTableName().Equals(tableName)).GetListTableColumn().Find(column => column.GetColumnName().Equals(tc));
+            TableColumn t2 = Tables.Find(table => table.GetTableName().Equals(tableName)).GetListTableColumn().Find(column => column.GetColumnName().Equals(columnCondition));
+
+            Tables.Find(table => table.GetTableName().Equals(tableName)).Update(t, data, compare, conditionData, t2);
         }
         //Method: Load any database
         public void Load(String BDname)
@@ -98,7 +124,8 @@ namespace JVNM
         public void Save(string BDname)
         {
             string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
-           
+            
+            
 
             using (StreamWriter sw = new StreamWriter(path))
             {
@@ -106,28 +133,30 @@ namespace JVNM
                
                 for (int i = 0; i < Tables.Count; i++)
                 {
-                    for (int j = 0; j < Tables[i].Columns.Count; j++)
+                    sw.Write("[");
+                    for (int k = 0; k < Tables[i].GetListTableColumn().Count; k++)
                     {
-                        
+                        sw.Write("'" + Tables[i].GetListTableColumn()[k].GetColumnName() + "'");
+                    }
+                    sw.Write("]{");
+                    for (int j = 0; j < Tables[i].Columns.Count; j++)
+                    {                  
                         //guarda directamente la informacion de las tuplas 
                         for (int k = 0; k < Tables[i].Columns[j].GetList().Count; k++)
                         {
                             string s = Tables[i].Columns[j].GetList()[k];
-                            if (s == null)
-                            {
-                                sw.Write(" ");
-                            }
-                            else
-                            {
-                                sw.Write(s+" ");
-                            }
-                            
+                           
+                            sw.Write("'" + s + "'");
                         }
-                       
 
                     }
+                    sw.Write("}");
                     sw.Write("\n");
                 }
+
+                
+
+                
             }
         }
         public void AddTable(Table table)
@@ -181,6 +210,27 @@ namespace JVNM
         {
             return Tables;
         }
+
+
+        public string ExecuteMiniSQLQuery(string query)
+        {
+            //Parse the query
+            MiniSQLQuery miniSQLQuery = Parser.Parse(query);
+
+            if (miniSQLQuery == null)
+                return "Error";
+
+            string result = miniSQLQuery.Execute(this);
+            string path = "../Debug/MyDB_CODIGO/" + Name + ".txt";
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                sw.WriteLine(result);
+            }
+            Save(Name);
+            return result;
+        }
+
+
 
         /*public string RunMiniSQLQuery(string sentence)
         {

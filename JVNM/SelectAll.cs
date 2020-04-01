@@ -10,19 +10,28 @@ namespace JVNM
     {
         public String Table = null;
         public DataComparator Compare;
-        public TableColumn CondiC = null;
+        public String CondiC = null;
         public String Value = null;
 
-        public SelectAll(String table, DataComparator compare, TableColumn condiC, String value)
+        public SelectAll(String table, DataComparator compare, String condiC, String value)
         {
             Table = table;
             Compare = compare;
             CondiC = condiC;
             Value = value;
         }
-        public void Execute(Database database)
+        public string Execute(Database database)
         {
-            database.SelectAll(Table, Compare, CondiC, Value);
+            try
+            {
+                database.SelectAll(Table, Compare, CondiC, Value);
+                return "Select success";
+            }
+            catch
+            {
+                return Query.Error;
+            }
+            
         }
     }
 }

@@ -11,11 +11,11 @@ namespace JVNM
         public String Table = null;
         public List<String> SelectedC = null;
         public DataComparator Compare;
-        public TableColumn CondiC = null;
+        public String CondiC = null;
         public String Value = null;
 
 
-        public Select(String table, List<String> selectedC, DataComparator compare, TableColumn condiC, String value)
+        public Select(String table, List<String> selectedC, DataComparator compare, String condiC, String value)
         {
             Table = table;
             SelectedC = selectedC;
@@ -23,9 +23,17 @@ namespace JVNM
             CondiC = condiC;
             Value = value;
         }
-        public void Execute(Database database)
+        public string Execute(Database database)
         {
-           database.Select(Table, SelectedC, Compare, CondiC, Value);
+            try
+            {
+                database.Select(Table, SelectedC, Compare, CondiC, Value);
+                return "Selection success";
+            }
+            catch
+            {
+                return Query.Error;
+            }
         }
     }
 }

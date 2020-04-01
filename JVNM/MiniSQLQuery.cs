@@ -8,7 +8,7 @@ namespace JVNM
 {
     public interface MiniSQLQuery
     {
-        void Execute(Database database);
+        string Execute(Database database);
         
     }
     

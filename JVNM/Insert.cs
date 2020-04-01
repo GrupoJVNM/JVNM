@@ -15,9 +15,15 @@ namespace JVNM
             TableName = tableName;
             List = list;
         }
-        public void Execute(Database database)
+        public string Execute(Database database)
         {
-             database.Insert(TableName, List);
+            try {
+                database.Insert(TableName, List);
+                    return Query.InsertSuccess;
+            }
+            catch {
+                return Query.Error;
+            }
         }
     }
 }

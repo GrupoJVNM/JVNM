@@ -93,7 +93,7 @@ namespace UnitTests
             dataList2.Add("ColumnDouble");
             dataList2.Add("ColumnText");
             Db.AddTable(table);
-            List<List<String>> returnList = Db.Select(table.Name, dataList2, DataComparator.Equal, ColumnText, "Hola");
+            List<List<String>> returnList = Db.Select(table.Name, dataList2, DataComparator.Equal, "ColumnText", "Hola");
 
 
             List<List<String>> resultOk = new List<List<String>>();
@@ -123,7 +123,7 @@ namespace UnitTests
 
             }
             
-            List<List<String>> returnList2 = Db.Select(table.Name, dataList2, DataComparator.Bigger, ColumnInt, "1");
+            List<List<String>> returnList2 = Db.Select(table.Name, dataList2, DataComparator.Bigger, "ColumnInt", "1");
 
             List<List<String>> resultOk2 = new List<List<String>>();
 
@@ -149,7 +149,7 @@ namespace UnitTests
 
             }
 
-            List<List<String>> returnList3 = Db.Select(table.Name, dataList2, DataComparator.Less, ColumnDouble, "1,1");
+            List<List<String>> returnList3 = Db.Select(table.Name, dataList2, DataComparator.Less, "ColumnDouble", "1,1");
 
 
             Assert.IsTrue(returnList3.Count == 0);
@@ -180,7 +180,7 @@ namespace UnitTests
             ColumnDouble.Add("2,1");
             ColumnDouble.Add("3,1");
             Db.AddTable(table);
-            List<List<String>> returnList = Db.SelectAll(table.Name,DataComparator.Equal, ColumnText, "Hola");
+            List<List<String>> returnList = Db.SelectAll(table.Name,DataComparator.Equal, "ColumnText", "Hola");
 
             List<List<String>> resultOk = new List<List<String>>();
 
@@ -209,7 +209,7 @@ namespace UnitTests
 
             }
 
-            List<List<String>> returnList2 = Db.SelectAll(table.Name,DataComparator.Bigger, ColumnText, "1");
+            List<List<String>> returnList2 = Db.SelectAll(table.Name,DataComparator.Bigger, "ColumnText", "1");
 
             List<List<String>> resultOk2 = new List<List<String>>();
 
@@ -235,7 +235,7 @@ namespace UnitTests
 
             }
 
-            List<List<String>> returnList3 = Db.SelectAll(table.Name,DataComparator.Less, ColumnDouble, "1,1");
+            List<List<String>> returnList3 = Db.SelectAll(table.Name,DataComparator.Less, "ColumnDouble", "1,1");
 
             Assert.IsTrue(returnList3.Count == 0);
 
@@ -338,8 +338,8 @@ namespace UnitTests
             List<TableColumn> columnList = new List<TableColumn>();
 
             TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
-            TableColumn columnDouble = new TableColumn("columnInt", DataType.Double);
-            TableColumn columnText = new TableColumn("columnInt", DataType.Text);
+            TableColumn columnDouble = new TableColumn("columnDouble", DataType.Double);
+            TableColumn columnText = new TableColumn("columnText", DataType.Text);
             List<String> list2 = new List<String>();
             columnList.Add(columnInt);
             columnList.Add(columnDouble);
@@ -355,7 +355,7 @@ namespace UnitTests
             columnDouble.Add("2,1");
             columnDouble.Add("3,1");
             Db.AddTable(table);
-            Db.Delete(table.Name,columnText, "Hola");
+            Db.Delete(table.Name,"columnText", DataComparator.Equal, "Hola");
 
             List<List<String>> resultOk = new List<List<String>>();
 

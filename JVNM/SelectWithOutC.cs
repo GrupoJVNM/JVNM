@@ -6,26 +6,23 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    public class DeleteTuple : MiniSQLQuery
+    class SelectWithOutC : MiniSQLQuery
     {
         public string TableName;
-        public String Tc;
-        public String Data;
-        public DataComparator comparator;
+        List<String> selectedC;
 
-        public DeleteTuple(string tableName, String tc,DataComparator c ,String data) {
+        public SelectWithOutC(string tableName, List<String> selectedC)
+        {
             TableName = tableName;
-            Tc = tc;
-            Data = data;
-            comparator = c;
-
+            this.selectedC = selectedC;
         }
+
         public string Execute(Database database)
         {
             try
             {
-                database.Delete(TableName, Tc, comparator, Data);
-                return Query.TupleDeleteSuccess;
+                database.SelectWithOutC(TableName, selectedC);
+                return "Select success";
             }
             catch
             {
