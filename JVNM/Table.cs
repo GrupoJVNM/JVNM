@@ -289,8 +289,7 @@ namespace JVNM
         public void DeleteTupleWithC(TableColumn tc, String data, DataComparator compare)
         {
             
-            if (int.TryParse(data, out int a) || double.TryParse(data, out double b))
-            {
+            
                 String tcT = tc.GetTypeC();
 
                 if (tcT != "Text")
@@ -348,8 +347,28 @@ namespace JVNM
                             }
                         }
                     }
+                else
+                {
+                    if (compare == DataComparator.Equal)
+                    {
+                        for (int i = 0; i < tc.GetList().Count; i++)
+                        {
+                            if (tc.GetList()[i].Equals(data))
+                            {
+
+                                for (int j = 0; j < Columns.Count(); j++)
+                                {
+
+                                    Columns[j].GetList().RemoveAt(i);
+                                }
+                                i--;
+                            }
+                        }
+                    }
                 }
+                
             }
+
           
         
         //select nombre,dni from tabla ;
@@ -400,7 +419,14 @@ namespace JVNM
             return allSelected;
         }
 
-        
+        public void Update(TableColumn tc, String data, DataComparator compare, String conditionData, TableColumn columnCondition)
+        {
+
+
+        }
+
+
+
         public List<TableColumn> GetListTableColumn()
         {
             return Columns;

@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-   public class SelectAllWithOutC : MiniSQLQuery
+    public class DropTable : MiniSQLQuery
     {
-       public string TableName;
+        public String Table;
 
-        public SelectAllWithOutC(string tableName) {
-           TableName = tableName;
+        public DropTable(String table)
+        {
+            this.Table = table;
         }
+
         public string Execute(Database database)
         {
             try
             {
-                database.selectAllWithOutC(TableName);
-                return "Select success";
+                database.DropTable(Table);
+                return "Deleted";
             }
             catch
             {
                 return Query.Error;
             }
-            
         }
     }
 }
-
