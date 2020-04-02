@@ -218,15 +218,16 @@ namespace JVNM
             MiniSQLQuery miniSQLQuery = Parser.Parse(query);
 
             if (miniSQLQuery == null)
-                return "Error";
+                return "ErrorDatabase";
 
             string result = miniSQLQuery.Execute(this);
-            string path = "../Debug/MyDB_CODIGO/" + Name + ".txt";
-            using (StreamWriter sw = new StreamWriter(path))
+            //string path = "../Debug/MyDB_CODIGO/" + Name + ".txt";
+          //  string path = @"output-file.txt";
+           /* using (StreamWriter sw = new StreamWriter(path))
             {
                 sw.WriteLine(result);
-            }
-            Save(Name);
+            }*/
+            //Save(Name);
             return result;
         }
 

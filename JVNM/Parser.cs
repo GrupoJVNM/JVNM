@@ -13,26 +13,31 @@ namespace JVNM
         public static MiniSQLQuery Parse(string miniSQLQuery)
         {
 
-            
-            const string selectPattern = "SELECT [(\\w+)](\\w+)(\\,(\\s)?(\\w+))? FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?;";
+            //const string selectPattern = "SELECT((\\w +)(\\, (\\s) ? (\\w +))?) FROM(\\w +) WHERE((\\w +)(\\s)?[=,<,>](\\s) ? (\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?);";
+            const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?;";
             const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?;";
-            const string selectWithOutCPattern = "SELECT [(\\w+)](\\w+)(\\,(\\s)?(\\w+))? FROM (\\w+);";
+           
+            const string selectWithOutCPattern = "SELECT ((\\w+)(\\,(\\s)?(\\w+))? )FROM (\\w+);";
             const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
 
-            const string insertPattern = "INSERT INTO (\\w+) VALUES (\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?([0-9]+)?(\\,(\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?)?;";
-            const string deletePattern = "DELETE FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?([0-9]+)?(( AND )((\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?)?;";
+
+            const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
+            const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
+            //const string insertPattern = "INSERT INTO (\\w+) VALUES (\\'[A-Za-z0-9(\\s)(\\.)(\\-)]+\\')?([0-9]+)?(\\,(\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\-)]+\\')?((\\-)?[0-9]+)?)?;";
+             //const string deletePattern = "DELETE FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?([0-9]+)?(( AND )((\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?)?;";
             const string updatePattern = "UPDATE (\\w+) SET (\\w+)(\\s)?=(\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)? WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?(( AND )((\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?))?;";
 
             
             const string dropPattern = "DROP TABLE (\\w+);";
-            const string createTablePattern = "CREATE TABLE (\\w+) \\((\\w+ \\w+)((\\,(\\s)?(\\w+ \\w+))+)?\\);";
+            const string createTablePattern = "CREATE TABLE (\\w+) (\\((\\w+ \\w+)((\\,(\\s)?(\\w+ \\w+))+)?\\));";
 
             //Select
             Match match = Regex.Match(miniSQLQuery, selectPattern);
             if (match.Success)
             {
-                List<string> columnNames = CommaSeparatedNames(match.Groups[1].Value);
-                string table = match.Groups[2].Value;
+                string texto = match.Groups[0].Value;
+                List<string> columnNames = CommaSeparatedNames(texto);
+                string table = match.Groups[5].Value;
 
 
                 DataComparator compare;
@@ -59,7 +64,7 @@ namespace JVNM
 
                 return new Select(table, columnNames, compare, column, value);
             }
-
+            //SelectAll
             match = Regex.Match(miniSQLQuery, selectAllPattern);
             if (match.Success)
             {
@@ -96,16 +101,17 @@ namespace JVNM
             match = Regex.Match(miniSQLQuery, selectWithOutCPattern);
             if (match.Success)
             {
-                List<string> columnNames = CommaSeparatedNames(match.Groups[1].Value);
-                string table = match.Groups[2].Value;
+                string texto = match.Groups[1].Value;
+                List<string> columnNames = CommaSeparatedNames(texto);
+                string table = match.Groups[6].Value;
                 return new SelectWithOutC(table, columnNames);
             }
 
             //SelectAllWithOutC
             match = Regex.Match(miniSQLQuery, selectAllWithOutCPattern);
             if (match.Success)
-            {
-                string table = match.Groups[2].Value;
+            {   
+                string table = match.Groups[1].Value;
                 return new SelectAllWithOutC(table);
             }
 
@@ -114,12 +120,12 @@ namespace JVNM
             if (match.Success)
             {
                 string table = match.Groups[1].Value;
-                List<string> columnNames = insertSeparated(match.Groups[2].Value);
+                List<string> columnNames = insertSeparated(match.Groups[3].Value);
                 return new Insert(table, columnNames);
             }
 
             //Delete
-            match = Regex.Match(miniSQLQuery, deletePattern);
+           match = Regex.Match(miniSQLQuery, deletePattern);
             if (match.Success)
             {
 
@@ -127,12 +133,12 @@ namespace JVNM
 
 
                 DataComparator compare;
-                if (match.Groups[3].Value.Contains("="))
+                if (match.Groups[2].Value.Contains("="))
                 {
                     compare = DataComparator.Equal;
 
                 }
-                else if (match.Groups[3].Value.Contains(">"))
+                else if (match.Groups[2].Value.Contains(">"))
                 {
                     compare = DataComparator.Bigger;
 
@@ -143,14 +149,14 @@ namespace JVNM
 
                 }
 
-                List<string> condition = Condition(match.Groups[3].Value);
+                List<string> condition = Condition(match.Groups[2].Value);
                 String column = condition[0];
                 String value = condition[1];
 
 
                 return new DeleteTuple(table, column, compare, value);
             }
-
+           
             //Update
             match = Regex.Match(miniSQLQuery, updatePattern);
             if (match.Success)
@@ -188,7 +194,7 @@ namespace JVNM
                 return new Update(table, c, d, compare, value, column);
 
             }
-            
+            //Drop
             match = Regex.Match(miniSQLQuery, dropPattern);
             if (match.Success)
             {
@@ -251,8 +257,9 @@ namespace JVNM
 
             static List<string> createTable(string text)
             {
-
-                string sql2 = text.Replace(", ", " ");
+                    char[] elem = { '(', ')'};
+                string sql2 = text.Replace(", ", " ").Trim(elem);
+              
                 string[] a = sql2.Split(' ');
 
                 return a.ToList();

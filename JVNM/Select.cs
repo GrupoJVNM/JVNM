@@ -27,8 +27,40 @@ namespace JVNM
         {
             try
             {
-                database.Select(Table, SelectedC, Compare, CondiC, Value);
-                return "Selection success";
+               
+
+                List<List<String>> li = new List<List<string>>();
+                li = database.Select(Table, SelectedC, Compare, CondiC, Value);
+
+                String resultado = "[" + SelectedC[0];
+
+                for (int k = 1; k < SelectedC.Count; k++)
+                {
+                    resultado = resultado.Insert(resultado.Length, (","));
+                    resultado = resultado.Insert(resultado.Length, SelectedC[k]);
+
+                }
+
+                resultado = resultado + "]";
+
+                for (int i = 0; i < li[0].Count; i++)//Nombre Age 
+                {
+                    resultado = resultado + "{";
+                    for (int j = 0; j < li.Count; j++)
+                    {
+
+
+                        string dato = li[j][i];
+                        dato = "'" + dato + "' ,";
+                        resultado = resultado + dato;
+
+                    }
+                    resultado = resultado.TrimEnd(',');
+                    resultado = resultado + "}";
+
+
+                }
+                return resultado;
             }
             catch
             {
