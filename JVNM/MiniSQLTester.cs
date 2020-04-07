@@ -22,6 +22,7 @@ namespace JVNM
                 else if (arg == "-o") lastParameter = Parameter.OutputFile;
                 else if (lastParameter == Parameter.InputFile) inputFile = arg;
                 else if (lastParameter == Parameter.OutputFile) outputFile = arg;
+                
             }
 
 
@@ -38,35 +39,40 @@ namespace JVNM
              string output = @"output-file.txt";
             //string path = System.IO.Path.Combine(output);
             // System.IO.FileStream fs = System.IO.File.Create(path);
-
+            double total=0;
+            int i = 1;
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(output))
             {
+                sw.WriteLine("# TEST " + i);
                 foreach (string line in lines)
-                {
-                   sw.WriteLine( database.ExecuteMiniSQLQuery(line));
+                { 
 
+                    DateTime t1 = DateTime.Now;
+
+                    if (line.Equals(""))
+                    {
+                        sw.WriteLine("TOTAL TIME: " + total + " s");
+                        total = 0;
+                        sw.WriteLine(" ");
+                        i++;
+                        sw.WriteLine("# TEST " + i);
+                        
+                    }
+                    else
+                    {
+                        sw.Write(database.ExecuteMiniSQLQuery(line));
+                        DateTime t2 = DateTime.Now;
+                        TimeSpan timeDiff = t2 - t1;
+                        double seconds = timeDiff.TotalMilliseconds / 1000.0;
+                        sw.WriteLine(" ("+seconds+" s)");
+                        total = total + seconds;
+                    }
+                   
+                  
                 }
-
+                
             }
                
-            
-
-
-
-            /*
-            while ((line = file.ReadLine()) != null)
-            {
-                sw.WriteLine(line);
-               
-            }
-
-            file.Close();
-           */
-
-
-
-
-
 
 
             Console.WriteLine("Input file: " + inputFile);

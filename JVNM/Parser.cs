@@ -13,19 +13,14 @@ namespace JVNM
         public static MiniSQLQuery Parse(string miniSQLQuery)
         {
 
-            //const string selectPattern = "SELECT((\\w +)(\\, (\\s) ? (\\w +))?) FROM(\\w +) WHERE((\\w +)(\\s)?[=,<,>](\\s) ? (\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?);";
-            const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?;";
-            const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?;";
-           
+            
+            const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
+            const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
             const string selectWithOutCPattern = "SELECT ((\\w+)(\\,(\\s)?(\\w+))? )FROM (\\w+);";
             const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
-
-
             const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
             const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
-            //const string insertPattern = "INSERT INTO (\\w+) VALUES (\\'[A-Za-z0-9(\\s)(\\.)(\\-)]+\\')?([0-9]+)?(\\,(\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\-)]+\\')?((\\-)?[0-9]+)?)?;";
-             //const string deletePattern = "DELETE FROM (\\w+) WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?([0-9]+)?(( AND )((\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?)?;";
-            const string updatePattern = "UPDATE (\\w+) SET (\\w+)(\\s)?=(\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)? WHERE (\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?(( AND )((\\w+)(\\s)?[=,<,>](\\s)?(\\'[A-Za-z0-9(\\s)(\\.)(\\,)]+\\')?((\\-)?[0-9]+)?))?;";
+            const string updatePattern = "UPDATE (\\w+) SET (\\w+\\=\\w+) WHERE (\\w+[<|=|>]\\w+)(( AND )(\\w+[<|=|>]\\w+))?;";
 
             
             const string dropPattern = "DROP TABLE (\\w+);";
@@ -35,18 +30,18 @@ namespace JVNM
             Match match = Regex.Match(miniSQLQuery, selectPattern);
             if (match.Success)
             {
-                string texto = match.Groups[0].Value;
+                string texto = match.Groups[1].Value;
                 List<string> columnNames = CommaSeparatedNames(texto);
-                string table = match.Groups[5].Value;
+                string table = match.Groups[6].Value;
 
 
                 DataComparator compare;
-                if (match.Groups[3].Value.Contains("="))
+                if (match.Groups[7].Value.Contains("="))
                 {
                     compare = DataComparator.Equal;
 
                 }
-                else if (match.Groups[3].Value.Contains(">"))
+                else if (match.Groups[7].Value.Contains(">"))
                 {
                     compare = DataComparator.Bigger;
 
@@ -57,7 +52,7 @@ namespace JVNM
 
                 }
 
-                List<string> condition = Condition(match.Groups[3].Value);
+                List<string> condition = Condition(match.Groups[7].Value);
                 String column = condition[0];
                 String value = condition[1];
 
@@ -69,16 +64,16 @@ namespace JVNM
             if (match.Success)
             {
 
-                string table = match.Groups[2].Value;
+                string table = match.Groups[1].Value;
 
 
                 DataComparator compare;
-                if (match.Groups[3].Value.Contains("="))
+                if (match.Groups[2].Value.Contains("="))
                 {
                     compare = DataComparator.Equal;
 
                 }
-                else if (match.Groups[3].Value.Contains(">"))
+                else if (match.Groups[2].Value.Contains(">"))
                 {
                     compare = DataComparator.Bigger;
 
@@ -89,7 +84,7 @@ namespace JVNM
 
                 }
 
-                List<string> condition = Condition(match.Groups[3].Value);
+                List<string> condition = Condition(match.Groups[2].Value);
                 String column = condition[0];
                 String value = condition[1];
 

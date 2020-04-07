@@ -176,30 +176,7 @@ namespace JVNM
 
 
         }
-        /*
-        //select all the tuples FROM one table
-        public void SelectAllTuples(String tableName)
-        {
-            for(int i=0; i <= tables.Count; i++)
-            {
-                if (tableName.Equals(tables[i].getTableName()))
-                {
-                    tables[i].selectAllWithOutC();
-                }
-            }
-        }
-         */
-
-        //Print all the tuples from the tables and close it
-         /*public void PrintAllTables (String BDname)
-        {
-            //DataComparator compare, TableColumn condiC, String value
-            for (int i = 0; i < Tables.Count; i++)
-            {
-                Console.WriteLine(Tables[i].SelectAllWithOutC());
-            }
-        }
-       */
+        
         public void Close(String BDname)
         {
             string myFile = Directory.GetCurrentDirectory();
@@ -221,87 +198,10 @@ namespace JVNM
                 return "ErrorDatabase";
 
             string result = miniSQLQuery.Execute(this);
-            //string path = "../Debug/MyDB_CODIGO/" + Name + ".txt";
-          //  string path = @"output-file.txt";
-           /* using (StreamWriter sw = new StreamWriter(path))
-            {
-                sw.WriteLine(result);
-            }*/
+            
             //Save(Name);
             return result;
         }
-
-
-
-        /*public string RunMiniSQLQuery(string sentence)
-        {
-            
-          for (int i=0; i<=sentence.Length; i++)
-            {
-                // String [] words= sentence.Split(' ');
-                List <String> words = new List<String>();
-                 words = sentence.Split(' ').ToList();
-
-
-                String query = words[0].ToUpper();
-
-                if (query.Equals("SELECT"))
-                {
-                    //ARRAY ESTRUCTURA SELECT
-                    //  CONDICION
-                    if (words.Contains("WHERE"))
-                    {
-                        //existe 
-                        //hay asterisco
-                        if (words.Contains("*"))
-                        {
-                        //selectAll()
-
-
-                        }
-                    }
-                    else
-                    {
-                        //metodo selectAllWithOutC()
-                    }
-
-                        
-
-
-
-
-                }
-                else if(query.Equals("INSERT"))
-                {
-                    //ARRAY ESTRUCTURA INSERT
-                }
-                else if (query.Equals("UPDATE"))
-                {
-                    //ARRAY ESTRUCTURA UPDATE
-                }
-                else if (query.Equals("DELETE"))
-                {
-                    //ARRAY ESTRUCTURA DELETE
-                }
-                else
-                {
-                    Console.WriteLine(Query.Error);
-                }
-
-                
-
-                
-            }
-
-            
-
-
-
-            return null;
-        }*/
-
-
-
 
     }
 }
