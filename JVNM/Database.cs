@@ -13,6 +13,7 @@ namespace JVNM
         public string Name;
         public string User;
         public string Password;
+        public List<SecurityProfile> Profiles;
         
         //Constructor
         //create a database with commons parameters
@@ -203,11 +204,11 @@ namespace JVNM
             return result;
         }
 
-
-        public string CreateSecurity()
+        public List<SecurityProfile> getProfiles()
         {
-
+            return Profiles;
         }
+        
 
     }
 }

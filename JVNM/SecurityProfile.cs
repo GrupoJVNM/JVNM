@@ -9,12 +9,12 @@ namespace JVNM
     public class SecurityProfile
     {
         private List<String> Privilege;  
-        public string Name;
+        public string NameProfile;
         public List<String> Tables;
 
         public SecurityProfile(string Name)
         {
-            this.Name = Name;
+            this.NameProfile = Name;
             Privilege = new List<string>();
             Tables = new List<string>();
         }
@@ -24,7 +24,10 @@ namespace JVNM
             Privilege.Add(privilege);
             Tables.Add(table);
         }
-
+        public string getProfileName()
+        {
+            return NameProfile;
+        }
         public void Revoke(string table, string privilege)
         {
          
