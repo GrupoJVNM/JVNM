@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SecurityProfile.cs" />
     <Compile Include="CreateTable.cs" />
     <Compile Include="DeleteTuple.cs" />
     <Compile Include="DropTable.cs" />

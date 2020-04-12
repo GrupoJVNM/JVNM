@@ -21,8 +21,9 @@ namespace JVNM
             const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
             const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
             const string updatePattern = "UPDATE (\\w+) SET (\\w+\\=\\w+) WHERE (\\w+[<|=|>]\\w+)(( AND )(\\w+[<|=|>]\\w+))?;";
-
-            
+            const string createSecurity= "CREATE SECURITY PROFILE (\\w+);";
+            const string dropSecurity = "DROP SECURITY PROFILE (\\w+);";
+            const string grant = "GRANT (\\w+) ON (\\w+) TO (\\w+);";
             const string dropPattern = "DROP TABLE (\\w+);";
             const string createTablePattern = "CREATE TABLE (\\w+) (\\((\\w+ \\w+)((\\,(\\s)?(\\w+ \\w+))+)?\\));";
 
