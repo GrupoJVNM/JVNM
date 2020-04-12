@@ -35,7 +35,7 @@ namespace JVNM
            // System.IO.StreamReader file = new System.IO.StreamReader(inputFile)
 
 
-            string[] lines = System.IO.File.ReadAllLines(@"C:../Debug/input-file.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"input-file.txt");
              string output = @"output-file.txt";
             //string path = System.IO.Path.Combine(output);
             // System.IO.FileStream fs = System.IO.File.Create(path);
