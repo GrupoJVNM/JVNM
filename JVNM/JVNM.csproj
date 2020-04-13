@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddUser.cs" />
+    <Compile Include="DeleteUser.cs" />
     <Compile Include="Revoke.cs" />
     <Compile Include="Grant.cs" />
     <Compile Include="SecurityProfile.cs" />
