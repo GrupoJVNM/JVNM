@@ -6,13 +6,20 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-   public class AddUser
+   public class AddUser : MiniSQLQuery
     {
-
-        AddUser() { 
-        
+         string user;
+         string password;
+        //añadir perfil de seguridad?
+        AddUser(string user, string password) {
+            this.user = user;
+            this.password = password;
         }
 
-
+        public string Execute(Database database)
+        {
+            // return database.AddUser(user, password);
+            throw new NotImplementedException();
+        }
     }
 }
