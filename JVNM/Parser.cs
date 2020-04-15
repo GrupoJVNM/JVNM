@@ -13,7 +13,7 @@ namespace JVNM
         public static MiniSQLQuery Parse(string miniSQLQuery)
         {
 
-            
+
             const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
             const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
             const string selectWithOutCPattern = "SELECT ((\\w+)(\\,(\\s)?(\\w+))? )FROM (\\w+);";
@@ -21,9 +21,10 @@ namespace JVNM
             const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
             const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
             const string updatePattern = "UPDATE (\\w+) SET (\\w+\\=\\w+) WHERE (\\w+[<|=|>]\\w+)(( AND )(\\w+[<|=|>]\\w+))?;";
-            const string createSecurity= "CREATE SECURITY PROFILE (\\w+);";
+            const string createSecurity = "CREATE SECURITY PROFILE (\\w+);";
             const string dropSecurity = "DROP SECURITY PROFILE (\\w+);";
             const string grant = "GRANT (\\w+) ON (\\w+) TO (\\w+);";
+            const string revoke = "REVOKE (\\w+) ON (\\w+) TO (\\w+);";
             const string dropPattern = "DROP TABLE (\\w+);";
             const string createTablePattern = "CREATE TABLE (\\w+) (\\((\\w+ \\w+)((\\,(\\s)?(\\w+ \\w+))+)?\\));";
 
@@ -106,7 +107,7 @@ namespace JVNM
             //SelectAllWithOutC
             match = Regex.Match(miniSQLQuery, selectAllWithOutCPattern);
             if (match.Success)
-            {   
+            {
                 string table = match.Groups[1].Value;
                 return new SelectAllWithOutC(table);
             }
@@ -121,7 +122,7 @@ namespace JVNM
             }
 
             //Delete
-           match = Regex.Match(miniSQLQuery, deletePattern);
+            match = Regex.Match(miniSQLQuery, deletePattern);
             if (match.Success)
             {
 
@@ -152,7 +153,7 @@ namespace JVNM
 
                 return new DeleteTuple(table, column, compare, value);
             }
-           
+
             //Update
             match = Regex.Match(miniSQLQuery, updatePattern);
             if (match.Success)
@@ -215,7 +216,54 @@ namespace JVNM
 
                 return new CreateTable(name, columns);
             }
-            return null;
+
+
+
+            //GRANT
+
+            //GRANT DELETE ON Employees_Public TO Employee;
+            match = Regex.Match(miniSQLQuery, grant);
+            if (match.Success)
+            {
+                string priv = match.Groups[1].Value;
+                string table = match.Groups[2].Value;
+                string nameProf = match.Groups[3].Value;
+
+                return new Grant(nameProf, table, priv);
+            }
+
+            //REVOKE
+            //REVOKE INSERT ON Employees_Public TO Employee;
+            match = Regex.Match(miniSQLQuery, revoke);
+            if (match.Success)
+            {
+                string priv = match.Groups[1].Value;
+                string table = match.Groups[2].Value;
+                string nameProf = match.Groups[3].Value;
+
+                return new Revoke(nameProf, table, priv);
+            }
+
+            //CREATE SECUTIY PROFILE
+           // CREATE SECURITY PROFILE Employee;
+            match = Regex.Match(miniSQLQuery, createSecurity);
+            if (match.Success)
+            {
+                string privName = match.Groups[1].Value;
+                return new CreateSecurityProfile(privName);
+            }
+
+            //DROP SECURITY PROFILE
+            //DROP SECURITY PROFILE Employee;
+            match = Regex.Match(miniSQLQuery, dropSecurity);
+            if (match.Success)
+            {
+                string privName = match.Groups[1].Value;
+                return new DropSecurityProfile(privName);
+            }
+
+
+                return null;
         }
             static List<string> CommaSeparatedNames(string text)
             {

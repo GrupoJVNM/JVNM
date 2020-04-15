@@ -204,6 +204,20 @@ namespace JVNM
             return result;
         }
 
+        public void DropSecurityProfile(string name)
+        {
+            //hay que borrar tambien de la lista de los users ademas de los de profile
+
+           /* for(int i=0; i<Profiles.Count; i++){
+                if (Profiles[i].Equals(name))
+                {
+                    Profiles[i].
+                }
+
+            }*/
+
+        }
+
         public List<SecurityProfile> getProfiles()
         {
             return Profiles;
