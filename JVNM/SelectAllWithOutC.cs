@@ -15,8 +15,8 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            try
-            {
+            //try
+            //{
                Table t = database.GetList().Find(table => table.GetTableName().Equals(TableName));
             
 
@@ -36,7 +36,8 @@ namespace JVNM
                 }
 
                 resultado = resultado + "]";
-
+            try
+            {
                 for (int i = 0; i < t.GetListTableColumn()[0].GetList().Count; i++)//Nombre Age 
                 {
                     resultado = resultado + "{";
@@ -58,7 +59,7 @@ namespace JVNM
             }
             catch
             {
-                return Query.Error;
+                return resultado; //Query.Error;
             }
             
         }

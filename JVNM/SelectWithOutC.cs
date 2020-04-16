@@ -19,8 +19,8 @@ namespace JVNM
 
         public string Execute(Database database)
         {
-            try
-            {
+            //try
+            //{
                 List<List<String>> li = new List<List<string>>();
                 li = database.SelectWithOutC(TableName, selectedC);
 
@@ -36,7 +36,8 @@ namespace JVNM
                 }
                
                 resultado = resultado + "]";
-               
+            try
+            {
                 for (int i = 0; i < li[0].Count; i++)//Nombre Age 
                 {
                     resultado = resultado + "{";
@@ -59,7 +60,7 @@ namespace JVNM
             }
             catch
             {
-                return Query.Error;
+                return resultado; //Query.Error;
             }
         }
     }

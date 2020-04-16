@@ -56,7 +56,7 @@ namespace JVNM
                         sw.WriteLine(" ");
                         i++;
                         sw.WriteLine("# TEST " + i);
-                        
+                        database = new Database("database1", "user", "password");
                     }
                     else
                     {

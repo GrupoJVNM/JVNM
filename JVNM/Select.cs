@@ -25,8 +25,8 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            try
-            {
+            //try
+            //{
                
 
                 List<List<String>> li = new List<List<string>>();
@@ -42,8 +42,10 @@ namespace JVNM
                 }
 
                 resultado = resultado + "]";
+                try
+                {
 
-                for (int i = 0; i < li[0].Count; i++)//Nombre Age 
+                    for (int i = 0; i < li[0].Count; i++)//Nombre Age 
                 {
                     resultado = resultado + "{";
                     for (int j = 0; j < li.Count; j++)
@@ -64,7 +66,7 @@ namespace JVNM
             }
             catch
             {
-                return Query.Error;
+                return resultado;// Query.Error;
             }
         }
     }
