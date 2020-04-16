@@ -22,7 +22,7 @@ namespace JVNM
                     return Query.InsertSuccess;
             }
             catch {
-                return Query.Error;
+                return Query.TableDoesNotExist;
             }
         }
     }
