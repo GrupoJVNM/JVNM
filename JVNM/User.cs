@@ -13,7 +13,7 @@ namespace JVNM
         string password;
         SecurityProfile secperfil;
 
-        User(string name,string password, SecurityProfile secperfil)
+        public User(string name,string password, SecurityProfile secperfil)
         {
             this.name = name;
             this.password = password;

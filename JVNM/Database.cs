@@ -13,6 +13,7 @@ namespace JVNM
         public string Name;
         public string User;
         public string Password;
+        private List<User> users;
         public List<SecurityProfile> Profiles;
         
         //Constructor
@@ -101,6 +102,38 @@ namespace JVNM
                 
                 File.ReadAllText(path);
                
+            }
+        }
+
+        public void DeleteUser(String user)
+        {
+            for(int i = 0; i<users.Count; i++)
+            {
+                if (users[i].GetName().Equals(user))
+                {
+                    users.RemoveAt(i);
+                }
+            }
+
+        }
+
+        public void AddUser(String name, String password, String securityProfile)
+        {
+            Boolean existe = false;
+            int i = 0;
+
+            while (!existe || i < Profiles.Count())
+            {
+                if (Profiles[i].getProfileName().Equals(securityProfile))
+                {
+                    existe = true;
+                    users.Add(new User(name, password, Profiles[i]));
+                }
+
+                else
+                {
+                    i++;
+                }
             }
         }
         
