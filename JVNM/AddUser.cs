@@ -11,14 +11,17 @@ namespace JVNM
          string user;
          string password;
         //añadir perfil de seguridad?
-        AddUser(string user, string password) {
+        string securityProfile;
+        AddUser(string user, string password, string securityProfile) {
             this.user = user;
             this.password = password;
+            //perfil de seguridad
+            this.securityProfile = securityProfile;
         }
 
         public string Execute(Database database)
         {
-            // return database.AddUser(user, password);
+            // return database.AddUser(user, password, securityProfile);
             throw new NotImplementedException();
         }
     }
