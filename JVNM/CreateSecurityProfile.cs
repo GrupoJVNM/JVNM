@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    class CreateSecurityProfile:MiniSQLQuery
+   public class CreateSecurityProfile : MiniSQLQuery
     {
         public string Name;
         public CreateSecurityProfile(string name)
