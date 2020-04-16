@@ -20,7 +20,7 @@ namespace JVNM
             const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
             const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
             const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
-            const string updatePattern = "UPDATE (\\w+) SET (\\w+\\=\\w+) WHERE (\\w+[<|=|>]\\w+)(( AND )(\\w+[<|=|>]\\w+))?;";
+            const string updatePattern = "UPDATE (\\w+) SET (.+) WHERE (\\w+[<|=|>]\\w+)(( AND )(\\w+[<|=|>]\\w+))?;";
             const string createSecurity = "CREATE SECURITY PROFILE (\\w+);";
             const string dropSecurity = "DROP SECURITY PROFILE (\\w+);";
             const string grant = "GRANT (\\w+) ON (\\w+) TO (\\w+);";

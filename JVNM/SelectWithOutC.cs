@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    class SelectWithOutC : MiniSQLQuery
+   public class SelectWithOutC : MiniSQLQuery
     {
         public string TableName;
         List<String> selectedC;
