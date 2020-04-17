@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    class DropSecurityProfile:MiniSQLQuery
+   public class DropSecurityProfile:MiniSQLQuery
     {
         public string Name;
         public DropSecurityProfile(string name)
@@ -19,26 +19,37 @@ namespace JVNM
             Boolean done=false;
             try
             {
-                for (int i = 0; i < database.getProfiles().Count; i++)
+                if (!Name.Equals("admin"))
                 {
-                    if (database.getProfiles()[i].getProfileName().Equals(Name))
+                    for (int i = 0; i < database.getProfiles().Count; i++)
+
                     {
-                       
-                        database.DropSecurityProfile(Name);
-                        done = true;
+                        if (database.getProfiles()[i].getProfileName().Equals(Name))
+                        {
+
+                            database.DropSecurityProfile(Name);
+                            done = true;
+                        }
+
+
                     }
 
-
-                }
-
-                if (done == true)
-                {
-                    return Query.SecurityProfileDeleted;
+                    if (done == true)
+                    {
+                        return Query.SecurityProfileDeleted;
+                    }
+                    else
+                    {
+                        return Query.SecurityProfileDoesNotExist;
+                    }
                 }
                 else
                 {
-                    return Query.SecurityProfileDoesNotExist;
+                    return "Error: admin profile can´t be dropped";
                 }
+
+
+
             }
             catch
             {

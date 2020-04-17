@@ -12,9 +12,9 @@ using JVNM;
 namespace UnitTests
 {
     [TestClass]
-   public class TestParser          //***********************************************************
-                                            //CUIDADO CON ESPACIOS EN LAS SENTENCIAS!!!!!!!
-                                    //********************************************************
+    public class TestParser          //***********************************************************
+                                     //CUIDADO CON ESPACIOS EN LAS SENTENCIAS!!!!!!!
+                                     //********************************************************
     {
         [TestMethod]
         public void TestSelect()
@@ -82,8 +82,76 @@ namespace UnitTests
             MiniSQLQuery q1 = Parser.Parse("DROP TABLE Employees;");
             Assert.IsInstanceOfType(q1, typeof(DropTable));
         }
+        //CREATE TABLE 
+        [TestMethod]
+        public void TestCreateTable()
+        {
+            Database db = new Database("bd1", "user", "password");
+            MiniSQLQuery q1 = Parser.Parse("CREATE TABLE Employees (Name TEXT, Age INT);");
+            Assert.IsInstanceOfType(q1, typeof(CreateTable));
+        }
+        //CREATE SECURITY
+        [TestMethod]
+        public void TestCreateSecurity()
+        {
+            Database db = new Database("bd1", "user", "password");
+            MiniSQLQuery q1 = Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            Assert.IsInstanceOfType(q1, typeof(CreateSecurityProfile));
 
+        }
+        [TestMethod]
+        public void TestDropSecurityProfile()
+        {
+            Database db = new Database("bd1", "user", "password");
+            Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            MiniSQLQuery q1 = Parser.Parse("DROP SECURITY PROFILE Employee;");
+            Assert.IsInstanceOfType(q1, typeof(DropSecurityProfile));
 
+        }
+        //GRANT
+        [TestMethod]
+        public void TestGrant()
+        {
+            Database db = new Database("bd1", "user", "password");
+            Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            MiniSQLQuery q1 = Parser.Parse("GRANT UPDATE ON Employees_Public TO Employee;");
+            Assert.IsInstanceOfType(q1, typeof(Grant));
+
+        }
+
+        //REVOKE
+        [TestMethod]
+        public void TestRevoke()
+        {
+            Database db = new Database("bd1", "user", "password");
+            Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            Parser.Parse("GRANT UPDATE ON Employees_Public TO Employee;");
+            MiniSQLQuery q1 = Parser.Parse("REVOKE UPDATE ON Employees_Public TO Employee;");
+            Assert.IsInstanceOfType(q1, typeof(Revoke));
+
+        }
+
+        //ADD USER
+        [TestMethod]
+        public void TestAddUser()
+        {
+            Database db = new Database("bd1", "user", "password");
+            Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            MiniSQLQuery q1 = Parser.Parse("ADD USER ('Eva','1234',Employee);");
+            Assert.IsInstanceOfType(q1, typeof(AddUser));
+
+        }
+
+        [TestMethod]
+        public void TestDeleteUser()
+        {
+            Database db = new Database("bd1", "user", "password");
+            Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            Parser.Parse("ADD USER ('Eva','1234',Employee);");
+            MiniSQLQuery q1 = Parser.Parse("DELETE USER Eva;");
+            Assert.IsInstanceOfType(q1, typeof(DeleteUser));
+
+        }
 
     }
 }

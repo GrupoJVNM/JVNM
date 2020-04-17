@@ -208,6 +208,8 @@ namespace JVNM
                 return new (DataBase);
             }*/
 
+
+            //create table 
             match = Regex.Match(miniSQLQuery, createTablePattern);
             if (match.Success)
             {

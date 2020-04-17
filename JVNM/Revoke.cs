@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    class Revoke:MiniSQLQuery
+   public class Revoke:MiniSQLQuery
     {
         public string Name;
         public string Table;

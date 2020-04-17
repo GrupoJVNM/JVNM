@@ -240,7 +240,8 @@ namespace JVNM
         public void DropSecurityProfile(string name)
         {
             //hay que borrar tambien de la lista de los users ademas de los de profile
-            SecurityProfile sp = new SecurityProfile("emptyP");
+            SecurityProfile sp = new SecurityProfile("admin");
+          
             for(int i=0; i< Users.Count; i++){
                 if (Users[i].GetSecurityProfile().Equals(name))
                 {

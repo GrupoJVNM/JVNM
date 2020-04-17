@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-    class Grant:MiniSQLQuery
+   public class Grant:MiniSQLQuery
     {
         public string Name;
         public string Table;
