@@ -25,6 +25,8 @@ namespace JVNM
             Password = password;
 
             Tables = new List<Table>();
+            Users = new List<User>();
+            Profiles = new List<SecurityProfile>();
             //Create(Name);
         }
 
