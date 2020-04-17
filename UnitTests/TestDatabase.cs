@@ -391,44 +391,7 @@ namespace UnitTests
             
         }
 
-        /*[TestMethod]
-        public void TestLoad()  //open
-        {
-            string path = @"../Debug/MyDB_CODIGO/bd4.txt";
-            //crear una base datos
-            Db.Create("bd4");
-            //meter contenido
-            List<TableColumn> columns = new List<TableColumn>();
-            Table t1 = new Table("empleados",columns);
-            TableColumn tc = new TableColumn("id", DataType.Int);
-            tc.GetList().Add("3");
-            columns.Add(tc);
-            Db.AddTable(t1);
-                    //FALTARIA AÑADIR EL SAVE()
-            Db.Close("bd4");
-            Db.Load("bd4");
-          
-          
-
-
-
-
-            //intentar abrir
-
-
-
-
-            //intertar abrir una no existente
-
-
-
-
-
-
-
-
-
-        }*/
+        
 
         [TestMethod]
         public void TestSaveAndLoad()
@@ -487,15 +450,15 @@ namespace UnitTests
 
         }
 
-            /*
-        [TestMethod]
+            
+       /* [TestMethod]
         public void DropDatabaseTest()
         {
             string path = @"../Debug/MyDB_CODIGO/database.txt";
 
             Db.Create("database");
 
-              Db.DropDatabase("database");
+           Db.DropDatabase("database");
                 Assert.IsTrue(File.Exists(path)==false);
         }
         */
@@ -506,6 +469,52 @@ namespace UnitTests
             Db.Create("bd6");
 
         }
+
+        [TestMethod]
+        public void TestDropSecurityProfile()
+        {
+           SecurityProfile sp1 = new SecurityProfile("Employee");
+            User u1 = new User("Ana", "Ana", sp1);
+            Db.getProfiles().Add(sp1);
+            Db.getUsers().Add(u1);
+            Boolean isOk=false;
+            for(int i=0; i<Db.getProfiles().Count; i++)
+            {
+                if (Db.getProfiles()[i].Equals(sp1))
+                {
+                    isOk = true;
+                }
+            }
+            Assert.IsTrue(isOk);
+
+            Db.DropSecurityProfile("Employee");
+            Boolean noDeleted = false;
+
+            for (int i = 0; i < Db.getProfiles().Count; i++)
+            {
+                if (Db.getProfiles()[i].Equals(sp1))
+                {
+                    noDeleted = true;
+                }
+            }
+            Assert.IsFalse(noDeleted);
+            Boolean noUserDeleted = false;
+            for (int i = 0; i < Db.getUsers().Count; i++)
+            {
+
+                if (Db.getUsers()[i].GetSecurityProfile().Equals(sp1))
+                {
+                    noUserDeleted = true;
+                }
+            }
+            Assert.IsFalse(noUserDeleted);
+
+
+
+
+
+            }
+
         //[TestMethod]
         //public void TestDeleteTable()
         //{

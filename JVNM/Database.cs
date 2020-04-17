@@ -200,7 +200,7 @@ namespace JVNM
             Tables.Add(table);
             
         }
-        public void DropDatabase(String BDname)
+       /* public void DropDatabase(String BDname)
         {
             string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
 
@@ -211,7 +211,7 @@ namespace JVNM
             }
 
 
-        }
+        }*/
         
         public void Close(String BDname)
         {
@@ -245,10 +245,11 @@ namespace JVNM
             SecurityProfile sp = new SecurityProfile("admin");
           
             for(int i=0; i< Users.Count; i++){
-                if (Users[i].GetSecurityProfile().Equals(name))
+                if (Users[i].GetSecurityProfile().getProfileName().Equals(name))
                 {
                     //borrar 
                     Users[i].SetSecurityProfile(sp);
+                   
                 }
              
             }
@@ -267,7 +268,10 @@ namespace JVNM
         {
             return Profiles;
         }
-        
+        public List<User> getUsers()
+        {
+            return Users;
+        }
 
     }
 }
