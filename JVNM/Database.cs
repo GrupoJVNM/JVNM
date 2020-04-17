@@ -13,7 +13,7 @@ namespace JVNM
         public string Name;
         public string User;
         public string Password;
-        private List<User> users;
+        private List<User> Users;
         public List<SecurityProfile> Profiles;
         
         //Constructor
@@ -107,11 +107,11 @@ namespace JVNM
 
         public void DeleteUser(String user)
         {
-            for(int i = 0; i<users.Count; i++)
+            for(int i = 0; i<Users.Count; i++)
             {
-                if (users[i].GetName().Equals(user))
+                if (Users[i].GetName().Equals(user))
                 {
-                    users.RemoveAt(i);
+                    Users.RemoveAt(i);
                 }
             }
 
@@ -127,7 +127,7 @@ namespace JVNM
                 if (Profiles[i].getProfileName().Equals(securityProfile))
                 {
                     existe = true;
-                    users.Add(new User(name, password, Profiles[i]));
+                    Users.Add(new User(name, password, Profiles[i]));
                 }
 
                 else
@@ -240,14 +240,23 @@ namespace JVNM
         public void DropSecurityProfile(string name)
         {
             //hay que borrar tambien de la lista de los users ademas de los de profile
-
-           /* for(int i=0; i<Profiles.Count; i++){
-                if (Profiles[i].Equals(name))
+            SecurityProfile sp = new SecurityProfile("emptyP");
+            for(int i=0; i< Users.Count; i++){
+                if (Users[i].GetSecurityProfile().Equals(name))
                 {
-                    Profiles[i].
+                    //borrar 
+                    Users[i].SetSecurityProfile(sp);
                 }
+             
+            }
+            for(int j=0; j<Profiles.Count; j++)
+            {
+               if(Profiles[j].getProfileName().Equals(name))
+                {
+                    Profiles.RemoveAt(j);
+                }
+            }
 
-            }*/
 
         }
 
