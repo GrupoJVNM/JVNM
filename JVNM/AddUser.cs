@@ -12,7 +12,7 @@ namespace JVNM
          string password;
         //añadir perfil de seguridad?
         string securityProfile;
-        AddUser(string user, string password, string securityProfile) {
+        public AddUser(string user, string password, string securityProfile) {
             this.user = user;
             this.password = password;
             //perfil de seguridad

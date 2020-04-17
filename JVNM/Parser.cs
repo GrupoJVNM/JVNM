@@ -27,6 +27,8 @@ namespace JVNM
             const string revoke = "REVOKE (\\w+) ON (\\w+) TO (\\w+);";
             const string dropPattern = "DROP TABLE (\\w+);";
             const string createTablePattern = "CREATE TABLE (\\w+) (\\((\\w+ \\w+)((\\,(\\s)?(\\w+ \\w+))+)?\\));";
+            const string addUser = "ADD USER \\((.+)\\);";
+            const string deleteUser = "DELETE USER (\\w+)";
 
             //Select
             Match match = Regex.Match(miniSQLQuery, selectPattern);
@@ -219,6 +221,26 @@ namespace JVNM
                 return new CreateTable(name, columns);
             }
 
+        
+            //ADD USER
+            match = Regex.Match(miniSQLQuery, addUser);
+            if (match.Success)
+            {
+                List<String> p = insertSeparated(match.Groups[1].Value);
+
+
+                return new AddUser(p[0], p[1], p[2]);
+            }
+
+            //DELETE USER
+            match = Regex.Match(miniSQLQuery, deleteUser);
+            if (match.Success)
+            {
+                String user = (match.Groups[1].Value);
+
+
+                return new DeleteUser(user);
+            }
 
 
             //GRANT

@@ -130,12 +130,12 @@ namespace UnitTests
             Assert.IsInstanceOfType(q1, typeof(Revoke));
 
         }
-        /*
+        
         //ADD USER
         [TestMethod]
         public void TestAddUser()
         {
-           // Database db = new Database("bd1", "user", "password");
+            Database db = new Database("bd1", "user", "password");
             Parser.Parse("CREATE SECURITY PROFILE Employee;");
             MiniSQLQuery q1 = Parser.Parse("ADD USER ('Eva','1234',Employee);");
             Assert.IsInstanceOfType(q1, typeof(AddUser));
@@ -145,13 +145,13 @@ namespace UnitTests
         [TestMethod]
         public void TestDeleteUser()
         {
-          //  Database db = new Database("bd1", "user", "password");
+            Database db = new Database("bd1", "user", "password");
             Parser.Parse("CREATE SECURITY PROFILE Employee;");
             Parser.Parse("ADD USER ('Eva','1234',Employee);");
             MiniSQLQuery q1 = Parser.Parse("DELETE USER Eva;");
             Assert.IsInstanceOfType(q1, typeof(DeleteUser));
 
         }
-        */
+        
     }
 }
