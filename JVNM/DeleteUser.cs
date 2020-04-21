@@ -16,8 +16,9 @@ namespace JVNM
 
         public string Execute(Database database)
         {
-            // return database.DeleteUser(name);
-            throw new NotImplementedException();
+            database.DeleteUser(name);
+            return Query.SecurityUserDeleted;
+           
         }
     }
 }

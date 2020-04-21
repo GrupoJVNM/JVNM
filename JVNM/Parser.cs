@@ -16,7 +16,8 @@ namespace JVNM
 
             const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
             const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
-            const string selectWithOutCPattern = "SELECT ((\\w+)(\\,(\\s)?(\\w+))? )FROM (\\w+);";
+            //const string selectWithOutCPattern = "SELECT ((\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+);";
+            const string selectWithOutCPattern = "SELECT (((\\w+)(\\,(\\s)?(\\w+))+)?) FROM (\\w+);";
             const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
             const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
             const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
@@ -102,7 +103,7 @@ namespace JVNM
             {
                 string texto = match.Groups[1].Value;
                 List<string> columnNames = CommaSeparatedNames(texto);
-                string table = match.Groups[6].Value;
+                string table = match.Groups[7].Value;
                 return new SelectWithOutC(table, columnNames);
             }
 

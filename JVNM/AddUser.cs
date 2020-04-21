@@ -21,8 +21,17 @@ namespace JVNM
 
         public string Execute(Database database)
         {
-            // return database.AddUser(user, password, securityProfile);
-            throw new NotImplementedException();
+            try
+            {
+                database.AddUser(user, password, securityProfile);
+
+
+                return Query.SecurityUserAdded;
+            }
+            catch
+            {
+                return Query.Error;
+            }
         }
     }
 }

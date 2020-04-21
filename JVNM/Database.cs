@@ -122,6 +122,7 @@ namespace JVNM
         public void AddUser(String name, String password, String securityProfile)
         {
             Boolean existe = false;
+            Boolean existe2 = false;
             int i = 0;
 
             while (!existe || i < Profiles.Count())
@@ -129,14 +130,30 @@ namespace JVNM
                 if (Profiles[i].getProfileName().Equals(securityProfile))
                 {
                     existe = true;
-                    Users.Add(new User(name, password, Profiles[i]));
+                    for (int j = 0; j < Users.Count; j++)
+                    {
+                        if (Users[j].GetName().Equals(name))
+                        {
+                            
+                            existe2 = true;
+                            
+                        }
+                        if (existe2 == false)
+                        {
+                            Users.Add(new User(name, password, Profiles[i]));
+                        }
+                        }
                 }
 
                 else
                 {
                     i++;
                 }
+
+
+
             }
+
         }
         
         //This method create the folder if dont exist and create the bd.txt
