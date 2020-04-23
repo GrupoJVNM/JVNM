@@ -119,42 +119,57 @@ namespace JVNM
 
         }
 
-        public void AddUser(String name, String password, String securityProfile)
+        public String AddUser(String name, String password, String securityProfile)
         {
+            SecurityProfile sP = null;
             Boolean existe = false;
             Boolean existe2 = false;
             int i = 0;
+            int j = 0;
+            
+            while(!existe|| j < Users.Count())
+            {
+                if (!Users[j].GetName().Equals(name))
+                {
+                    j++;
+                }
+                else
+                {
+                    existe = true;
+                    return Query.SecurityUserAlreadyExists;
+                }
 
-            while (!existe || i < Profiles.Count())
+            }
+            while (!existe2 || i < Profiles.Count())
             {
                 if (Profiles[i].getProfileName().Equals(securityProfile))
                 {
-                    existe = true;
-                    for (int j = 0; j < Users.Count; j++)
-                    {
-                        if (Users[j].GetName().Equals(name))
-                        {
-                            
-                            existe2 = true;
-                            
-                        }
-                        if (existe2 == false)
-                        {
-                            Users.Add(new User(name, password, Profiles[i]));
-                        }
-                        }
+                    existe2 = true;
+                    sP = Profiles[i];
                 }
 
                 else
                 {
                     i++;
                 }
+            }
 
-
+                if(!existe && existe2)
+                {
+                    Users.Add(new User(name, password, sP));
+                return Query.SecurityUserAdded;
+                }
+                else if(!existe && !existe2)
+            {
+                sP = new SecurityProfile("admin");
+                Users.Add(new User(name, password,sP));
+                return Query.SecurityUserAdded;
+            }
+            return null;
 
             }
 
-        }
+        
         
         //This method create the folder if dont exist and create the bd.txt
         public void Create(string BDname)
