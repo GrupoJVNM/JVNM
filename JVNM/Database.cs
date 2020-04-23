@@ -192,13 +192,9 @@ namespace JVNM
         public void Save(string BDname)
         {
             string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
-            
-            
-
+           
             using (StreamWriter sw = new StreamWriter(path))
             {
-
-               
                 for (int i = 0; i < Tables.Count; i++)
                 {
                     sw.Write("[");
@@ -220,11 +216,7 @@ namespace JVNM
                     }
                     sw.Write("}");
                     sw.Write("\n");
-                }
-
-                
-
-                
+                } 
             }
         }
         public void AddTable(Table table)

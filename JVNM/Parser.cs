@@ -30,6 +30,7 @@ namespace JVNM
             const string createTablePattern = "CREATE TABLE (\\w+) (\\((\\w+ \\w+)((\\,(\\s)?(\\w+ \\w+))+)?\\));";
             const string addUser = "ADD USER \\((.+)\\);";
             const string deleteUser = "DELETE USER (\\w+)";
+            const string createDB = "(\\w+)\\,(\\w+)\\,(\\w+)";
 
             //Select
             Match match = Regex.Match(miniSQLQuery, selectPattern);
@@ -287,8 +288,19 @@ namespace JVNM
                 return new DropSecurityProfile(privName);
             }
 
+            //CREATE DATABASE
+            //Database1,admin,admin
+            match = Regex.Match(miniSQLQuery, createDB);
+            if (match.Success)
+            {
+                string dbName = match.Groups[1].Value;
+                string userName = match.Groups[2].Value;
+                string psw = match.Groups[3].Value;
 
-                return null;
+                return new CreateDB(dbName, userName, psw);
+            }
+
+            return null;
         }
             static List<string> CommaSeparatedNames(string text)
             {

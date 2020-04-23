@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,10 @@ namespace JVNM
                 else if (lastParameter == Parameter.OutputFile) outputFile = arg;
                 
             }
-
+            string folder = @"";
+            string path = Path.Combine(folder, "MyDB");
+            //It doesnt create a new folder if already exist
+            Directory.CreateDirectory(path);
 
             Database database = new Database("database1", "user", "password");
 
@@ -46,8 +50,14 @@ namespace JVNM
                 sw.WriteLine("# TEST " + i);
                 foreach (string line in lines)
                 { 
-
                     DateTime t1 = DateTime.Now;
+
+                    if (i == 1)
+                    {
+                        Parser.Parse(line);
+
+                    }
+
 
                     if (line.Equals(""))
                     {
