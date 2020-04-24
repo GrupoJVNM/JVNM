@@ -16,7 +16,6 @@ namespace JVNM
 
             const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
             const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
-            //const string selectWithOutCPattern = "SELECT ((\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+);";
             const string selectWithOutCPattern = "SELECT (((\\w+)(\\,(\\s)?(\\w+))+)?) FROM (\\w+);";
             const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
             const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";

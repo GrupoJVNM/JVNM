@@ -19,24 +19,29 @@ namespace JVNM
             Psw = psw;
         }
 
-        public string CreateBDExecute()
+        public string Execute(Database database)
         {
-            string pathOK = @"/MyDB/" + DBName + ".txt";
-            string path = @"/MyDB/"; 
-            string fileName = DBName + ".txt";
-            path = Path.Combine(path, fileName);
+            string pathOK = @"./MyDB/" + DBName + ".txt";
+            string path = @"./MyDB/";
+
+            MiniSQLTester.SetName(DBName);
+
             if (!File.Exists(pathOK))
             {
+                string fileName = DBName + ".txt";
+                path = Path.Combine(path, fileName);
                 System.IO.FileStream fs = System.IO.File.Create(path);
-                Database db = new Database(DBName, UserName, Psw);
+                database = new Database(DBName, UserName, Psw);
+                fs.Close();
                 return Query.CreateDatabaseSuccess;
             }
             else
             {
-                Database db = new Database(DBName, UserName, Psw);
-                db.Load(DBName);
+                database = new Database(DBName, UserName, Psw);
+                database.Load(DBName);
                 return Query.OpenDatabaseSuccess;
             }
+
             
         }
     }

@@ -22,8 +22,8 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            //try
-            //{
+            try
+            {
                 Table t = database.GetList().Find(table => table.GetTableName().Equals(Table));
 
 
@@ -67,7 +67,11 @@ namespace JVNM
             {
                 return resultado;// Query.Error;
             }
-            
+            }
+            catch
+            {
+                return Query.TableDoesNotExist;
+            }
         }
     }
 }

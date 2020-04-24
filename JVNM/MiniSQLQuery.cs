@@ -9,7 +9,6 @@ namespace JVNM
     public interface MiniSQLQuery
     {
         string Execute(Database database);
-        string CreateDBExecute();
     }
     
 }

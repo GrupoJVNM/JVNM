@@ -19,8 +19,8 @@ namespace JVNM
 
         public string Execute(Database database)
         {
-            //try
-            //{
+            try
+            {
                 List<List<String>> li = new List<List<string>>();
                 li = database.SelectWithOutC(TableName, selectedC);
 
@@ -34,33 +34,38 @@ namespace JVNM
                     resultado = resultado.Insert(resultado.Length, selectedC[k]);
 
                 }
-               
+
                 resultado = resultado + "]";
-            try
-            {
-                for (int i = 0; i < li[0].Count; i++)//Nombre Age 
+                try
                 {
-                    resultado = resultado + "{";
-                    for (int j = 0; j < li.Count; j++)
+                    for (int i = 0; i < li[0].Count; i++)//Nombre Age 
                     {
+                        resultado = resultado + "{";
+                        for (int j = 0; j < li.Count; j++)
+                        {
 
 
-                       string  dato = li[j][i];
-                        dato = "'" + dato + "' ,";
-                        resultado = resultado + dato;
+                            string dato = li[j][i];
+                            dato = "'" + dato + "' ,";
+                            resultado = resultado + dato;
+
+                        }
+                        resultado = resultado.TrimEnd(',');
+                        resultado = resultado + "}";
+
 
                     }
-                    resultado= resultado.TrimEnd(',');
-                    resultado = resultado + "}";
 
-
+                    return resultado;
                 }
-                
-                return resultado;
+                catch
+                {
+                    return resultado; //Query.Error;
+                }
             }
             catch
             {
-                return resultado; //Query.Error;
+                return Query.TableDoesNotExist;
             }
         }
     }

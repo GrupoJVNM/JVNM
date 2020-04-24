@@ -25,10 +25,8 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            //try
-            //{
-               
-
+            try
+            {
                 List<List<String>> li = new List<List<string>>();
                 li = database.Select(Table, SelectedC, Compare, CondiC, Value);
 
@@ -68,6 +66,11 @@ namespace JVNM
             {
                 return resultado;// Query.Error;
             }
+        }
+        catch
+        {
+            return Query.TableDoesNotExist;
+        }
         }
     }
 }
