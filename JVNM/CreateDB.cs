@@ -27,20 +27,54 @@ namespace JVNM
             MiniSQLTester.SetName(DBName);
 
             if (!File.Exists(pathOK))
-            {
-                string fileName = DBName + ".txt";
-                path = Path.Combine(path, fileName);
-                System.IO.FileStream fs = System.IO.File.Create(path);
-                database = new Database(DBName, UserName, Psw);
-                fs.Close();
-                return Query.CreateDatabaseSuccess;
+            {   if (UserName.Equals("admin") && Psw.Equals("admin"))
+                {
+                    string fileName = DBName + ".txt";
+                    path = Path.Combine(path, fileName);
+                    System.IO.FileStream fs = System.IO.File.Create(path);
+                   MiniSQLTester.database = new Database(DBName, UserName, Psw);
+                    MiniSQLTester.database.AddUser("admin", "admin", "admin");
+                    fs.Close();
+                    return Query.CreateDatabaseSuccess;
+                }
+                else
+                {
+                    return Query.SecurityUserDoesNotExist;
+                }
             }
             else
             {
-                database = new Database(DBName, UserName, Psw);
-                database.Load(DBName);
-                return Query.OpenDatabaseSuccess;
-            }
+                
+
+                    MiniSQLTester.database = new Database(DBName, UserName, Psw);
+                    MiniSQLTester.database.Load(DBName);
+                MiniSQLTester.database.AddUser("admin", "admin", "admin");
+                User userName = MiniSQLTester.database.getUsers().Find(user => user.GetName().Equals(UserName));
+                   
+                try
+                    {
+                        if (userName.GetPassword().Equals(Psw) )
+                        {
+
+                            return Query.OpenDatabaseSuccess;
+                        }
+                        else
+                        {
+
+                            MiniSQLTester.loginOk = false;
+
+                            return Query.SecurityIncorrectLogin;
+
+                        }
+
+                    }
+                    catch
+                    {
+                        MiniSQLTester.loginOk = false;
+                        return Query.SecurityUserDoesNotExist;
+                    }
+                }
+            
 
             
         }

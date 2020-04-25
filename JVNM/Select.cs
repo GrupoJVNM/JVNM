@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JVNM
 {
-   public class Select : MiniSQLQuery
+    public class Select : MiniSQLQuery
     {
         public String Table = null;
         public List<String> SelectedC = null;
@@ -25,53 +25,64 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            try
+            if (database.permission(Table, "SELECT") || database.User.Equals("admin"))
             {
-                List<List<String>> li = new List<List<string>>();
-                li = database.Select(Table, SelectedC, Compare, CondiC, Value);
-
-                String resultado = "[" + SelectedC[0];
-
-                for (int k = 1; k < SelectedC.Count; k++)
-                {
-                    resultado = resultado.Insert(resultado.Length, (","));
-                    resultado = resultado.Insert(resultado.Length, SelectedC[k]);
-
-                }
-
-                resultado = resultado + "]";
                 try
                 {
 
-                    for (int i = 0; i < li[0].Count; i++)//Nombre Age 
-                {
-                    resultado = resultado + "{";
-                    for (int j = 0; j < li.Count; j++)
+                    List<List<String>> li = new List<List<string>>();
+                    li = database.Select(Table, SelectedC, Compare, CondiC, Value);
+
+                    String resultado = "[" + SelectedC[0];
+
+                    for (int k = 1; k < SelectedC.Count; k++)
                     {
-
-
-                        string dato = li[j][i];
-                        dato = "'" + dato + "' ,";
-                        resultado = resultado + dato;
+                        resultado = resultado.Insert(resultado.Length, (","));
+                        resultado = resultado.Insert(resultado.Length, SelectedC[k]);
 
                     }
-                    resultado = resultado.TrimEnd(',');
-                    resultado = resultado + "}";
+
+                    resultado = resultado + "]";
+                    try
+                    {
+
+                        for (int i = 0; i < li[0].Count; i++)//Nombre Age 
+                        {
+                            resultado = resultado + "{";
+                            for (int j = 0; j < li.Count; j++)
+                            {
 
 
+                                string dato = li[j][i];
+                                dato = "'" + dato + "' ,";
+                                resultado = resultado + dato;
+
+                            }
+                            resultado = resultado.TrimEnd(',');
+                            resultado = resultado + "}";
+
+
+                        }
+                        return resultado;
+                    }
+                    catch
+                    {
+                        return resultado;// Query.Error;
+                    }
                 }
-                return resultado;
+
+                catch
+                {
+                    return Query.TableDoesNotExist;
+                }
             }
-            catch
+            else
             {
-                return resultado;// Query.Error;
+                return Query.SecurityNotSufficientPrivileges;
             }
         }
-        catch
-        {
-            return Query.TableDoesNotExist;
-        }
-        }
+
     }
+    
 }
 

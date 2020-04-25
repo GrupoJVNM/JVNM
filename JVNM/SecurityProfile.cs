@@ -8,7 +8,7 @@ namespace JVNM
 {
     public class SecurityProfile
     {
-        private List<String> Privilege;  
+        public List<String> Privilege;  
         public string NameProfile;
         public List<String> Tables;
 

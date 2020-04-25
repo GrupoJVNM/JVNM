@@ -17,12 +17,22 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            try {
-                database.Insert(TableName, List);
+            if (MiniSQLTester.database.permission(TableName, "INSERT") || MiniSQLTester.database.User.Equals("admin"))
+            {
+
+                try
+                {
+                    database.Insert(TableName, List);
                     return Query.InsertSuccess;
+                }
+                catch
+                {
+                    return Query.TableDoesNotExist;
+                }
             }
-            catch {
-                return Query.TableDoesNotExist;
+            else
+            {
+                return Query.SecurityNotSufficientPrivileges;
             }
         }
     }

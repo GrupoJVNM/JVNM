@@ -132,51 +132,58 @@ namespace JVNM
             Boolean existe2 = false;
             int i = 0;
             int j = 0;
-            
-            while(!existe|| j < Users.Count())
-            {
-                if (!Users[j].GetName().Equals(name))
-                {
-                    j++;
-                }
-                else
-                {
-                    existe = true;
-                    return Query.SecurityUserAlreadyExists;
-                }
-
-            }
-            while (!existe2 || i < Profiles.Count())
-            {
-                if (Profiles[i].getProfileName().Equals(securityProfile))
-                {
-                    existe2 = true;
-                    sP = Profiles[i];
-                }
-
-                else
-                {
-                    i++;
-                }
-            }
-
-                if(!existe && existe2)
-                {
-                    Users.Add(new User(name, password, sP));
-                return Query.SecurityUserAdded;
-                }
-                else if(!existe && !existe2)
+            if (Users.Count == 0)
             {
                 sP = new SecurityProfile("admin");
-                Users.Add(new User(name, password,sP));
+                MiniSQLTester.database.Users.Add(new User(name, password, sP));
                 return Query.SecurityUserAdded;
             }
-            return null;
+            else
+            {
+                while (existe == false || j < Users.Count())
+                {
+                    if (!Users[j].GetName().Equals(name))
+                    {
+                        j++;
+                    }
+                    else
+                    {
+                        existe = true;
+                        return Query.SecurityUserAlreadyExists;
+                    }
+
+                }
+                while (existe2 == false || i < Profiles.Count())
+                {
+                    if (Profiles[i].getProfileName().Equals(securityProfile))
+                    {
+                        existe2 = true;
+                        sP = Profiles[i];
+                    }
+
+                    else
+                    {
+                        i++;
+                    }
+                }
+
+                if (existe == false && existe2 == true)
+                {
+                    Users.Add(new User(name, password, sP));
+                    return Query.SecurityUserAdded;
+                }
+                else if (existe == false && existe2 == false)
+                {
+                    sP = new SecurityProfile("admin");
+                    Users.Add(new User(name, password, sP));
+                    return Query.SecurityUserAdded;
+                }
+                
 
             }
+            return null;
+        }
 
-        
-        
         //This method create the folder if dont exist and create the bd.txt
         public void Create(string BDname)
         {
@@ -255,18 +262,25 @@ namespace JVNM
         }
 
 
-        public string ExecuteMiniSQLQuery(string query)
+        public string ExecuteMiniSQLQuery(string query, Boolean logOk)
         {
             //Parse the query
-            MiniSQLQuery miniSQLQuery = Parser.Parse(query);
+            if (logOk == false)
+            {
+                return Query.SecurityIncorrectLogin;
+            }
+            else
+            {
+                MiniSQLQuery miniSQLQuery = Parser.Parse(query);
 
-            if (miniSQLQuery == null)
-                return "ErrorDatabase";
+                if (miniSQLQuery == null)
+                    return "ErrorDatabase";
 
-            string result = miniSQLQuery.Execute(this);
-            
-            //Save(Name);
-            return result;
+                string result = miniSQLQuery.Execute(this);
+
+                //Save(Name);
+                return result;
+            }
         }
 
         public void DropSecurityProfile(string name)
@@ -293,6 +307,27 @@ namespace JVNM
 
 
         }
+        
+        public Boolean permission(string table, string priv)
+        {
+            Boolean ok = false;
+            User user = MiniSQLTester.database.Users.Find(u => u.GetName().Equals(User)); 
+            
+            for(int i=0; i<user.GetSecurityProfile().Privilege.Count; i++)
+            {
+                if (user.GetSecurityProfile().Privilege[i].Equals(priv))
+                {
+                    if (user.GetSecurityProfile().Tables[i].Equals(table))
+                    {
+                        ok = true;
+                    }
+                } 
+                
+            }
+            return ok;
+            
+        }
+
 
         public List<SecurityProfile> getProfiles()
         {

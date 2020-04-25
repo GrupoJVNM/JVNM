@@ -22,14 +22,21 @@ namespace JVNM
         }
         public string Execute(Database database)
         {
-            try
+            if (database.permission(TableName, "DELETE") || database.User.Equals("admin"))
             {
-                database.Delete(TableName, Tc, comparator, Data);
-                return Query.TupleDeleteSuccess;
+                try
+                {
+                    database.Delete(TableName, Tc, comparator, Data);
+                    return Query.TupleDeleteSuccess;
+                }
+                catch
+                {
+                    return Query.Error;
+                }
             }
-            catch
+            else
             {
-                return Query.Error;
+                return Query.SecurityNotSufficientPrivileges;
             }
         }
     }

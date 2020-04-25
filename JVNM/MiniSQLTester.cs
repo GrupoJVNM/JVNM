@@ -12,6 +12,7 @@ namespace JVNM
         //minisql-tester.exe -i input-file.txt -o output-file.txt
         enum Parameter { Unset, InputFile, OutputFile };
         public static Database database;
+       public static Boolean loginOk = true;
         static void Main(string[] args)
         {
             string inputFile = "input-file.txt";
@@ -30,7 +31,7 @@ namespace JVNM
             //It doesnt create a new folder if already exist
             Directory.CreateDirectory(path);
 
-            database = new Database("database1", "user", "password");
+            database = new Database("database1", "admin", "admin");
             List<string> lines2 = new List<String>();
             string[] lines = System.IO.File.ReadAllLines(@"input-file.txt");
             string output = @"output-file.txt";
@@ -39,7 +40,7 @@ namespace JVNM
             // System.IO.FileStream fs = System.IO.File.Create(path);
             double total = 0;
             int i = 1;
-           
+            
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(output))
             {
                 sw.WriteLine("# TEST " + i);
@@ -55,17 +56,20 @@ namespace JVNM
                         sw.WriteLine(" ");
                         i++;
                         sw.WriteLine("# TEST " + i);
-                        database = new Database("database1", "user", "password");
+                        //database = new Database("database1", "user", "password");
                         File.AppendAllLines(dbtxt, lines2);
                         lines2.Clear();
-                        
+                        loginOk = true;
                         
                     }
                     else
                     {
-                        string query = database.ExecuteMiniSQLQuery(line);
+                      
+                        string query = database.ExecuteMiniSQLQuery(line,loginOk);
+                       
                         sw.Write(query);
-                        if (!line.Contains("SELECT") && !query.Contains("opened") && !query.Contains("ERROR")&& !query.Contains("Database created")) {
+                        
+                        if (!line.Contains("SELECT") && !query.Contains("opened") && !query.Contains("ERROR") && !query.Contains("Database created")) {
                             lines2.Add(line);
                         }
                         dbtxt = @"./MyDB/" + database.Name + ".txt";
@@ -94,6 +98,6 @@ namespace JVNM
         {
             database.Name = nameDB;
         }
-
+       
     }
 }

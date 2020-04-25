@@ -9,63 +9,71 @@ namespace JVNM
    public class SelectWithOutC : MiniSQLQuery
     {
         public string TableName;
-        List<String> selectedC;
+        List<String> SelectedC;
 
         public SelectWithOutC(string tableName, List<String> selectedC)
         {
             TableName = tableName;
-            this.selectedC = selectedC;
+            this.SelectedC = selectedC;
         }
 
         public string Execute(Database database)
         {
-            try
+            if (database.permission(TableName, "SELECT") || database.User.Equals("admin"))
             {
-                List<List<String>> li = new List<List<string>>();
-                li = database.SelectWithOutC(TableName, selectedC);
 
-                String resultado = "[" + selectedC[0];
-
-                for (int k = 1; k < selectedC.Count; k++)
-                {
-
-
-                    resultado = resultado.Insert(resultado.Length, (","));
-                    resultado = resultado.Insert(resultado.Length, selectedC[k]);
-
-                }
-
-                resultado = resultado + "]";
                 try
                 {
-                    for (int i = 0; i < li[0].Count; i++)//Nombre Age 
+                    List<List<String>> li = new List<List<string>>();
+                    li = database.SelectWithOutC(TableName, SelectedC);
+
+                    String resultado = "[" + SelectedC[0];
+
+                    for (int k = 1; k < SelectedC.Count; k++)
                     {
-                        resultado = resultado + "{";
-                        for (int j = 0; j < li.Count; j++)
-                        {
 
 
-                            string dato = li[j][i];
-                            dato = "'" + dato + "' ,";
-                            resultado = resultado + dato;
-
-                        }
-                        resultado = resultado.TrimEnd(',');
-                        resultado = resultado + "}";
-
+                        resultado = resultado.Insert(resultado.Length, (","));
+                        resultado = resultado.Insert(resultado.Length, SelectedC[k]);
 
                     }
 
-                    return resultado;
+                    resultado = resultado + "]";
+                    try
+                    {
+                        for (int i = 0; i < li[0].Count; i++)//Nombre Age 
+                        {
+                            resultado = resultado + "{";
+                            for (int j = 0; j < li.Count; j++)
+                            {
+
+
+                                string dato = li[j][i];
+                                dato = "'" + dato + "' ,";
+                                resultado = resultado + dato;
+
+                            }
+                            resultado = resultado.TrimEnd(',');
+                            resultado = resultado + "}";
+
+
+                        }
+
+                        return resultado;
+                    }
+                    catch
+                    {
+                        return resultado; //Query.Error;
+                    }
                 }
                 catch
                 {
-                    return resultado; //Query.Error;
+                    return Query.TableDoesNotExist;
                 }
             }
-            catch
+            else
             {
-                return Query.TableDoesNotExist;
+                return Query.SecurityNotSufficientPrivileges;
             }
         }
     }

@@ -8,36 +8,42 @@ namespace JVNM
 {
     public class Update : MiniSQLQuery
     {
-        public string tc;
-        public string data;
-        public DataComparator compare;
-        public string conditionData;
-        public string columnCondition;
-        public string table;
+        public string Tc;
+        public string Data;
+        public DataComparator Compare;
+        public string ConditionData;
+        public string ColumnCondition;
+        public string Table;
     
         public Update(string table, string tc, string data, DataComparator compare, string conditionData, string columnCondition)
         {
-            this.table = table;
-            this.tc = tc;
-            this.data = data;
-            this.compare = compare;
-            this.conditionData = conditionData;
-            this.columnCondition = columnCondition;
+            this.Table = table;
+            this.Tc = tc;
+            this.Data = data;
+            this.Compare = compare;
+            this.ConditionData = conditionData;
+            this.ColumnCondition = columnCondition;
 
         }
 
         public string Execute(Database database)
         {
-            try
+            if (database.permission(Table, "UPDATE") || database.User.Equals("admin"))
             {
-                database.Update(table, tc, data,  compare,  conditionData,  columnCondition);
-                return Query.TupleUpdateSuccess;
+                try
+                {
+                    database.Update(Table, Tc, Data, Compare, ConditionData, ColumnCondition);
+                    return Query.TupleUpdateSuccess;
+                }
+                catch
+                {
+                    return Query.Error;
+                }
             }
-            catch
+            else
             {
-                return Query.Error;
+                return Query.SecurityNotSufficientPrivileges;
             }
-            
         }
 
     }
