@@ -88,23 +88,29 @@ namespace JVNM
             Tables.Find(table => table.GetTableName().Equals(tableName)).Update(t, data, compare, conditionData, t2);
         }
         //Method: Load any database
-        public void Load(String BDname)
+        public Database Load(String BDname)
         {
             //conexion abrir
-            string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
-            
-                if (File.Exists(path)==false)
-                {
+            //string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
+            string path = @"./MyDB/" + this.Name + ".txt";
+            if (File.Exists(path) == false)
+            {
 
                 Console.WriteLine(Query.DatabaseDoesNotExist);
-                }
-            
+            }
+
             else
             {
-                
-                File.ReadAllText(path);
-               
+                string[] lines = System.IO.File.ReadAllLines(path);
+                foreach (string line in lines)
+                {
+
+                    MiniSQLQuery miniSQLQuery = Parser.Parse(line);
+                    miniSQLQuery.Execute(this);
+                    MiniSQLTester.database = this;
+                }
             }
+            return this;
         }
 
         public void DeleteUser(String user)

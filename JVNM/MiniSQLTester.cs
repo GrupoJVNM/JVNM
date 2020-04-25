@@ -23,7 +23,7 @@ namespace JVNM
                 else if (arg == "-o") lastParameter = Parameter.OutputFile;
                 else if (lastParameter == Parameter.InputFile) inputFile = arg;
                 else if (lastParameter == Parameter.OutputFile) outputFile = arg;
-                
+
             }
             string folder = @"";
             string path = Path.Combine(folder, "MyDB");
@@ -31,53 +31,57 @@ namespace JVNM
             Directory.CreateDirectory(path);
 
             database = new Database("database1", "user", "password");
-
+            List<string> lines2 = new List<String>();
             string[] lines = System.IO.File.ReadAllLines(@"input-file.txt");
-             string output = @"output-file.txt";
+            string output = @"output-file.txt";
             string dbtxt = null;
             //string path = System.IO.Path.Combine(output);
             // System.IO.FileStream fs = System.IO.File.Create(path);
-            double total=0;
+            double total = 0;
             int i = 1;
-            //using (System.IO.StreamWriter swDB = new System.IO.StreamWriter(dbtxt))
-            //{
-                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(output))
+           
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(output))
+            {
+                sw.WriteLine("# TEST " + i);
+                foreach (string line in lines)
                 {
-                    sw.WriteLine("# TEST " + i);
-                    foreach (string line in lines)
+                    DateTime t1 = DateTime.Now;
+
+
+                    if (line.Equals(""))
                     {
-                        DateTime t1 = DateTime.Now;
-
-
-                        if (line.Equals(""))
-                        {
-                            sw.WriteLine("TOTAL TIME: " + total + " s");
-                            total = 0;
-                            sw.WriteLine(" ");
-                            i++;
-                            sw.WriteLine("# TEST " + i);
-                            database = new Database("database1", "user", "password");
+                        sw.WriteLine("TOTAL TIME: " + total + " s");
+                        total = 0;
+                        sw.WriteLine(" ");
+                        i++;
+                        sw.WriteLine("# TEST " + i);
+                        database = new Database("database1", "user", "password");
+                        File.AppendAllLines(dbtxt, lines2);
+                        lines2.Clear();
+                        
+                        
+                    }
+                    else
+                    {
+                        string query = database.ExecuteMiniSQLQuery(line);
+                        sw.Write(query);
+                        if (!line.Contains("SELECT") && !query.Contains("opened") && !query.Contains("ERROR")&& !query.Contains("Database created")) {
+                            lines2.Add(line);
                         }
-                        else
-                        {
-                            sw.Write(database.ExecuteMiniSQLQuery(line));
-                            
-                            dbtxt = @"./MyDB/" + database.Name+".txt";
-                            using (System.IO.StreamWriter swDB = new System.IO.StreamWriter(dbtxt))
-                            {
-                                swDB.WriteLine(line);
-                            }
-                            DateTime t2 = DateTime.Now;
-                            TimeSpan timeDiff = t2 - t1;
-                            double seconds = timeDiff.TotalMilliseconds / 1000.0;
-                            sw.WriteLine(" (" + seconds + " s)");
-                            total = total + seconds;
-                        }
+                        dbtxt = @"./MyDB/" + database.Name + ".txt";
 
+                        
+                        DateTime t2 = DateTime.Now;
+                        TimeSpan timeDiff = t2 - t1;
+                        double seconds = timeDiff.TotalMilliseconds / 1000.0;
+                        sw.WriteLine(" (" + seconds + " s)");
+                        total = total + seconds;
                     }
 
-                //}
-            } 
+                }
+
+            }
+       
 
 
             Console.WriteLine("Input file: " + inputFile);
@@ -85,6 +89,7 @@ namespace JVNM
 
         }
 
+      
         public static void SetName(string nameDB)
         {
             database.Name = nameDB;
