@@ -203,14 +203,6 @@ namespace JVNM
                 return new DropTable(table);
             }
 
-            /*match = Regex.Match(miniSQLQuery, createPattern);
-            if (match.Success)
-            {
-                string DataBase = match.Groups[1].Value;
-
-                return new (DataBase);
-            }*/
-
 
             //create table 
             match = Regex.Match(miniSQLQuery, createTablePattern);
