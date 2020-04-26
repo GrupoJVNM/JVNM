@@ -69,7 +69,7 @@ namespace JVNM
                        
                         sw.Write(query);
                         
-                        if (!line.Contains("SELECT") && !query.Contains("opened") && !query.Contains("ERROR") && !query.Contains("Database created")) {
+                        if (line.Contains("CREATE") || line.Contains("INSERT") || line.Contains("DELETE") || line.Contains("GRANT") || line.Contains("ADD")) {
                             lines2.Add(line);
                         }
                         dbtxt = @"./MyDB/" + database.Name + ".txt";

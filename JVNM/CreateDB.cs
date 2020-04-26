@@ -56,9 +56,9 @@ namespace JVNM
                     {
                         if (userName.GetPassword().Equals(Psw) )
                         {
-                        MiniSQLTester.database = new Database(DBName, UserName, Psw);
-                        MiniSQLTester.database.AddUser("admin", "admin", "admin");
-                        MiniSQLTester.database.Load(DBName);
+                        
+                        MiniSQLTester.database.User = UserName;
+                        MiniSQLTester.database.Password = Psw;
                         return Query.OpenDatabaseSuccess;
                         }
                         else
