@@ -16,24 +16,31 @@ namespace JVNM
 
         public string Execute(Database database)
         {
-            Boolean done = false;
+            Boolean existe = false;
+            int i = 0;
            
             try
             {
-                for (int i = 0; i < database.getProfiles().Count; i++)
+                if (database.getProfiles().Count == 0)
+                {
+                    existe = false;
+                }
+                while(existe && i<database.getProfiles().Count)
                 {
 
                     if (!database.getProfiles()[i].getProfileName().Equals(Name))
                     {
-                        SecurityProfile sp = new SecurityProfile(Name);
-                        done = true;
+                     
+                        existe = true;
                        
-                    }
-                   
-                   
+                    }   
+
+                    i++;
                 }
-                if (done == true)
+                if (existe == false)
                 {
+                    SecurityProfile sp = new SecurityProfile(Name);
+                    database.getProfiles().Add(sp);
                     return Query.SecurityProfileCreated;
                 }
                 else

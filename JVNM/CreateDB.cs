@@ -46,17 +46,20 @@ namespace JVNM
             {
                 
 
-                    MiniSQLTester.database = new Database(DBName, UserName, Psw);
-                    MiniSQLTester.database.Load(DBName);
+                MiniSQLTester.database = new Database(DBName, "admin", "admin");
                 MiniSQLTester.database.AddUser("admin", "admin", "admin");
+                MiniSQLTester.database.Load(DBName);
+                
                 User userName = MiniSQLTester.database.getUsers().Find(user => user.GetName().Equals(UserName));
                    
                 try
                     {
                         if (userName.GetPassword().Equals(Psw) )
                         {
-
-                            return Query.OpenDatabaseSuccess;
+                        MiniSQLTester.database = new Database(DBName, UserName, Psw);
+                        MiniSQLTester.database.AddUser("admin", "admin", "admin");
+                        MiniSQLTester.database.Load(DBName);
+                        return Query.OpenDatabaseSuccess;
                         }
                         else
                         {

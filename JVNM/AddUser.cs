@@ -23,10 +23,10 @@ namespace JVNM
         {
             try
             {
-                database.AddUser(user, password, securityProfile);
+                return database.AddUser(user, password, securityProfile);
 
 
-                return Query.SecurityUserAdded;
+               // return Query.SecurityUserAdded;
             }
             catch
             {

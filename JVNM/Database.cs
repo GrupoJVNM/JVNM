@@ -140,7 +140,7 @@ namespace JVNM
             }
             else
             {
-                while (existe == false || j < Users.Count())
+                while (existe == false && j < Users.Count())
                 {
                     if (!Users[j].GetName().Equals(name))
                     {
@@ -153,7 +153,7 @@ namespace JVNM
                     }
 
                 }
-                while (existe2 == false || i < Profiles.Count())
+                while (existe2 == false && i < Profiles.Count())
                 {
                     if (Profiles[i].getProfileName().Equals(securityProfile))
                     {
@@ -311,8 +311,11 @@ namespace JVNM
         public Boolean permission(string table, string priv)
         {
             Boolean ok = false;
-            User user = MiniSQLTester.database.Users.Find(u => u.GetName().Equals(User)); 
-            
+            User user = MiniSQLTester.database.Users.Find(u => u.GetName().Equals(User));
+            if (user == null)
+            {
+                return ok;
+            }
             for(int i=0; i<user.GetSecurityProfile().Privilege.Count; i++)
             {
                 if (user.GetSecurityProfile().Privilege[i].Equals(priv))
