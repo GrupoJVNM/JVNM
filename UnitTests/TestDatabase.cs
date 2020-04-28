@@ -331,8 +331,8 @@ namespace UnitTests
 
 
         }
+       
         [TestMethod]
-
         public void DeleteTest()
         { 
             List<TableColumn> columnList = new List<TableColumn>();
@@ -378,8 +378,86 @@ namespace UnitTests
 
             }
         }
-    
+        [TestMethod]
+        public void UpdateTestTXT()
+        {
+            List<TableColumn> columnList = new List<TableColumn>();
+            TableColumn columnText = new TableColumn("columnText", DataType.Text);
+            List<String> list2 = new List<String>();
+            columnList.Add(columnText);
+            Table table = new Table("myTable", columnList);
+            columnText.Add("Adios");
+            Db.AddTable(table);
 
+            Db.Update("myTable","columnText", "Que", DataComparator.Equal, "Adios", "columnText");
+
+            List<List<String>> resultOk = new List<List<String>>();
+            List<String> listText = new List<string>();
+            listText.Add("Que");
+            resultOk.Add(listText);
+
+            for (int i = 0; i < table.GetListTableColumn().Count; i++)
+            {
+                for (int j = 0; j < table.GetListTableColumn()[i].GetList().Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], table.GetListTableColumn()[i].GetList()[j]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void UpdateTestINT()
+        {
+            List<TableColumn> columnList = new List<TableColumn>();
+            TableColumn columnInt = new TableColumn("columnInt", DataType.Int);
+            List<String> list2 = new List<String>();
+            columnList.Add(columnInt);
+            Table table = new Table("myTable", columnList);
+            columnInt.Add("3");
+            Db.AddTable(table);
+
+            Db.Update("myTable","columnInt", "8", DataComparator.Less, "5", "columnInt");
+
+            List<List<String>> resultOk = new List<List<String>>();
+            List<String> listInt = new List<string>();
+            listInt.Add("8");
+            resultOk.Add(listInt);
+
+            for (int i = 0; i < table.GetListTableColumn().Count; i++)
+            {
+                for (int j = 0; j < table.GetListTableColumn()[i].GetList().Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], table.GetListTableColumn()[i].GetList()[j]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void UpdateTestDOUBLE()
+        {
+            List<TableColumn> columnList = new List<TableColumn>();
+            TableColumn columnD = new TableColumn("columnD", DataType.Double);
+            List<String> list2 = new List<String>();
+            columnList.Add(columnD);
+            Table table = new Table("myTable", columnList);
+            columnD.Add("3,3");
+            Db.AddTable(table);
+
+            Db.Update("myTable","columnD", "6,7", DataComparator.Bigger, "2,1", "columnD");
+
+            List<List<String>> resultOk = new List<List<String>>();
+            List<String> listD = new List<string>();
+            listD.Add("6,7");
+            resultOk.Add(listD);
+
+            for (int i = 0; i < table.GetListTableColumn().Count; i++)
+            {
+                for (int j = 0; j < table.GetListTableColumn()[i].GetList().Count; j++)
+                {
+                    Assert.AreEqual(resultOk[i][j], table.GetListTableColumn()[i].GetList()[j]);
+                }
+            }
+        }
 
 
         [TestMethod]

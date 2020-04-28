@@ -80,7 +80,7 @@ namespace JVNM
                 {
                     if (dateT.Equals("Int"))
                     {
-                        if (int.Parse(condiC.GetList()[i]) > int.Parse(value))
+                        if (double.Parse(condiC.GetList()[i]) > double.Parse(value))
                         {
                             for (int j = 0; j < selectedC.Count; j++)
                             {
@@ -111,7 +111,7 @@ namespace JVNM
                 {
                     if (dateT.Equals("Int"))
                     {
-                        if (int.Parse(condiC.GetList()[i]) < int.Parse(value))
+                        if (double.Parse(condiC.GetList()[i]) < double.Parse(value))
                         {
                             for (int j = 0; j < selectedC.Count; j++)
                             {
@@ -316,7 +316,7 @@ namespace JVNM
                         {
                             for (int i = 0; i < tc.GetList().Count; i++)
                             {
-                                if (int.Parse(tc.GetList()[i]) > int.Parse(data))
+                                if (double.Parse(tc.GetList()[i]) > double.Parse(data))
                                 {
 
                                     for (int j = 0; j < Columns.Count(); j++)
@@ -333,7 +333,7 @@ namespace JVNM
                         {
                             for (int i = 0; i < tc.GetList().Count; i++)
                             {
-                                if (int.Parse(tc.GetList()[i]) > int.Parse(data))
+                                if (double.Parse(tc.GetList()[i]) > double.Parse(data))
                                 {
 
                                     for (int j = 0; j < Columns.Count(); j++)
@@ -440,7 +440,7 @@ namespace JVNM
                 {
                     for (int i = 0; i < columnCondition.GetList().Count; i++)
                     {
-                        if (int.Parse(columnCondition.GetList()[i]) > int.Parse(conditionData))
+                        if (double.Parse(columnCondition.GetList()[i]) > double.Parse(conditionData))
                         {
                             TableColumn tcE = Columns.Find(c => c.GetColumnName().Equals(tc.GetColumnName()));
                             tcE.GetList()[i] = data;
@@ -451,7 +451,7 @@ namespace JVNM
                 {
                     for (int i = 0; i < columnCondition.GetList().Count; i++)
                     {
-                        if (int.Parse(columnCondition.GetList()[i]) > int.Parse(conditionData))
+                        if (double.Parse(columnCondition.GetList()[i]) < double.Parse(conditionData))
                         {
                             TableColumn tcE = Columns.Find(c => c.GetColumnName().Equals(tc.GetColumnName()));
                             tcE.GetList()[i] = data;
