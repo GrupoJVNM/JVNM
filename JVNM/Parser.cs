@@ -14,13 +14,13 @@ namespace JVNM
         {
 
 
-            const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
-            const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+[<|=|>]\\w+);";
+            const string selectPattern = "SELECT ([(\\w+)](\\w+)(\\,(\\s)?(\\w+))?) FROM (\\w+) WHERE (\\w+[<|=|>](.+));";
+            const string selectAllPattern = "SELECT \\* FROM (\\w+) WHERE (\\w+[<|=|>](.+));";
             const string selectWithOutCPattern = "SELECT (((\\w+)(\\,(\\s)?(\\w+))+)?) FROM (\\w+);";
             const string selectAllWithOutCPattern = "SELECT \\* FROM (\\w+);";
-            const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>]\\w+);";
+            const string deletePattern = "DELETE\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+[<|=|>](.+));";
             const string insertPattern = "INSERT\\s+INTO\\s+(\\w+)(?:|\\s+\\(([\\w=,]+)\\))\\s+VALUES\\s+\\((.+)\\);";
-            const string updatePattern = "UPDATE (\\w+) SET (.+) WHERE (\\w+[<|=|>]\\w+)(( AND )(\\w+[<|=|>]\\w+))?;";
+            const string updatePattern = "UPDATE (\\w+) SET (.+) WHERE (.+)(( AND )(.+))?;";
             const string createSecurity = "CREATE SECURITY PROFILE (\\w+);";
             const string dropSecurity = "DROP SECURITY PROFILE (\\w+);";
             const string grant = "GRANT (\\w+) ON (\\w+) TO (\\w+);";
@@ -164,7 +164,7 @@ namespace JVNM
                 //update
                 string table = match.Groups[1].Value;
                 //set
-                List<string> set = Condition(match.Groups[2].Value);
+                List<string> set = updateSeparated(match.Groups[2].Value);
                 string c = set[0];
                 string d = set[1];
 
@@ -186,7 +186,7 @@ namespace JVNM
 
                 }
 
-                List<string> condition = Condition(match.Groups[3].Value);
+                List<string> condition = updateSeparated(match.Groups[3].Value);
                 string column = condition[0];
                 string value = condition[1];
 
@@ -317,11 +317,22 @@ namespace JVNM
                 return columnNames.ToList();
             }
 
+            static List<string> updateSeparated(string text)
+            {
+                string t = text.Trim(' ');
+                Char[] array = { '=', '>', '<', ',' };
+                string c= t.Replace("'", "");
+                string[] a= c.Split(array);
+
+                return a.ToList();
+            }
+
             static List<string> Condition(string text)
             {
                 Char[] array = { '=', '>', '<' };
                 string t = text.Trim(' ');
-                string[] a = t.Split(array);
+            string c = t.Replace("'", "");
+            string[] a = c.Split(array);
 
 
                 return a.ToList();

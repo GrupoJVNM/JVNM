@@ -421,7 +421,59 @@ namespace JVNM
 
         public void Update(TableColumn tc, String data, DataComparator compare, String conditionData, TableColumn columnCondition)
         {
+            String tcT = columnCondition.GetTypeC();
 
+            if (tcT != "Text")
+            {
+                if (compare == DataComparator.Equal)
+                {
+                    for (int i = 0; i < columnCondition.GetList().Count; i++)
+                    {
+                        if (columnCondition.GetList()[i].Equals(conditionData))
+                        {
+                            TableColumn tcE = Columns.Find(c => c.GetColumnName().Equals(tc.GetColumnName()));
+                            tcE.GetList()[i] = data;
+                        }
+                    }
+                }
+                if (compare == DataComparator.Bigger)
+                {
+                    for (int i = 0; i < columnCondition.GetList().Count; i++)
+                    {
+                        if (int.Parse(columnCondition.GetList()[i]) > int.Parse(conditionData))
+                        {
+                            TableColumn tcE = Columns.Find(c => c.GetColumnName().Equals(tc.GetColumnName()));
+                            tcE.GetList()[i] = data;
+                        }
+                    }
+                }
+                if (compare == DataComparator.Less)
+                {
+                    for (int i = 0; i < columnCondition.GetList().Count; i++)
+                    {
+                        if (int.Parse(columnCondition.GetList()[i]) > int.Parse(conditionData))
+                        {
+                            TableColumn tcE = Columns.Find(c => c.GetColumnName().Equals(tc.GetColumnName()));
+                            tcE.GetList()[i] = data;
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                if (compare == DataComparator.Equal)
+                {
+                    for (int i = 0; i < columnCondition.GetList().Count; i++)
+                    {
+                        if (columnCondition.GetList()[i].Equals(conditionData))
+                        {
+                            TableColumn tcE = Columns.Find(c => c.GetColumnName().Equals(tc.GetColumnName()));
+                            tcE.GetList()[i] = data;
+                        }
+                    }
+                }
+            }
 
         }
 
