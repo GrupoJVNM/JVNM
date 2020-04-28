@@ -21,6 +21,24 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void GrantTest_Position()
+        {
+            SecurityProfile sp = new SecurityProfile("Persona");
+            sp.Grant("Mascota", "SELECT");
+            sp.Grant("Persona", "SELECT");
+            sp.Grant("Viaje", "DELETE");
+
+            Assert.IsTrue(sp.Privilege.ElementAt(0).Equals("SELECT"));
+            Assert.IsTrue(sp.Privilege.ElementAt(1).Equals("SELECT"));
+            Assert.IsTrue(sp.Privilege.ElementAt(2).Equals("DELETE"));
+            Assert.IsTrue(sp.Tables.ElementAt(0).Equals("Mascota"));
+            Assert.IsTrue(sp.Tables.ElementAt(1).Equals("Persona"));
+            Assert.IsTrue(sp.Tables.ElementAt(2).Equals("Viaje"));
+
+          
+        }
+
+        [TestMethod]
         public void RevokeTest()
         {
             SecurityProfile sp = new SecurityProfile("Persona");

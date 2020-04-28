@@ -27,7 +27,6 @@ namespace JVNM
             Tables = new List<Table>();
             Users = new List<User>();
             Profiles = new List<SecurityProfile>();
-            //Create(Name);
         }
 
 
@@ -93,14 +92,10 @@ namespace JVNM
             //conexion abrir
             //string path = "../Debug/MyDB_CODIGO/" + BDname + ".txt";
             string path = @"./MyDB/" + this.Name + ".txt";
-            if (File.Exists(path) == false)
+            if (File.Exists(path) == true)
             {
 
-                Console.WriteLine(Query.DatabaseDoesNotExist);
-            }
-
-            else
-            {
+            
                 string[] lines = System.IO.File.ReadAllLines(path);
                 foreach (string line in lines)
                 {

@@ -39,11 +39,7 @@ namespace JVNM
 
                     Columns[i].Add(list[i]);
                 }
-               /* else
-                {
-                    //los tipos de datos de la columna y de la lista son difernetes
-                    Console.Write("TIPOS DE DATOS DIFERENTES");
-                }*/
+               
 
             }
 
@@ -279,10 +275,7 @@ namespace JVNM
                     }
                     i--;
                 }
-                else
-                {
-                    Console.WriteLine("NO SE HA ENCONTRADO EL DATO");
-                }
+               
             }
         }
 
@@ -333,7 +326,7 @@ namespace JVNM
                         {
                             for (int i = 0; i < tc.GetList().Count; i++)
                             {
-                                if (double.Parse(tc.GetList()[i]) > double.Parse(data))
+                                if (double.Parse(tc.GetList()[i]) < double.Parse(data))
                                 {
 
                                     for (int j = 0; j < Columns.Count(); j++)
