@@ -12,23 +12,27 @@ namespace Bundler
     class Program
     {
         //poner el path que está la solucion
-        public static string RelPathToSolutionRootFolder = "../"; //relative path to the solution root folder from Bundler.exe
+        public static string RelPathToSolutionRootFolder = @"../../.."; //relative path to the solution root folder from Bundler.exe
         public static string RootFolderInZip;
         public static void Main()
         {
             List<string> files = new List<string>();
             string version;
 
-            version = GetVersion(RelPathToSolutionRootFolder + "Release/JVNM.exe");
+            version = GetVersion(RelPathToSolutionRootFolder + @"JVNM/bin/Debug/JVNM.exe");
 
-            RootFolderInZip = "OurProject/"; //name of the folder created inside the zip file
+            RootFolderInZip = "JVNM_INTENTO/"; //name of the folder created inside the zip file
 
-            files.Add(RelPathToSolutionRootFolder + "Release/JVNM.exe");
+            files.Add(RelPathToSolutionRootFolder + @"JVNM/bin/Debug/JVNM.exe");
+            files.Add(RelPathToSolutionRootFolder + @"JVNM/bin/Debug/input-file.txt");
+            files.Add(RelPathToSolutionRootFolder + @"JVNM/bin/Debug/output-file.txt");
             //se debe cambiar el dll, imagino que de JNVM tambien 
             //files.Add(RelPathToSolutionRootFolder + "Release/JVNM.dll");
 
             string outputFile = RelPathToSolutionRootFolder + "OurProject-" + version + ".zip"; //name of the output zip file
+            //string outputFile = RelPathToSolutionRootFolder + "JVNM_INTENTO.zip"; //name of the output zip file
 
+            Console.WriteLine("CONSOLAAAAA"+outputFile);
             Console.WriteLine("Compressing files");
             Compress(outputFile, files);
             Console.WriteLine("Finished");
