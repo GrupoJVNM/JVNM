@@ -5,29 +5,26 @@ using System.IO.Compression;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Bundler
+namespace Portable_Badger
 {
-    //crea el realease para el usuario final
-    //hay que cambiar en propiedades para que se cree lo mismo de JVNM.exe (en debug) y salga en Release aquí
     class Program
     {
-        //poner el path que está la solucion
         public static string RelPathToSolutionRootFolder = "../"; //relative path to the solution root folder from Bundler.exe
         public static string RootFolderInZip;
         public static void Main()
         {
             List<string> files = new List<string>();
-            string version;
+           string version;
 
-            version = GetVersion(RelPathToSolutionRootFolder + "Release/JVNM.exe");
+            version = GetVersion(RelPathToSolutionRootFolder + "JVNM/bin/Release/JVNM.exe");
 
-            RootFolderInZip = "OurProject/"; //name of the folder created inside the zip file
+            RootFolderInZip = "JVNM/"; //name of the folder created inside the zip file
 
-            files.Add(RelPathToSolutionRootFolder + "Release/JVNM.exe");
-            //se debe cambiar el dll, imagino que de JNVM tambien 
-            //files.Add(RelPathToSolutionRootFolder + "Release/JVNM.dll");
+            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/JVNM.exe");
+            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/input-file.txt");
+            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/output-file.txt");
 
-            string outputFile = RelPathToSolutionRootFolder + "OurProject-" + version + ".zip"; //name of the output zip file
+            string outputFile = RelPathToSolutionRootFolder + "JVNM-"+version+".zip"; //name of the output zip file
 
             Console.WriteLine("Compressing files");
             Compress(outputFile, files);
