@@ -14,17 +14,16 @@ namespace Portable_Badger
         public static void Main()
         {
             List<string> files = new List<string>();
-           string version;
+            string version;
 
-            version = GetVersion(RelPathToSolutionRootFolder + "JVNM/bin/Release/JVNM.exe");
+            version = GetVersion(RelPathToSolutionRootFolder + "Release/Demo.exe");
 
-            RootFolderInZip = "JVNM/"; //name of the folder created inside the zip file
+            RootFolderInZip = "OurProject/"; //name of the folder created inside the zip file
 
-            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/JVNM.exe");
-            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/input-file.txt");
-            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/output-file.txt");
+            files.Add(RelPathToSolutionRootFolder + "Release/Demo.exe");
+            files.Add(RelPathToSolutionRootFolder + "Release/MiniSQLEngine.dll");
 
-            string outputFile = RelPathToSolutionRootFolder + "JVNM-"+version+".zip"; //name of the output zip file
+            string outputFile = RelPathToSolutionRootFolder + "OurProject-" + version + ".zip"; //name of the output zip file
 
             Console.WriteLine("Compressing files");
             Compress(outputFile, files);
