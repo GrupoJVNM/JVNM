@@ -25,7 +25,7 @@ namespace Bundler
 
             files.Add(RelPathToSolutionRootFolder + "Release/JVNM.exe");
             //se debe cambiar el dll, imagino que de JNVM tambien 
-            files.Add(RelPathToSolutionRootFolder + "Release/JVNM.dll");
+            //files.Add(RelPathToSolutionRootFolder + "Release/JVNM.dll");
 
             string outputFile = RelPathToSolutionRootFolder + "OurProject-" + version + ".zip"; //name of the output zip file
 
