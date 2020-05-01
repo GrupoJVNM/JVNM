@@ -32,17 +32,15 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'github.com_victorblasae'
     repositoryName: 'GrupoJVNM/JVNM'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tag: '$(Build.BuildNumber)'
-    title: JVNM release
-    assets: '$(Build.Directory)/*.zip'
     tagSource: 'gitTag'
+    tagPattern: '$(Build.BuildNumber)'
+    title: 'JVNM Release'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
     
