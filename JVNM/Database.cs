@@ -169,9 +169,7 @@ namespace JVNM
                 }
                 else if (existe == false && existe2 == false)
                 {
-                    sP = new SecurityProfile("admin");
-                    Users.Add(new User(name, password, sP));
-                    return Query.SecurityUserAdded;
+                    return Query.SecurityProfileDoesNotExist;
                 }
                 
 
