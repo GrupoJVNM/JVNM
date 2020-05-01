@@ -1,13 +1,5 @@
 # .NET Desktop
-- task: GitHubRelease@1
-  inputs:
-    gitHubConnection: 'github.com_victorblasae'
-    repositoryName: 'GrupoJVNM/JVNM'
-    action: 'create'
-    target: '$(Build.SourceVersion)'
-    tagSource: 'gitTag'
-    changeLogCompareToRelease: 'lastFullRelease'
-    changeLogType: 'commitBased'
+-
 
 # Build and run tests for .NET Desktop or Windows classic desktop solutions.
 # Add steps that publish symbols, save build artifacts, and more:
@@ -47,3 +39,13 @@ steps:
       cd JVNM
       Bundler.exe
     failOnStderr: true
+
+     task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_victorblasae'
+    repositoryName: 'GrupoJVNM/JVNM'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
