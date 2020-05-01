@@ -35,6 +35,6 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      cd Bundler/JVNM
+      cd JVNM
       Bundler.exe
     failOnStderr: true
