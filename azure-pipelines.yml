@@ -32,6 +32,13 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      cd JVNM
+      Bundler.exe
+    failOnStderr: true
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'github.com_victorblasae'
@@ -39,14 +46,6 @@ steps:
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'gitTag'
-    tagPattern: '$(Build.BuildNumber)'
     title: 'JVNM Release'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
-    
-- task: CmdLine@2
-  inputs:
-    script: |
-      cd JVNM
-      Bundler.exe
-    failOnStderr: true
