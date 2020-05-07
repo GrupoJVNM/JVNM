@@ -28,7 +28,7 @@ namespace JVNM
 
         public string Execute(Database database)
         {
-            if (database.permission(Table, "UPDATE") || database.User.Equals("admin"))
+            if (MiniSQLTester.database.permission(Table, "UPDATE") || MiniSQLTester.database.User.Equals("admin"))
             {
                 try
                 {
