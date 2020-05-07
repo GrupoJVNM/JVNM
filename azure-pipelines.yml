@@ -1,4 +1,6 @@
 # .NET Desktop
+
+
 # Build and run tests for .NET Desktop or Windows classic desktop solutions.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
@@ -30,3 +32,21 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      cd JVNM
+      Bundler.exe
+    failOnStderr: true
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_victorblasae'
+    repositoryName: 'GrupoJVNM/JVNM'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tag: 1.0.0.0
+    title: 'JVNM Release'
+    assets: '$(Build.SourcesDirectory)/*.zip'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
