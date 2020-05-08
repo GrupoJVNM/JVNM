@@ -45,7 +45,7 @@ steps:
     repositoryName: 'GrupoJVNM/JVNM'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tag: 1.0.0.0
+    tag: 1.0.0
     title: 'JVNM Release'
     assets: '$(Build.SourcesDirectory)/*.zip'
     changeLogCompareToRelease: 'lastFullRelease'
