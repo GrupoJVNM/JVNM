@@ -4,34 +4,35 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D8E2E3AC-AF9E-49C4-B500-4C992F2523FD}</ProjectGuid>
+    <ProjectGuid>{3E062E1D-A2D5-4D2C-890B-ACBC83D8A355}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JVNM</RootNamespace>
-    <AssemblyName>JVNM</AssemblyName>
+    <RootNamespace>Consola</RootNamespace>
+    <AssemblyName>Consola</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\JVNM\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,34 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddUser.cs" />
-    <Compile Include="CreateDB.cs" />
-    <Compile Include="DropSecurityProfile.cs" />
-    <Compile Include="CreateSecurityProfile.cs" />
-    <Compile Include="DeleteUser.cs" />
-    <Compile Include="Revoke.cs" />
-    <Compile Include="Grant.cs" />
-    <Compile Include="SecurityProfile.cs" />
-    <Compile Include="CreateTable.cs" />
-    <Compile Include="DeleteTuple.cs" />
-    <Compile Include="DropTable.cs" />
-    <Compile Include="Insert.cs" />
-    <Compile Include="MiniSQLQuery.cs" />
-    <Compile Include="MiniSQLTester.cs" />
-    <Compile Include="Parser.cs" />
-    <Compile Include="DataComparator.cs" />
-    <Compile Include="DataType.cs" />
-    <Compile Include="Query.cs" />
-    <Compile Include="Select.cs" />
-    <Compile Include="SelectAll.cs" />
-    <Compile Include="SelectAllWithOutC.cs" />
-    <Compile Include="SelectWithOutC.cs" />
-    <Compile Include="TableColumn.cs" />
-    <Compile Include="Table.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Update.cs" />
-    <Compile Include="User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JVNM\JVNM.csproj">
+      <Project>{d8e2e3ac-af9e-49c4-b500-4c992f2523fd}</Project>
+      <Name>JVNM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

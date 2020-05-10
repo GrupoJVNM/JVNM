@@ -245,10 +245,12 @@ namespace JVNM
         
         public void Close(String BDname)
         {
+          
             string myFile = Directory.GetCurrentDirectory();
             myFile = null;
         }
 
+       
         public List<Table> GetList()
         {
             return Tables;
