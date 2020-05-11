@@ -49,3 +49,4 @@ steps:
     tag: '$(Build.BuildNumber)'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
+    assets: '$(Build.SourcesDirectory)/*.zip'
