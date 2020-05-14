@@ -23,19 +23,12 @@ namespace Consola
             TcpClient client = new TcpClient(server, puerto);
 
 
-
-
             Console.WriteLine("Write the name of the database: ");
             string nameDatabase = Console.ReadLine();
             Console.WriteLine("Write the name of the user: ");
             string nameUser = Console.ReadLine();
             Console.WriteLine("Write the password of the user: ");
             string pass = Console.ReadLine();
-
-
-
-
-            MiniSQLTester.database = new Database(nameDatabase, nameUser, pass);
 
             //Database1,admin,admin
             string login = nameDatabase + "," + nameUser + "," + pass;
@@ -57,77 +50,66 @@ namespace Consola
 
 
             //AÑADIR ERRORESSS
-            while (responseData.Equals(Query.SecurityUserDoesNotExist) || responseData.Equals(Query.SecurityIncorrectLogin))
+            //while (responseData.Equals(Query.SecurityUserDoesNotExist) || responseData.Equals(Query.SecurityIncorrectLogin))
+            //{
+            //database1,eva,123
+            if (responseData.Equals(Query.SecurityUserDoesNotExist))
             {
-                //database1,eva,123
-                if (responseData.Equals(Query.SecurityUserDoesNotExist))
-                {
-                    Console.WriteLine("Received: {0}", responseData);
-                    Console.WriteLine("Write the name of the user: ");
-                    nameUser = Console.ReadLine();
+                Console.WriteLine("Received: {0}", responseData);
+                //Console.WriteLine("Write the name of the user: ");
+                //nameUser = Console.ReadLine();
 
+                client.Close();
 
+            }
+            else if (responseData.Equals(Query.SecurityIncorrectLogin))
+            {
+                Console.WriteLine("Received: {0}", responseData);
+                //Console.WriteLine("Write the password of the user: ");
+                //pass = Console.ReadLine();
+                client.Close();
 
-                }
-                if (responseData.Equals(Query.SecurityIncorrectLogin))
-                {
-                    Console.WriteLine("Received: {0}", responseData);
-                    Console.WriteLine("Write the password of the user: ");
-                    pass = Console.ReadLine();
-
-                }
+            }
+            else {
                 login = nameDatabase + "," + nameUser + "," + pass;
 
                 data = System.Text.Encoding.ASCII.GetBytes(login);
-                stream.Write(data, 0, data.Length);
-                Console.WriteLine("Sent: {0}", login);
-
-
-
-
             }
-            Console.WriteLine("correct login");
+                stream.Write(data, 0, data.Length);
+               // Console.WriteLine("Sent: {0}", login);
 
-            string dbtxt = @"./MyDB/" + MiniSQLTester.database.Name + ".txt";
-            List<string> lines2 = new List<String>();
-            // using (System.IO.StreamWriter sw = new System.IO.StreamWriter(dbtxt))
-            //{
+
+
+
+           // }
+            Console.WriteLine("correct login");
 
             try
             {
                 Console.WriteLine("Write the sentences: ");
                 string sen = Console.ReadLine();
+                data = System.Text.Encoding.ASCII.GetBytes(sen);
+                stream.Write(data, 0, data.Length);
+                Console.WriteLine("Sent: {0}", sen);
 
                 while (!sen.Contains("stop"))
                 {
-                    //string result = db.ExecuteMiniSQLQuery(sen, true);
-                    MiniSQLQuery q1 = Parser.Parse(sen);
-                    string result = q1.Execute(MiniSQLTester.database);
+                    bytes = stream.Read(re, 0, re.Length);
+                    responseData = System.Text.Encoding.ASCII.GetString(re, 0, bytes);
+                    Console.WriteLine(responseData);
 
-                    if ((sen.Contains("CREATE") || sen.Contains("INSERT") || sen.Contains("DELETE") || sen.Contains("GRANT") || sen.Contains("ADD") || sen.Contains("REVOKE")) && (!result.Contains("ERROR")))
-                    {
-                        lines2.Add(sen);
-                    }
-
-                    Console.WriteLine(result);
                     Console.WriteLine("Write the sentences: ");
                     sen = Console.ReadLine();
 
-
-
+                    data = System.Text.Encoding.ASCII.GetBytes(sen);
+                    stream.Write(data, 0, data.Length);
+                    Console.WriteLine("Sent: {0}", sen);
                 }
-
-
-
-                File.AppendAllLines(dbtxt, lines2);
-                lines2.Clear();
-
-
             }
 
             finally
             {
-
+                client.Close();
             }
             //}
 
