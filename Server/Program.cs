@@ -142,9 +142,6 @@ namespace Server
                 // Stop listening for new clients.
                 server.Stop();
             }
-
-            //Console.WriteLine("\nHit enter to continue...");
-            //Console.Read();
         }
 
         static List<string> CommaSeparatedNames(string text)
