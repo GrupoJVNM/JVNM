@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.IO;
+using System.Threading;
 
 namespace Consola
 {
@@ -36,7 +37,7 @@ namespace Consola
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(login);
             NetworkStream stream = client.GetStream();
             stream.Write(data, 0, data.Length);
-            Console.WriteLine("Sent: {0}", login);
+            //Console.WriteLine("Sent: {0}", login);
 
             Byte[] re = new Byte[256];
 
@@ -47,73 +48,46 @@ namespace Consola
             Int32 bytes = stream.Read(re, 0, re.Length);
             responseData = System.Text.Encoding.ASCII.GetString(re, 0, bytes);
 
+            Boolean log = false;
 
 
             //AÑADIR ERRORESSS
-            //while (responseData.Equals(Query.SecurityUserDoesNotExist) || responseData.Equals(Query.SecurityIncorrectLogin))
-            //{
-            //database1,eva,123
-            if (responseData.Equals(Query.SecurityUserDoesNotExist))
+            if (responseData.Equals(Query.SecurityUserDoesNotExist) || responseData.Equals(Query.SecurityIncorrectLogin))
             {
                 Console.WriteLine("Received: {0}", responseData);
-                //Console.WriteLine("Write the name of the user: ");
-                //nameUser = Console.ReadLine();
-
+                Thread.Sleep(3000);
                 client.Close();
 
             }
-            else if (responseData.Equals(Query.SecurityIncorrectLogin))
+            else if (responseData.Equals(Query.OpenDatabaseSuccess) || responseData.Equals(Query.CreateDatabaseSuccess))
             {
-                Console.WriteLine("Received: {0}", responseData);
-                //Console.WriteLine("Write the password of the user: ");
-                //pass = Console.ReadLine();
-                client.Close();
+                log = true;
+                Console.WriteLine(responseData);
 
             }
-            else {
-                login = nameDatabase + "," + nameUser + "," + pass;
-
-                data = System.Text.Encoding.ASCII.GetBytes(login);
-            }
-                stream.Write(data, 0, data.Length);
-               // Console.WriteLine("Sent: {0}", login);
-
-
-
-
-           // }
-            Console.WriteLine("correct login");
-
-            try
-            {
+            if(log ==true)
+            {                 
                 Console.WriteLine("Write the sentences: ");
-                string sen = Console.ReadLine();
-                data = System.Text.Encoding.ASCII.GetBytes(sen);
-                stream.Write(data, 0, data.Length);
-                Console.WriteLine("Sent: {0}", sen);
-
-                while (!sen.Contains("stop"))
+                login = Console.ReadLine();
+                
+                while (!login.Contains("stop"))
                 {
+
+                    data = System.Text.Encoding.ASCII.GetBytes(login);
+                    stream.Write(data, 0, data.Length);
+                    //Console.WriteLine("Sent: {0}", login);
+                                         
+                    responseData = String.Empty;
+
                     bytes = stream.Read(re, 0, re.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(re, 0, bytes);
+
                     Console.WriteLine(responseData);
 
                     Console.WriteLine("Write the sentences: ");
-                    sen = Console.ReadLine();
-
-                    data = System.Text.Encoding.ASCII.GetBytes(sen);
-                    stream.Write(data, 0, data.Length);
-                    Console.WriteLine("Sent: {0}", sen);
-                }
+                    login = Console.ReadLine();
+                }               
             }
-
-            finally
-            {
-                client.Close();
-            }
-            //}
-
-
         }
     }
 }
