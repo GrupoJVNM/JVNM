@@ -21,6 +21,8 @@ namespace Portable_Badger
             RootFolderInZip = "JVNM/"; //name of the folder created inside the zip file
 
             files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/JVNM.exe");
+            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/Consola.exe");
+            files.Add(RelPathToSolutionRootFolder + "JVNM/bin/Release/Server.exe");
 
             string outputFile = RelPathToSolutionRootFolder + "JVNM-" + version + ".zip"; //name of the output zip file
 
