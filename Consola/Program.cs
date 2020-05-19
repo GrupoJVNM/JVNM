@@ -17,10 +17,9 @@ namespace Consola
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Write the port: ");
-            int puerto = int.Parse(Console.ReadLine());
-            Console.WriteLine("Write the server: ");
-            string server = Console.ReadLine();
+            
+            int puerto = 1200;
+            string server = "127.0.0.1";
             TcpClient client = new TcpClient(server, puerto);
 
 
