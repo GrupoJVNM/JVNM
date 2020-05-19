@@ -18,7 +18,7 @@ namespace Server
             TcpListener server = null;
             try
             {
-                // Set the TcpListener on port 13000.
+                // Set the TcpListener on port 12000.
                 Int32 port = 1200;
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
 
